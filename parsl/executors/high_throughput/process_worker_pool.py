@@ -202,6 +202,7 @@ class Manager(object):
                'dir': os.getcwd(),
                'cpu_count': psutil.cpu_count(logical=False),
                'total_memory': psutil.virtual_memory().total,
+               'cpu_speed': psutil.cpu_freq()[0] if psutil.cpu_freq()[0] > 0 else -1
         }
         b_msg = json.dumps(msg).encode('utf-8')
         return b_msg

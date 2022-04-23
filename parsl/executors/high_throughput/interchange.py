@@ -464,6 +464,8 @@ class Interchange(object):
                 interesting=len(interesting_managers)))
 
             if interesting_managers and not self.pending_task_queue.empty():
+
+                # Implement scheudling algorithm below (currently random)
                 shuffled_managers = list(interesting_managers)
                 random.shuffle(shuffled_managers)
 
