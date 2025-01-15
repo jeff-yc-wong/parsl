@@ -538,11 +538,13 @@ class HighThroughputExecutor(BlockProviderExecutor, RepresentationMixin):
         Returns:
               Future
         """
-        if resource_specification:
-            logger.error("Ignoring the resource specification. "
-                         "Parsl resource specification is not supported in HighThroughput Executor. "
-                         "Please check WorkQueueExecutor if resource specification is needed.")
-            raise UnsupportedFeatureError('resource specification', 'HighThroughput Executor', 'WorkQueue Executor')
+
+        # NOTE: change to pass resource_specification to the message 
+        # if resource_specification:
+        #     logger.error("Ignoring the resource specification. "
+        #                  "Parsl resource specification is not supported in HighThroughput Executor. "
+        #                  "Please check WorkQueueExecutor if resource specification is needed.")
+        #     raise UnsupportedFeatureError('resource specification', 'HighThroughput Executor', 'WorkQueue Executor')
 
         if self.bad_state_is_set:
             raise self.executor_exception
@@ -566,7 +568,13 @@ class HighThroughputExecutor(BlockProviderExecutor, RepresentationMixin):
             raise SerializationError(func.__name__)
 
         msg = {"task_id": task_id,
-               "buffer": fn_buf}
+               "buffer": fn_buf,
+               "resource_specification": resource_specification}
+        
+        logger.info(f"JEFF: resource_specification: {resource_specification}")
+        
+        # NOTE: I can pass extra info to interchange here
+        # Ex. if func_name is barrier, then I can pass the args to the msg which contains the dag of the workflow
 
         # Post task to the the outgoing queue
         self.outgoing_q.put(msg)

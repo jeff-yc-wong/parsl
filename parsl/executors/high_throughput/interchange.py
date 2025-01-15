@@ -13,6 +13,8 @@ import queue
 import threading
 import json
 
+import parsl
+
 from parsl.version import VERSION as PARSL_VERSION
 from parsl.serialize import ParslSerializer
 serialize_object = ParslSerializer().serialize
@@ -20,6 +22,8 @@ serialize_object = ParslSerializer().serialize
 from parsl.app.errors import RemoteExceptionWrapper
 from parsl.monitoring.message_type import MessageType
 from parsl.process_loggers import wrap_with_logs
+
+
 
 
 HEARTBEAT_CODE = (2 ** 32) - 1
@@ -467,6 +471,9 @@ class Interchange(object):
                 shuffled_managers = list(interesting_managers)
                 random.shuffle(shuffled_managers)
 
+
+                # insert scheduling logic here
+
                 while shuffled_managers and not self.pending_task_queue.empty():  # cf. the if statement above...
                     manager = shuffled_managers.pop()
                     tasks_inflight = len(self._ready_manager_queue[manager]['tasks'])
@@ -474,7 +481,11 @@ class Interchange(object):
                                         self._ready_manager_queue[manager]['max_capacity'] - tasks_inflight)
 
                     if (real_capacity and self._ready_manager_queue[manager]['active']):
+                        logger.info(f"JEFF: real_capacity={real_capacity}")
                         tasks = self.get_tasks(real_capacity)
+
+                        logger.info(f"JEFF: tasks={tasks[0].get('func_name')}")
+
                         if tasks:
                             self.task_outgoing.send_multipart([manager, b'', pickle.dumps(tasks)])
                             task_count = len(tasks)

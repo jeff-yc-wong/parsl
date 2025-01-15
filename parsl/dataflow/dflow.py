@@ -802,6 +802,8 @@ class DataFlowKernel(object):
 
         """
 
+        logger.info("JEFF: SUBMITTING TO DFK!")
+
         if ignore_for_cache is None:
             ignore_for_cache = []
 
@@ -859,7 +861,8 @@ class DataFlowKernel(object):
                     'time_returned': None,
                     'try_time_launched': None,
                     'try_time_returned': None,
-                    'resource_specification': resource_specification}
+                    'resource_specification': resource_specification
+        }
 
         self.update_task_state(task_def, States.unsched)
 
@@ -867,6 +870,9 @@ class DataFlowKernel(object):
 
         # Transform remote input files to data futures
         app_args, app_kwargs, func = self._add_input_deps(executor, app_args, app_kwargs, func)
+
+        logger.info(f"JEFF: App args -> {app_args}")
+        logger.info(f"JEFF: app_kwargs -> {app_kwargs}")
 
         func = self._add_output_deps(executor, app_args, app_kwargs, app_fu, func)
 
@@ -932,7 +938,15 @@ class DataFlowKernel(object):
             except Exception as e:
                 logger.error("add_done_callback got an exception {} which will be ignored".format(e))
 
-        self.launch_if_ready(task_def)
+        
+        # self.launch_if_ready(task_def) 
+
+        if task_def['func_name'] == 'barrier':
+            self.launch_if_ready(task_def)
+            for task_def in self.tasks.values():
+                if task_def['func_name'] != 'barrier':
+                    self.launch_if_ready(task_def)
+                    logger.info(f"JEFF: Launching {task_def['func_name']}")
 
         return app_fu
 

@@ -9,7 +9,7 @@ being called from.
 import os
 import typeguard
 import logging
-from typing import Optional
+from typing import Optional, Union
 from urllib.parse import urlparse
 
 logger = logging.getLogger(__name__)
@@ -28,7 +28,7 @@ class File(object):
     """
 
     @typeguard.typechecked
-    def __init__(self, url: str):
+    def __init__(self, url: Union[os.PathLike, str]):
         """Construct a File object from a url string.
 
         Args:
