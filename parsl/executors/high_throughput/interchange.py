@@ -694,6 +694,8 @@ class Interchange:
                 tasks_inflight = len(m['tasks'])
                 real_capacity = m['max_capacity'] - tasks_inflight
 
+                logger.info(f"Manager's cpu_speed: {m['cpu_speed']}")
+
                 if (real_capacity and m['active'] and not m['draining']):
                     tasks = self.get_tasks(param=self.task_selector) # technically should only contain 1 task
 
