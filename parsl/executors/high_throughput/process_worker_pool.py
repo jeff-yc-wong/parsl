@@ -214,6 +214,8 @@ class Manager:
                                      math.floor(cores_on_node / cores_per_worker))
 
         self._mp_manager = SpawnContext.Manager()  # Starts a server process
+        self._tasks_in_progress = self._mp_manager.dict()
+        self._stop_event = threading.Event()  # when set, will begin shutdown process
 
         self.monitoring_queue = self._mp_manager.Queue()
         self.pending_task_queue = SpawnContext.Queue()
@@ -296,14 +298,9 @@ class Manager:
         logger.debug("Sent drain")
 
     @wrap_with_logs
-    def pull_tasks(self, kill_event):
+    def pull_tasks(self):
         """ Pull tasks from the incoming tasks zmq pipe onto the internal
         pending task queue
-
-        Parameters:
-        -----------
-        kill_event : threading.Event
-              Event to let the thread know when it is time to die.
         """
         logger.info("starting")
         poller = zmq.Poller()
@@ -317,7 +314,7 @@ class Manager:
         last_interchange_contact = time.time()
         task_recv_counter = 0
 
-        while not kill_event.is_set():
+        while not self._stop_event.is_set():
 
             # This loop will sit inside poller.poll until either a message
             # arrives or one of these event times is reached. This code
@@ -365,7 +362,7 @@ class Manager:
                     logger.debug("Got heartbeat from interchange")
                 elif tasks == DRAINED_CODE:
                     logger.info("Got fully drained message from interchange - setting kill flag")
-                    kill_event.set()
+                    self._stop_event.set()
                 else:
                     task_recv_counter += len(tasks)
                     logger.debug("Got executor tasks: {}, cumulative count of tasks: {}".format(
@@ -381,20 +378,14 @@ class Manager:
                 # Only check if no messages were received.
                 if time.time() >= last_interchange_contact + self.heartbeat_threshold:
                     logger.critical("Missing contact with interchange beyond heartbeat_threshold")
-                    kill_event.set()
+                    self._stop_event.set()
                     logger.critical("Exiting")
                     break
 
     @wrap_with_logs
-    def push_results(self, kill_event):
+    def push_results(self):
         """ Listens on the pending_result_queue and sends out results via zmq
-
-        Parameters:
-        -----------
-        kill_event : threading.Event
-              Event to let the thread know when it is time to die.
         """
-
         logger.debug("Starting result push thread")
 
         push_poll_period = max(10, self.poll_period) / 1000    # push_poll_period must be atleast 10 ms
@@ -404,7 +395,7 @@ class Manager:
         last_result_beat = time.time()
         items = []
 
-        while not kill_event.is_set():
+        while not self._stop_event.is_set():
             try:
                 logger.debug("Starting pending_result_queue get")
                 r = self.task_scheduler.get_result(block=True, timeout=push_poll_period)
@@ -436,18 +427,11 @@ class Manager:
         logger.critical("Exiting")
 
     @wrap_with_logs
-    def worker_watchdog(self, kill_event: threading.Event):
-        """Keeps workers alive.
-
-        Parameters:
-        -----------
-        kill_event : threading.Event
-              Event to let the thread know when it is time to die.
-        """
-
+    def worker_watchdog(self):
+        """Keeps workers alive."""
         logger.debug("Starting worker watchdog")
 
-        while not kill_event.wait(self.heartbeat_period):
+        while not self._stop_event.wait(self.heartbeat_period):
             for worker_id, p in self.procs.items():
                 if not p.is_alive():
                     logger.error("Worker {} has died".format(worker_id))
@@ -473,7 +457,7 @@ class Manager:
         logger.critical("Exiting")
 
     @wrap_with_logs
-    def handle_monitoring_messages(self, kill_event: threading.Event):
+    def handle_monitoring_messages(self):
         """Transfer messages from the managed monitoring queue to the result queue.
 
         We separate the queues so that the result queue does not rely on a manager
@@ -487,7 +471,7 @@ class Manager:
 
         poll_period_s = max(10, self.poll_period) / 1000    # Must be at least 10 ms
 
-        while not kill_event.is_set():
+        while not self._stop_event.is_set():
             try:
                 logger.debug("Starting monitor_queue.get()")
                 msg = self.monitoring_queue.get(block=True, timeout=poll_period_s)
@@ -507,9 +491,6 @@ class Manager:
 
         TODO: Move task receiving to a thread
         """
-        self._kill_event = threading.Event()
-        self._tasks_in_progress = self._mp_manager.dict()
-
         self.procs = {}
         for worker_id in range(self.worker_count):
             p = self._start_worker(worker_id)
@@ -517,34 +498,32 @@ class Manager:
 
         logger.debug("Workers started")
 
-        self._task_puller_thread = threading.Thread(target=self.pull_tasks,
-                                                    args=(self._kill_event,),
-                                                    name="Task-Puller")
-        self._result_pusher_thread = threading.Thread(target=self.push_results,
-                                                      args=(self._kill_event,),
-                                                      name="Result-Pusher")
-        self._worker_watchdog_thread = threading.Thread(target=self.worker_watchdog,
-                                                        args=(self._kill_event,),
-                                                        name="worker-watchdog")
-        self._monitoring_handler_thread = threading.Thread(target=self.handle_monitoring_messages,
-                                                           args=(self._kill_event,),
-                                                           name="Monitoring-Handler")
+        thr_task_puller = threading.Thread(target=self.pull_tasks, name="Task-Puller")
+        thr_result_pusher = threading.Thread(
+            target=self.push_results, name="Result-Pusher"
+        )
+        thr_worker_watchdog = threading.Thread(
+            target=self.worker_watchdog, name="worker-watchdog"
+        )
+        thr_monitoring_handler = threading.Thread(
+            target=self.handle_monitoring_messages, name="Monitoring-Handler"
+        )
 
-        self._task_puller_thread.start()
-        self._result_pusher_thread.start()
-        self._worker_watchdog_thread.start()
-        self._monitoring_handler_thread.start()
+        thr_task_puller.start()
+        thr_result_pusher.start()
+        thr_worker_watchdog.start()
+        thr_monitoring_handler.start()
 
         logger.info("Manager threads started")
 
         # This might need a multiprocessing event to signal back.
-        self._kill_event.wait()
+        self._stop_event.wait()
         logger.critical("Received kill event, terminating worker processes")
 
-        self._task_puller_thread.join()
-        self._result_pusher_thread.join()
-        self._worker_watchdog_thread.join()
-        self._monitoring_handler_thread.join()
+        thr_task_puller.join()
+        thr_result_pusher.join()
+        thr_worker_watchdog.join()
+        thr_monitoring_handler.join()
         for proc_id in self.procs:
             self.procs[proc_id].terminate()
             logger.critical("Terminating worker {}: is_alive()={}".format(self.procs[proc_id],
@@ -809,95 +788,166 @@ def start_file_logger(filename, rank, name='parsl', level=logging.DEBUG, format_
     return logger
 
 
-if __name__ == "__main__":
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-d", "--debug", action='store_true',
-                        help="Enable logging at DEBUG level")
-    parser.add_argument("-a", "--addresses", default='',
-                        help="Comma separated list of addresses at which the interchange could be reached")
-    parser.add_argument("--cert_dir", required=True,
-                        help="Path to certificate directory.")
-    parser.add_argument("-l", "--logdir", default="process_worker_pool_logs",
-                        help="Process worker pool log directory")
-    parser.add_argument("-u", "--uid", default=str(uuid.uuid4()).split('-')[-1],
-                        help="Unique identifier string for Manager")
-    parser.add_argument("-b", "--block_id", default=None,
-                        help="Block identifier for Manager")
-    parser.add_argument("-c", "--cores_per_worker", default="1.0",
-                        help="Number of cores assigned to each worker process. Default=1.0")
-    parser.add_argument("-m", "--mem_per_worker", default=0,
-                        help="GB of memory assigned to each worker process. Default=0, no assignment")
-    parser.add_argument("-t", "--task_port", required=True,
-                        help="REQUIRED: Task port for receiving tasks from the interchange")
-    parser.add_argument("--max_workers_per_node", default=float('inf'),
-                        help="Caps the maximum workers that can be launched, default:infinity")
-    parser.add_argument("-p", "--prefetch_capacity", default=0,
-                        help="Number of tasks that can be prefetched to the manager. Default is 0.")
-    parser.add_argument("--hb_period", default=30,
-                        help="Heartbeat period in seconds. Uses manager default unless set")
-    parser.add_argument("--hb_threshold", default=120,
-                        help="Heartbeat threshold in seconds. Uses manager default unless set")
-    parser.add_argument("--drain_period", default=None,
-                        help="Drain this pool after specified number of seconds. By default, does not drain.")
-    parser.add_argument("--address_probe_timeout", default=30,
-                        help="Timeout to probe for viable address to interchange. Default: 30s")
-    parser.add_argument("--poll", default=10,
-                        help="Poll period used in milliseconds")
-    parser.add_argument("-r", "--result_port", required=True,
-                        help="REQUIRED: Result port for posting results to the interchange")
+def get_arg_parser() -> argparse.ArgumentParser:
 
     def strategyorlist(s: str):
-        allowed_strategies = ["none", "block", "alternating", "block-reverse"]
+        s = s.lower()
+        allowed_strategies = ("none", "block", "alternating", "block-reverse")
         if s in allowed_strategies:
             return s
         elif s[0:4] == "list":
             return s
-        else:
-            raise argparse.ArgumentTypeError("cpu-affinity must be one of {} or a list format".format(allowed_strategies))
+        err_msg = f"cpu-affinity must be one of {allowed_strategies} or a list format"
+        raise argparse.ArgumentTypeError(err_msg)
 
-    parser.add_argument("--cpu-affinity", type=strategyorlist,
-                        required=True,
-                        help="Whether/how workers should control CPU affinity.")
-    parser.add_argument("--available-accelerators", type=str, nargs="*",
-                        help="Names of available accelerators, if not given assumed to be zero accelerators available", default=[])
-    parser.add_argument("--enable_mpi_mode", action='store_true',
-                        help="Enable MPI mode")
-    parser.add_argument("--mpi-launcher", type=str, choices=VALID_LAUNCHERS,
-                        help="MPI launcher to use iff enable_mpi_mode=true")
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-d", "--debug", action='store_true', help="Enable logging at DEBUG level",
+    )
+    parser.add_argument(
+        "-a",
+        "--addresses",
+        required=True,
+        help="Comma separated list of addresses at which the interchange could be reached",
+    )
+    parser.add_argument(
+        "--cert_dir", required=True, help="Path to certificate directory."
+    )
+    parser.add_argument(
+        "-l",
+        "--logdir",
+        default="process_worker_pool_logs",
+        help="Process worker pool log directory",
+    )
+    parser.add_argument(
+        "-u",
+        "--uid",
+        default=str(uuid.uuid4()).split('-')[-1],
+        help="Unique identifier string for Manager",
+    )
+    parser.add_argument(
+        "-b", "--block_id", default=None, help="Block identifier for Manager"
+    )
+    parser.add_argument(
+        "-c",
+        "--cores_per_worker",
+        default="1.0",
+        help="Number of cores assigned to each worker process. Default=1.0",
+    )
+    parser.add_argument(
+        "-m",
+        "--mem_per_worker",
+        default=0,
+        help="GB of memory assigned to each worker process. Default=0, no assignment",
+    )
+    parser.add_argument(
+        "-t",
+        "--task_port",
+        required=True,
+        help="Task port for receiving tasks from the interchange",
+    )
+    parser.add_argument(
+        "--max_workers_per_node",
+        default=float('inf'),
+        help="Caps the maximum workers that can be launched, default:infinity",
+    )
+    parser.add_argument(
+        "-p",
+        "--prefetch_capacity",
+        default=0,
+        help="Number of tasks that can be prefetched to the manager. Default is 0.",
+    )
+    parser.add_argument(
+        "--hb_period",
+        default=30,
+        help="Heartbeat period in seconds. Uses manager default unless set",
+    )
+    parser.add_argument(
+        "--hb_threshold",
+        default=120,
+        help="Heartbeat threshold in seconds. Uses manager default unless set",
+    )
+    parser.add_argument(
+        "--drain_period",
+        default=None,
+        help="Drain this pool after specified number of seconds. By default, does not drain.",
+    )
+    parser.add_argument(
+        "--address_probe_timeout",
+        default=30,
+        help="Timeout to probe for viable address to interchange. Default: 30s",
+    )
+    parser.add_argument(
+        "--poll", default=10, help="Poll period used in milliseconds"
+    )
+    parser.add_argument(
+        "-r",
+        "--result_port",
+        required=True,
+        help="Result port for posting results to the interchange",
+    )
+    parser.add_argument(
+        "--cpu-affinity",
+        type=strategyorlist,
+        required=True,
+        help="Whether/how workers should control CPU affinity.",
+    )
+    parser.add_argument(
+        "--available-accelerators",
+        type=str,
+        nargs="*",
+        default=[],
+        help="Names of available accelerators, if not given assumed to be zero accelerators available",
+    )
+    parser.add_argument(
+        "--enable_mpi_mode", action='store_true', help="Enable MPI mode"
+    )
+    parser.add_argument(
+        "--mpi-launcher",
+        type=str,
+        choices=VALID_LAUNCHERS,
+        help="MPI launcher to use iff enable_mpi_mode=true",
+    )
 
+    return parser
+
+
+if __name__ == "__main__":
+    parser = get_arg_parser()
     args = parser.parse_args()
 
     os.makedirs(os.path.join(args.logdir, "block-{}".format(args.block_id), args.uid), exist_ok=True)
 
+    logger = start_file_logger(
+        f'{args.logdir}/block-{args.block_id}/{args.uid}/manager.log',
+        0,
+        level=logging.DEBUG if args.debug is True else logging.INFO
+    )
+    logger.info(
+        f"\n  Python version: {sys.version}"
+        f"  Debug logging: {args.debug}"
+        f"  Certificates dir: {args.cert_dir}"
+        f"  Log dir: {args.logdir}"
+        f"  Manager ID: {args.uid}"
+        f"  Block ID: {args.block_id}"
+        f"  cores_per_worker: {args.cores_per_worker}"
+        f"  mem_per_worker: {args.mem_per_worker}"
+        f"  task_port: {args.task_port}"
+        f"  result_port: {args.result_port}"
+        f"  addresses: {args.addresses}"
+        f"  max_workers_per_node: {args.max_workers_per_node}"
+        f"  poll_period: {args.poll}"
+        f"  address_probe_timeout: {args.address_probe_timeout}"
+        f"  Prefetch capacity: {args.prefetch_capacity}"
+        f"  Heartbeat threshold: {args.hb_threshold}"
+        f"  Heartbeat period: {args.hb_period}"
+        f"  Drain period: {args.drain_period}"
+        f"  CPU affinity: {args.cpu_affinity}"
+        f"  Accelerators: {' '.join(args.available_accelerators)}"
+        f"  enable_mpi_mode: {args.enable_mpi_mode}"
+        f"  mpi_launcher: {args.mpi_launcher}"
+    )
     try:
-        logger = start_file_logger('{}/block-{}/{}/manager.log'.format(args.logdir, args.block_id, args.uid),
-                                   0,
-                                   level=logging.DEBUG if args.debug is True else logging.INFO)
-
-        logger.info("Python version: {}".format(sys.version))
-        logger.info("Debug logging: {}".format(args.debug))
-        logger.info("Certificates dir: {}".format(args.cert_dir))
-        logger.info("Log dir: {}".format(args.logdir))
-        logger.info("Manager ID: {}".format(args.uid))
-        logger.info("Block ID: {}".format(args.block_id))
-        logger.info("cores_per_worker: {}".format(args.cores_per_worker))
-        logger.info("mem_per_worker: {}".format(args.mem_per_worker))
-        logger.info("task_port: {}".format(args.task_port))
-        logger.info("result_port: {}".format(args.result_port))
-        logger.info("addresses: {}".format(args.addresses))
-        logger.info("max_workers_per_node: {}".format(args.max_workers_per_node))
-        logger.info("poll_period: {}".format(args.poll))
-        logger.info("address_probe_timeout: {}".format(args.address_probe_timeout))
-        logger.info("Prefetch capacity: {}".format(args.prefetch_capacity))
-        logger.info("Heartbeat threshold: {}".format(args.hb_threshold))
-        logger.info("Heartbeat period: {}".format(args.hb_period))
-        logger.info("Drain period: {}".format(args.drain_period))
-        logger.info("CPU affinity: {}".format(args.cpu_affinity))
-        logger.info("Accelerators: {}".format(" ".join(args.available_accelerators)))
-        logger.info("enable_mpi_mode: {}".format(args.enable_mpi_mode))
-        logger.info("mpi_launcher: {}".format(args.mpi_launcher))
-
         manager = Manager(task_port=args.task_port,
                           result_port=args.result_port,
                           addresses=args.addresses,
