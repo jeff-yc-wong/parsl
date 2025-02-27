@@ -8,8 +8,8 @@ from parsl.app.app import python_app, bash_app
 from parsl.monitoring.monitoring import MonitoringHub
 from parsl.config import Config
 from parsl.executors import HighThroughputExecutor
-from parsl.providers import LocalProvider
-from parsl.channels import LocalChannel
+from parsl.providers import LocalProvider, AdHocProvider
+from parsl.channels import LocalChannel, SSHChannel
 from parsl.addresses import address_by_hostname
 from parsl.data_provider.files import File
 
