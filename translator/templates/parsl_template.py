@@ -73,11 +73,11 @@ parsl.load(local_htex)
 # parsl.load(docker_htex)
 
 # Emit log lines to the screen
-parsl.set_stream_logger(level=logging.DEBUG)
+# parsl.set_stream_logger(level=logging.DEBUG)
 
 # Write log to file, specify level of detail for logs
-# FILENAME = "debug.log"
-# parsl.set_file_logger(FILENAME, level=logging.DEBUG)
+FILENAME = "parsl_debug.log"
+parsl.set_file_logger(FILENAME, level=logging.DEBUG)
 
 @bash_app
 def generic_shell_app(cmd: str, inputs=[], outputs=[], stdout="stdout.txt", stderr="stderr.txt", parsl_resource_specification=None):

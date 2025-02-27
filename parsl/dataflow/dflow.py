@@ -252,6 +252,9 @@ class DataFlowKernel:
         # This type: ignore[literal-required] asserts that fact.
         task_log_info = {"task_" + k: task_record[k] for k in info_to_monitor}  # type: ignore[literal-required]
 
+        if 'task_name' in task_record['resource_specification']:
+            task_log_info['task_func_name'] = task_record['resource_specification']['task_name']
+
         task_log_info['run_id'] = self.run_id
         task_log_info['try_id'] = task_record['try_id']
         task_log_info['timestamp'] = datetime.datetime.now()
