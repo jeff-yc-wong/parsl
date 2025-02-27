@@ -172,7 +172,7 @@ class ParslTranslator(Translator):
                 codelines.extend(code)
 
         cleanup_code = [
-            "print('Starting workflow...'",
+            "print('Starting workflow...')",
             "start_time = time.perf_counter()",
             "barrier()",
             "",
