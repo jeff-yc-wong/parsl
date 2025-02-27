@@ -13,10 +13,42 @@ from parsl.channels import LocalChannel
 from parsl.addresses import address_by_hostname
 from parsl.data_provider.files import File
 
+
+docker_htex = Config(
+    executors=[
+        HighThroughputExecutor(
+            label="htex_docker",
+            # worker_debug=True,
+            cores_per_worker=1,
+            max_workers_per_node=1,
+            provider=AdHocProvider(
+                channels=[
+                    SSHChannel(
+                        hostname="localhost",
+                        username="root",
+                        port=2222
+                    ),
+                    SSHChannel(
+                        hostname="localhost",
+                        username="root",
+                        port=2223
+                    )
+                ],
+            ),
+        )
+    ],
+    strategy=None,
+    monitoring=MonitoringHub(
+       hub_address=address_by_hostname(),
+       monitoring_debug=False,
+       resource_monitoring_interval=10,
+   ),
+)
+
 local_htex = Config(
     executors=[
         HighThroughputExecutor(
-            label="htex_Local",
+            label="htex_local",
             worker_debug=True,
             cores_per_worker=1,
             max_workers_per_node=4,
@@ -37,6 +69,8 @@ local_htex = Config(
 
 parsl.clear()
 parsl.load(local_htex)
+# Uncomment to use docker containers as workers
+# parsl.load(docker_htex)
 
 # Emit log lines to the screen
 parsl.set_stream_logger(level=logging.DEBUG)
