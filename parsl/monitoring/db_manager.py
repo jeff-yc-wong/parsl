@@ -705,7 +705,7 @@ class DatabaseManager:
         logger.info("Database Manager cleanup initiated.")
         if not self.workflow_end and self.workflow_start_message:
             logger.info("Logging workflow end info to database due to abnormal exit")
-            time_completed = datetime.datetime.now()
+            time_completed = datetime.datetime.now(datetime.timezone.utc)
             msg = {'time_completed': time_completed,
                    'workflow_duration': (time_completed - self.workflow_start_message['time_began']).total_seconds()}
             self.workflow_start_message.update(msg)

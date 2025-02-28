@@ -289,7 +289,7 @@ class BlockProviderExecutor(ParslExecutor):
             d: Dict[str, Any] = {}
             d['run_id'] = self.run_id
             d['status'] = s.status_name
-            d['timestamp'] = datetime.datetime.now()
+            d['timestamp'] = datetime.datetime.now(datetime.timezone.utc)
             d['executor_label'] = self.label
             d['job_id'] = self.blocks_to_job_id.get(bid, None)
             d['block_id'] = bid

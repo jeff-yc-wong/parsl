@@ -152,7 +152,7 @@ def send_first_last_message(try_id: int,
             'block_id': os.environ.get('PARSL_WORKER_BLOCK_ID'),
             'first_msg': not is_last,
             'last_msg': is_last,
-            'timestamp': datetime.datetime.now()
+            'timestamp': datetime.datetime.now(datetime.timezone.utc),
             })
     radio.send(msg)
     return
@@ -213,7 +213,7 @@ def monitor(pid: int,
         d['hostname'] = platform.node()
         d['first_msg'] = False
         d['last_msg'] = False
-        d['timestamp'] = datetime.datetime.now()
+        d['timestamp'] = datetime.datetime.now(datetime.timezone.utc)
 
         logging.debug("getting children")
         children = pm.children(recursive=True)

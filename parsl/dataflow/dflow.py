@@ -118,7 +118,7 @@ class DataFlowKernel:
                 self.monitoring.logdir = self.run_dir
             self.monitoring.start(self.run_dir, self.config.run_dir)
 
-        self.time_began = datetime.datetime.now()
+        self.time_began = datetime.datetime.now(datetime.timezone.utc)
         self.time_completed: Optional[datetime.datetime] = None
 
         logger.info("Run id is: " + self.run_id)
@@ -257,7 +257,7 @@ class DataFlowKernel:
 
         task_log_info['run_id'] = self.run_id
         task_log_info['try_id'] = task_record['try_id']
-        task_log_info['timestamp'] = datetime.datetime.now()
+        task_log_info['timestamp'] = datetime.datetime.now(datetime.timezone.utc)
         task_log_info['task_status_name'] = task_record['status'].name
         task_log_info['tasks_failed_count'] = self.task_state_counts[States.failed]
         task_log_info['tasks_completed_count'] = self.task_state_counts[States.exec_done]
@@ -338,7 +338,7 @@ class DataFlowKernel:
 
         task_id = task_record['id']
 
-        task_record['try_time_returned'] = datetime.datetime.now()
+        task_record['try_time_returned'] = datetime.datetime.now(datetime.timezone.utc)
 
         if not future.done():
             raise InternalConsistencyError("done callback called, despite future not reporting itself as done")
@@ -372,7 +372,7 @@ class DataFlowKernel:
 
             if task_record['status'] == States.dep_fail:
                 logger.info("Task {} failed due to dependency failure so skipping retries".format(task_id))
-                task_record['time_returned'] = datetime.datetime.now()
+                task_record['time_returned'] = datetime.datetime.now(datetime.timezone.utc)
                 self._send_task_log_info(task_record)
                 with task_record['app_fu']._update_lock:
                     task_record['app_fu'].set_exception(e)
@@ -395,9 +395,9 @@ class DataFlowKernel:
             else:
                 logger.exception("Task {} failed after {} retry attempts".format(task_id,
                                                                                  task_record['try_id']))
-                task_record['time_returned'] = datetime.datetime.now()
+                task_record['time_returned'] = datetime.datetime.now(datetime.timezone.utc)
                 self.update_task_state(task_record, States.failed)
-                task_record['time_returned'] = datetime.datetime.now()
+                task_record['time_returned'] = datetime.datetime.now(datetime.timezone.utc)
                 self._send_task_log_info(task_record)
                 with task_record['app_fu']._update_lock:
                     task_record['app_fu'].set_exception(e)
@@ -441,9 +441,9 @@ class DataFlowKernel:
                         for inner_future in joinable:
                             inner_future.add_done_callback(partial(self.handle_join_update, task_record))
                     else:
-                        task_record['time_returned'] = datetime.datetime.now()
+                        task_record['time_returned'] = datetime.datetime.now(datetime.timezone.utc)
                         self.update_task_state(task_record, States.failed)
-                        task_record['time_returned'] = datetime.datetime.now()
+                        task_record['time_returned'] = datetime.datetime.now(datetime.timezone.utc)
                         self._send_task_log_info(task_record)
                         with task_record['app_fu']._update_lock:
                             task_record['app_fu'].set_exception(
@@ -525,7 +525,7 @@ class DataFlowKernel:
                 # retried
 
                 self.update_task_state(task_record, States.failed)
-                task_record['time_returned'] = datetime.datetime.now()
+                task_record['time_returned'] = datetime.datetime.now(datetime.timezone.utc)
                 with task_record['app_fu']._update_lock:
                     task_record['app_fu'].set_exception(e)
 
@@ -594,7 +594,7 @@ class DataFlowKernel:
         self.update_task_state(task_record, new_state)
 
         logger.info(f"Task {task_record['id']} completed ({old_state.name} -> {new_state.name})")
-        task_record['time_returned'] = datetime.datetime.now()
+        task_record['time_returned'] = datetime.datetime.now(datetime.timezone.utc)
 
         with task_record['app_fu']._update_lock:
             task_record['app_fu'].set_result(result)
@@ -726,7 +726,7 @@ class DataFlowKernel:
         args = task_record['args']
         kwargs = task_record['kwargs']
 
-        task_record['try_time_launched'] = datetime.datetime.now()
+        task_record['try_time_launched'] = datetime.datetime.now(datetime.timezone.utc)
 
         memo_fu = self.memoizer.check_memo(task_record)
         if memo_fu:
@@ -1037,7 +1037,7 @@ class DataFlowKernel:
                        'try_id': 0,
                        'id': task_id,
                        'task_launch_lock': threading.Lock(),
-                       'time_invoked': datetime.datetime.now(),
+                       'time_invoked': datetime.datetime.now(datetime.timezone.utc),
                        'time_returned': None,
                        'try_time_launched': None,
                        'try_time_returned': None,
@@ -1304,7 +1304,7 @@ class DataFlowKernel:
                     logger.info(f"Closed executor channel(s) for {executor.label}")
 
         logger.info("Terminated executors")
-        self.time_completed = datetime.datetime.now()
+        self.time_completed = datetime.datetime.now(datetime.timezone.utc)
 
         if self.monitoring:
             logger.info("Sending final monitoring message")

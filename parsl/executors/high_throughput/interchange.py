@@ -266,7 +266,7 @@ class Interchange:
             logger.info("Sending message {} to MonitoringHub".format(manager))
 
             d: Dict = cast(Dict, manager.copy())
-            d['timestamp'] = datetime.datetime.now()
+            d['timestamp'] = datetime.datetime.now(datetime.timezone.utc)
             d['last_heartbeat'] = datetime.datetime.fromtimestamp(d['last_heartbeat'])
             d['run_id'] = self.run_id
 
