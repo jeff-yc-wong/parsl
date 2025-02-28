@@ -266,6 +266,7 @@ class HighThroughputExecutor(BlockProviderExecutor, RepresentationMixin, UsageIn
                  enable_mpi_mode: bool = False,
                  mpi_launcher: str = "mpiexec",
                  manager_selector: ManagerSelector = RandomManagerSelector(),
+                 task_selector: Optional[str] = None,
                  block_error_handler: Union[bool, Callable[[BlockProviderExecutor, Dict[str, JobStatus]], None]] = True,
                  encrypted: bool = False):
 
@@ -282,6 +283,7 @@ class HighThroughputExecutor(BlockProviderExecutor, RepresentationMixin, UsageIn
         self.address = address
         self.address_probe_timeout = address_probe_timeout
         self.manager_selector = manager_selector
+        self.task_selector = task_selector
         if self.address:
             self.all_addresses = address
         else:
@@ -551,6 +553,7 @@ class HighThroughputExecutor(BlockProviderExecutor, RepresentationMixin, UsageIn
                               "logging_level": logging.DEBUG if self.worker_debug else logging.INFO,
                               "cert_dir": self.cert_dir,
                               "manager_selector": self.manager_selector,
+                              "task_selector": self.task_selector,
                               "run_id": self.run_id,
                               }
 

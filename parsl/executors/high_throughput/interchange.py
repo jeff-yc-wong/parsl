@@ -56,7 +56,8 @@ class Interchange:
                  logging_level: int,
                  poll_period: int,
                  cert_dir: Optional[str],
-                 manager_selector: ManagerSelector,
+                 manager_selector: ManagerSelector = RandomManagerSelector(),
+                 task_selector: Optional[str] = None,
                  run_id: str,
                  ) -> None:
         """
@@ -173,6 +174,7 @@ class Interchange:
         self.heartbeat_threshold = heartbeat_threshold
 
         self.manager_selector = manager_selector
+        self.task_selector = task_selector
 
         self.current_platform = {'parsl_v': PARSL_VERSION,
                                  'python_v': "{}.{}.{}".format(sys.version_info.major,
@@ -564,10 +566,8 @@ class Interchange:
         # cmd = [""]
         # sim_process = subprocess.run(cmd, capture_output=True, text=True)
 
-        self.manager_selector = possible_managers[0]
-        self.param = possible_task_params[0]
-
-        return possible_task_params[0]
+        # self.manager_selector = possible_managers[0]
+        # self.task_selector = possible_task_params[0]
 
     def process_tasks_to_send(self, interesting_managers: Set[bytes]) -> None:
         # Check if there are tasks that could be sent to managers
@@ -591,7 +591,7 @@ class Interchange:
                 logger.info(f"Manager's cpu_speed: {m['cpu_speed']}")
 
                 if (real_capacity and m['active'] and not m['draining']):
-                    tasks = self.get_tasks(param=self.param) # technically should only contain 1 task
+                    tasks = self.get_tasks(param=self.task_selector) # technically should only contain 1 task
 
                     task_obj = {
                         'task': tasks[0]['resource_specification']['task_name'],
