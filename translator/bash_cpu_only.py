@@ -42,6 +42,8 @@ def main():
     except Exception as e:
         raise e
 
+    outdir_path.mkdir(parents=True, exist_ok=True)
+
     workflow_obj = instance.workflow
 
     for task in workflow_obj.tasks.values():
@@ -75,7 +77,7 @@ def main():
 
             task.runtime = float(elapsed_time)
 
-    workflow_obj.write_json(outdir_path.joinpath("workflow.json"))
+    workflow_obj.write_json(outdir_path.joinpath(f"{workflow_obj.name}.json"))
 
     return 0
 
