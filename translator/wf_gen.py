@@ -1,6 +1,8 @@
 import pathlib
 import argparse
 import copy
+import os
+import subprocess
 
 from wfcommons import BlastRecipe, MontageRecipe, SoykbRecipe, EpigenomicsRecipe
 from wfcommons import GenomeRecipe, BwaRecipe, CyclesRecipe, SrasearchRecipe
@@ -19,14 +21,14 @@ recipes = {
     "workflow-test": SrasearchRecipe
 }
 
-def write_benchmark(workflow_path: str):
+def write_benchmark(workflow_path: str, cpu_bench_ref: float = 1.0):
     # create a workflow benchmark from a synthetic workflow (workflow used in the fgcs paper)
     workflow_instance = Instance(workflow_path)
     workflow = workflow_instance.workflow
     cpu_work = {}
     for task in workflow.tasks.values():
         task.category = task.task_id
-        cpu_work[task.category] = (task.runtime * task.avg_cpu / 100) * 1000
+        cpu_work[task.category] = (task.runtime * task.avg_cpu/ 100) / cpu_bench_ref * 100
         task.avg_cpu = None
         task.memory = None
 
@@ -63,12 +65,18 @@ def main():
     
     args = parser.parse_args()
 
+    cmd = ["bash", "-c","TIMEFORMAT='%3R'; time cpu-benchmark 100"]
+
+    result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+
+    ref = float(result.stderr.decode("utf-8"))
+
     if args.test:
         workflow = Instance("./workflows/montage-chameleon-2mass-005d-001.json").workflow
         cpu_work = {}
         for task in workflow.tasks.values():
             task.category = task.task_id
-            cpu_work[task.category] = task.runtime * task.avg_cpu * 100
+            cpu_work[task.category] = (task.runtime * task.avg_cpu/ 100) / ref * 100
             task.avg_cpu = None
             task.memory = None
 
@@ -102,15 +110,17 @@ def main():
         # benchmark = WorkflowBenchmark(recipe=MontageRecipe, num_tasks=len(workflow_instance.workflow.tasks))
         # output_path = pathlib.Path(f"./benchmarks/{workflow_instance.name}")
         # path = benchmark.create_benchmark_from_synthetic_workflow(output_path, workflow_instance.workflow)
+
+    
     if args.workflow:
-        write_benchmark(args.workflow)
+        write_benchmark(args.workflow, ref)
         
     if args.all:
         all_path = pathlib.Path("./workflows")
 
         for file in all_path.iterdir():
             if file.suffix == ".json":
-                write_benchmark(file)
+                write_benchmark(file, ref)
 
 if __name__ == "__main__":
     main()
