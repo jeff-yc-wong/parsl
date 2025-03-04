@@ -71,9 +71,8 @@ def main():
 
             result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, env=env)
 
-
-            #print(result.stdout.decode('utf-8'))
             elapsed_time = result.stderr.decode('utf-8').splitlines()[-1]
+            print(elapsed_time)
 
             task.runtime = float(elapsed_time)
 
