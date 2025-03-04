@@ -21,7 +21,7 @@ def get_parser() -> argparse.ArgumentParser:
 
     parser.add_argument(
         "wfformat_file", help="path to WfFormat JSON input file")
-    parser.add_argument("--outdir",default=pathlib.Path.cwd().joinpath("bash_runs"),
+    parser.add_argument("--outdir",default=pathlib.Path.cwd().joinpath("cpu_benchmarks"),
                         help="Output directory in which to store the translated files")
     parser.add_argument("-r", "--run", action="store_true",)
 
