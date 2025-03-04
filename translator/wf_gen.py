@@ -32,8 +32,6 @@ def write_benchmark(workflow_path: str, cpu_bench_ref: float = 1.0):
         task.avg_cpu = None
         task.memory = None
 
-    print(cpu_work)
-
     if workflow.name not in recipes:
         print(f"Recipe for {workflow.name} not found.")
         return
