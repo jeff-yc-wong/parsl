@@ -3,6 +3,10 @@
     "description": "Trace generated from Nextflow (via https://github.com/wfcommons/nextflow_workflow_tracer)",
     "createdAt": "2023-03-21T21:10:29.882550+00:00",
     "schemaVersion": "1.5",
+    "author": {
+        "name": "rafsilva",
+        "email": "support@wrench-project.org"
+    },
     "workflow": {
         "repo": "https://github.com/nf-core/rnaseq",
         "runName": "wise_volta",
