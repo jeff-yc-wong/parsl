@@ -73,7 +73,7 @@ def main():
         }
         
         if psutil.cpu_freq().max:
-            cpu_info["speedInMHz"] =  psutil.cpu_freq().max
+            cpu_info["speedInMHz"] =  int(psutil.cpu_freq().max)
         # Get system information
         system_info = Machine(
                 name=platform.node(),
