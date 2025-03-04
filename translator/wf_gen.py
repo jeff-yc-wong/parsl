@@ -48,6 +48,7 @@ def main():
         benchmark.workflow.write_json(path)
 
         output_path = pathlib.Path("./benchmarks/test")
+        benchmark.workflow.name = "test"
         path = benchmark.create_benchmark(output_path, percent_cpu=1.0, cpu_work=100, regenerate=False, data=10)
 
         ## create a workflow benchmark object to generate specifications based on a Montage recipe (small benchmark for testing)
