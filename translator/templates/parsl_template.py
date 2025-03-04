@@ -12,13 +12,26 @@ from parsl.providers import LocalProvider, AdHocProvider
 from parsl.channels import LocalChannel, SSHChannel
 from parsl.addresses import address_by_hostname
 from parsl.data_provider.files import File
+from parsl.executors.high_throughput.manager_selector import MostIdleSelector
 
+
+scheduling_config = {
+    "manager_selector": MostIdleSelector(),
+    "task_selector": "bottom_level",
+    "workflow_file": str(Path("./jsons/workflow.json").absolute()),
+    "simulator_path": "workflow_simulator",
+    "template": str(Path("./jsons/template.json").absolute()),
+    "metric": "makespan",
+    "num_threads": 1,
+    "verbose": None,
+    "calibration": None
+}
 
 docker_htex = Config(
     executors=[
         HighThroughputExecutor(
             label="htex_docker",
-            # worker_debug=True,
+            worker_debug=True,
             cores_per_worker=1,
             max_workers_per_node=1,
             provider=AdHocProvider(
@@ -35,6 +48,7 @@ docker_htex = Config(
                     )
                 ],
             ),
+            **scheduling_config
         )
     ],
     strategy=None,
@@ -51,11 +65,11 @@ local_htex = Config(
             label="htex_local",
             worker_debug=True,
             cores_per_worker=1,
-            max_workers_per_node=4,
+            max_workers_per_node=1,
             provider=LocalProvider(
                 channel=LocalChannel(),
-                init_blocks=1,
-                max_blocks=1,
+                init_blocks=2,
+                max_blocks=2,
             ),
         )
     ],
@@ -68,9 +82,15 @@ local_htex = Config(
 )
 
 parsl.clear()
-parsl.load(local_htex)
+# parsl.load(local_htex)
 # Uncomment to use docker containers as workers
-# parsl.load(docker_htex)
+
+x = input("Will you be using docker containers? (local will be used otherwise) [y/n]: ")
+
+if x.lower() == "y" or x.lower() == "yes":
+    parsl.load(docker_htex)
+else:
+    parsl.load(local_htex)
 
 # Emit log lines to the screen
 # parsl.set_stream_logger(level=logging.DEBUG)

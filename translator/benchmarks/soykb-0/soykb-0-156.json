@@ -1,7 +1,7 @@
 {
     "name": "soykb-0",
     "description": "Instance generated with WfCommons - https://wfcommons.org",
-    "createdAt": "2025-02-25T16:57:28.253040-10:00",
+    "createdAt": "2025-03-01T18:08:55.460629-10:00",
     "schemaVersion": "1.5",
     "author": {
         "name": "rafsilva",
@@ -5015,255 +5015,15 @@
             ],
             "files": [
                 {
-                    "id": "workflow_infile_0016",
-                    "sizeInBytes": 23845
-                },
-                {
-                    "id": "haplotype_caller_ID0000088_outfile_0168",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000114_outfile_0217",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "haplotype_caller_ID0000071_outfile_0135",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "filtering_indel_ID0000156_outfile_0300",
-                    "sizeInBytes": 70781
-                },
-                {
-                    "id": "haplotype_caller_ID0000018_outfile_0034",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000146_outfile_0281",
-                    "sizeInBytes": 28497
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000136_outfile_0262",
-                    "sizeInBytes": 28497
-                },
-                {
-                    "id": "haplotype_caller_ID0000033_outfile_0061",
-                    "sizeInBytes": 75728
-                },
-                {
-                    "id": "haplotype_caller_ID0000115_outfile_0220",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "sort_sam_ID0000002_outfile_0002",
-                    "sizeInBytes": 36576
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000144_outfile_0278",
-                    "sizeInBytes": 59101
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000147_outfile_0283",
-                    "sizeInBytes": 59101
-                },
-                {
-                    "id": "indel_realign_ID0000084_outfile_0159",
-                    "sizeInBytes": 39552
-                },
-                {
-                    "id": "haplotype_caller_ID0000048_outfile_0091",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000044_outfile_0084",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "workflow_infile_0021",
-                    "sizeInBytes": 3400
-                },
-                {
-                    "id": "workflow_infile_0005",
-                    "sizeInBytes": 489247688
-                },
-                {
-                    "id": "indel_realign_ID0000032_outfile_0060",
-                    "sizeInBytes": 127424
-                },
-                {
-                    "id": "indel_realign_ID0000110_outfile_0209",
-                    "sizeInBytes": 127424
-                },
-                {
-                    "id": "haplotype_caller_ID0000039_outfile_0074",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "haplotype_caller_ID0000129_outfile_0247",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000139_outfile_0267",
-                    "sizeInBytes": 59101
-                },
-                {
-                    "id": "alignment_to_reference_ID0000105_outfile_0201",
-                    "sizeInBytes": 112561
-                },
-                {
-                    "id": "workflow_infile_0001",
-                    "sizeInBytes": 142561
-                },
-                {
-                    "id": "haplotype_caller_ID0000074_outfile_0142",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000089_outfile_0170",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000135_outfile_0259",
-                    "sizeInBytes": 28497
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000134_outfile_0257",
-                    "sizeInBytes": 28497
-                },
-                {
-                    "id": "haplotype_caller_ID0000034_outfile_0063",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000015_outfile_0027",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000077_outfile_0148",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "workflow_infile_0014",
-                    "sizeInBytes": 23845
-                },
-                {
-                    "id": "haplotype_caller_ID0000101_outfile_0194",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "alignment_to_reference_ID0000079_outfile_0151",
-                    "sizeInBytes": 112561
-                },
-                {
-                    "id": "haplotype_caller_ID0000097_outfile_0186",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000013_outfile_0023",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "haplotype_caller_ID0000092_outfile_0176",
+                    "id": "haplotype_caller_ID0000045_outfile_0085",
                     "sizeInBytes": 59039
                 },
                 {
-                    "id": "haplotype_caller_ID0000051_outfile_0097",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "dedup_ID0000003_outfile_0004",
-                    "sizeInBytes": 37468
-                },
-                {
-                    "id": "haplotype_caller_ID0000067_outfile_0127",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000025_outfile_0047",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000037_outfile_0069",
+                    "id": "haplotype_caller_ID0000099_outfile_0190",
                     "sizeInBytes": 28449
                 },
                 {
-                    "id": "haplotype_caller_ID0000094_outfile_0180",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000067_outfile_0128",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "workflow_infile_0019",
-                    "sizeInBytes": 23845
-                },
-                {
-                    "id": "dedup_ID0000081_outfile_0154",
-                    "sizeInBytes": 37468
-                },
-                {
-                    "id": "add_replace_ID0000082_outfile_0156",
-                    "sizeInBytes": 37953
-                },
-                {
-                    "id": "merge_gcvf_ID0000131_outfile_0251",
-                    "sizeInBytes": 109270
-                },
-                {
-                    "id": "haplotype_caller_ID0000085_outfile_0161",
-                    "sizeInBytes": 75728
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000133_outfile_0255",
-                    "sizeInBytes": 28497
-                },
-                {
-                    "id": "haplotype_caller_ID0000065_outfile_0123",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000091_outfile_0174",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000075_outfile_0144",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000010_outfile_0017",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "haplotype_caller_ID0000126_outfile_0241",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000011_outfile_0019",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000047_outfile_0090",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000096_outfile_0183",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000134_outfile_0258",
-                    "sizeInBytes": 59101
-                },
-                {
-                    "id": "haplotype_caller_ID0000098_outfile_0188",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000019_outfile_0036",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "haplotype_caller_ID0000117_outfile_0223",
+                    "id": "haplotype_caller_ID0000120_outfile_0230",
                     "sizeInBytes": 59038
                 },
                 {
@@ -5271,51 +5031,19 @@
                     "sizeInBytes": 59038
                 },
                 {
-                    "id": "haplotype_caller_ID0000128_outfile_0245",
-                    "sizeInBytes": 59038
+                    "id": "genotype_gvcfs_ID0000135_outfile_0260",
+                    "sizeInBytes": 59101
                 },
                 {
-                    "id": "genotype_gvcfs_ID0000148_outfile_0286",
-                    "sizeInBytes": 28497
+                    "id": "sort_sam_ID0000028_outfile_0052",
+                    "sizeInBytes": 36576
                 },
                 {
-                    "id": "indel_realign_ID0000032_outfile_0059",
-                    "sizeInBytes": 39553
+                    "id": "genotype_gvcfs_ID0000141_outfile_0271",
+                    "sizeInBytes": 59101
                 },
                 {
-                    "id": "haplotype_caller_ID0000012_outfile_0022",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000125_outfile_0239",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000089_outfile_0169",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000022_outfile_0041",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000111_outfile_0212",
-                    "sizeInBytes": 75727
-                },
-                {
-                    "id": "haplotype_caller_ID0000046_outfile_0088",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000118_outfile_0225",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000125_outfile_0240",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "haplotype_caller_ID0000038_outfile_0071",
+                    "id": "haplotype_caller_ID0000062_outfile_0118",
                     "sizeInBytes": 59039
                 },
                 {
@@ -5323,135 +5051,31 @@
                     "sizeInBytes": 59038
                 },
                 {
-                    "id": "genotype_gvcfs_ID0000143_outfile_0275",
-                    "sizeInBytes": 28497
-                },
-                {
-                    "id": "haplotype_caller_ID0000094_outfile_0179",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000021_outfile_0039",
+                    "id": "haplotype_caller_ID0000113_outfile_0216",
                     "sizeInBytes": 59038
                 },
                 {
-                    "id": "dedup_ID0000055_outfile_0104",
-                    "sizeInBytes": 37468
+                    "id": "haplotype_caller_ID0000119_outfile_0227",
+                    "sizeInBytes": 59038
                 },
                 {
-                    "id": "dedup_ID0000029_outfile_0055",
-                    "sizeInBytes": 127424
-                },
-                {
-                    "id": "haplotype_caller_ID0000119_outfile_0228",
+                    "id": "haplotype_caller_ID0000059_outfile_0111",
                     "sizeInBytes": 28448
                 },
                 {
-                    "id": "sort_sam_ID0000028_outfile_0052",
-                    "sizeInBytes": 36576
+                    "id": "indel_realign_ID0000110_outfile_0210",
+                    "sizeInBytes": 39553
                 },
                 {
-                    "id": "haplotype_caller_ID0000026_outfile_0050",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "haplotype_caller_ID0000093_outfile_0177",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000009_outfile_0015",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000141_outfile_0272",
-                    "sizeInBytes": 28497
-                },
-                {
-                    "id": "add_replace_ID0000056_outfile_0107",
-                    "sizeInBytes": 37953
-                },
-                {
-                    "id": "haplotype_caller_ID0000072_outfile_0138",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "haplotype_caller_ID0000041_outfile_0077",
+                    "id": "haplotype_caller_ID0000034_outfile_0064",
                     "sizeInBytes": 59039
                 },
                 {
-                    "id": "haplotype_caller_ID0000012_outfile_0021",
-                    "sizeInBytes": 59038
+                    "id": "genotype_gvcfs_ID0000136_outfile_0261",
+                    "sizeInBytes": 59101
                 },
                 {
-                    "id": "haplotype_caller_ID0000095_outfile_0182",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000088_outfile_0167",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "indel_realign_ID0000006_outfile_0009",
-                    "sizeInBytes": 39552
-                },
-                {
-                    "id": "haplotype_caller_ID0000093_outfile_0178",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000072_outfile_0137",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000086_outfile_0163",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000042_outfile_0080",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000142_outfile_0273",
-                    "sizeInBytes": 28497
-                },
-                {
-                    "id": "haplotype_caller_ID0000127_outfile_0244",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000074_outfile_0141",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000076_outfile_0146",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "dedup_ID0000029_outfile_0054",
-                    "sizeInBytes": 37468
-                },
-                {
-                    "id": "haplotype_caller_ID0000050_outfile_0095",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "workflow_infile_0012",
-                    "sizeInBytes": 23845
-                },
-                {
-                    "id": "add_replace_ID0000030_outfile_0057",
-                    "sizeInBytes": 127424
-                },
-                {
-                    "id": "add_replace_ID0000082_outfile_0157",
-                    "sizeInBytes": 127424
-                },
-                {
-                    "id": "haplotype_caller_ID0000095_outfile_0181",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000076_outfile_0145",
+                    "id": "haplotype_caller_ID0000086_outfile_0164",
                     "sizeInBytes": 28449
                 },
                 {
@@ -5459,88 +5083,932 @@
                     "sizeInBytes": 28449
                 },
                 {
-                    "id": "haplotype_caller_ID0000049_outfile_0094",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000143_outfile_0276",
-                    "sizeInBytes": 59101
-                },
-                {
-                    "id": "realign_target_creator_ID0000031_outfile_0058",
-                    "sizeInBytes": 40
-                },
-                {
                     "id": "haplotype_caller_ID0000017_outfile_0032",
                     "sizeInBytes": 59038
                 },
                 {
-                    "id": "workflow_infile_0004",
-                    "sizeInBytes": 23845
-                },
-                {
-                    "id": "haplotype_caller_ID0000069_outfile_0132",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000087_outfile_0165",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000035_outfile_0065",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000023_outfile_0044",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "dedup_ID0000055_outfile_0105",
-                    "sizeInBytes": 127424
-                },
-                {
-                    "id": "alignment_to_reference_ID0000053_outfile_0101",
-                    "sizeInBytes": 112561
-                },
-                {
-                    "id": "haplotype_caller_ID0000039_outfile_0073",
-                    "sizeInBytes": 28448
+                    "id": "haplotype_caller_ID0000033_outfile_0061",
+                    "sizeInBytes": 75728
                 },
                 {
                     "id": "haplotype_caller_ID0000025_outfile_0048",
                     "sizeInBytes": 59038
                 },
                 {
-                    "id": "workflow_infile_0006",
-                    "sizeInBytes": 108988506
-                },
-                {
-                    "id": "haplotype_caller_ID0000046_outfile_0087",
+                    "id": "haplotype_caller_ID0000062_outfile_0117",
                     "sizeInBytes": 28449
                 },
                 {
-                    "id": "realign_target_creator_ID0000057_outfile_0108",
-                    "sizeInBytes": 40
+                    "id": "haplotype_caller_ID0000041_outfile_0077",
+                    "sizeInBytes": 59039
                 },
                 {
-                    "id": "combine_variants_ID0000152_outfile_0294",
-                    "sizeInBytes": 71234
+                    "id": "haplotype_caller_ID0000122_outfile_0233",
+                    "sizeInBytes": 28448
                 },
                 {
-                    "id": "genotype_gvcfs_ID0000137_outfile_0263",
+                    "id": "genotype_gvcfs_ID0000150_outfile_0290",
                     "sizeInBytes": 28497
                 },
                 {
-                    "id": "indel_realign_ID0000110_outfile_0210",
+                    "id": "filtering_snp_ID0000154_outfile_0296",
+                    "sizeInBytes": 28546
+                },
+                {
+                    "id": "sort_sam_ID0000080_outfile_0153",
+                    "sizeInBytes": 127424
+                },
+                {
+                    "id": "haplotype_caller_ID0000122_outfile_0234",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "haplotype_caller_ID0000036_outfile_0067",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "indel_realign_ID0000084_outfile_0160",
+                    "sizeInBytes": 127424
+                },
+                {
+                    "id": "haplotype_caller_ID0000039_outfile_0074",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "workflow_infile_0008",
+                    "sizeInBytes": 990744229
+                },
+                {
+                    "id": "dedup_ID0000003_outfile_0004",
+                    "sizeInBytes": 37468
+                },
+                {
+                    "id": "haplotype_caller_ID0000088_outfile_0167",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000009_outfile_0016",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000142_outfile_0274",
+                    "sizeInBytes": 59101
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000136_outfile_0262",
+                    "sizeInBytes": 28497
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000148_outfile_0286",
+                    "sizeInBytes": 28497
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000132_outfile_0253",
+                    "sizeInBytes": 28584
+                },
+                {
+                    "id": "haplotype_caller_ID0000064_outfile_0122",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "indel_realign_ID0000032_outfile_0059",
                     "sizeInBytes": 39553
+                },
+                {
+                    "id": "haplotype_caller_ID0000111_outfile_0211",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000037_outfile_0070",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "workflow_infile_0017",
+                    "sizeInBytes": 23845
+                },
+                {
+                    "id": "filtering_indel_ID0000156_outfile_0299",
+                    "sizeInBytes": 28576
+                },
+                {
+                    "id": "indel_realign_ID0000110_outfile_0209",
+                    "sizeInBytes": 127424
+                },
+                {
+                    "id": "haplotype_caller_ID0000047_outfile_0089",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000129_outfile_0247",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "haplotype_caller_ID0000008_outfile_0013",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "merge_gcvf_ID0000131_outfile_0252",
+                    "sizeInBytes": 29187
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000147_outfile_0283",
+                    "sizeInBytes": 59101
+                },
+                {
+                    "id": "haplotype_caller_ID0000128_outfile_0246",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000020_outfile_0038",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000024_outfile_0046",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000139_outfile_0267",
+                    "sizeInBytes": 59101
+                },
+                {
+                    "id": "workflow_infile_0016",
+                    "sizeInBytes": 23845
+                },
+                {
+                    "id": "workflow_infile_0003",
+                    "sizeInBytes": 41379
+                },
+                {
+                    "id": "add_replace_ID0000082_outfile_0157",
+                    "sizeInBytes": 127424
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000133_outfile_0256",
+                    "sizeInBytes": 59101
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000151_outfile_0291",
+                    "sizeInBytes": 59101
+                },
+                {
+                    "id": "haplotype_caller_ID0000025_outfile_0047",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "sort_sam_ID0000028_outfile_0053",
+                    "sizeInBytes": 127424
+                },
+                {
+                    "id": "haplotype_caller_ID0000090_outfile_0171",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "dedup_ID0000029_outfile_0054",
+                    "sizeInBytes": 37468
+                },
+                {
+                    "id": "haplotype_caller_ID0000041_outfile_0078",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000067_outfile_0128",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000145_outfile_0279",
+                    "sizeInBytes": 59101
+                },
+                {
+                    "id": "haplotype_caller_ID0000040_outfile_0075",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000043_outfile_0082",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000135_outfile_0259",
+                    "sizeInBytes": 28497
+                },
+                {
+                    "id": "haplotype_caller_ID0000049_outfile_0093",
+                    "sizeInBytes": 59039
                 },
                 {
                     "id": "haplotype_caller_ID0000038_outfile_0072",
                     "sizeInBytes": 28449
                 },
                 {
+                    "id": "dedup_ID0000081_outfile_0155",
+                    "sizeInBytes": 127424
+                },
+                {
+                    "id": "haplotype_caller_ID0000061_outfile_0116",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "haplotype_caller_ID0000089_outfile_0169",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000014_outfile_0025",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "haplotype_caller_ID0000101_outfile_0194",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000102_outfile_0196",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "workflow_infile_0019",
+                    "sizeInBytes": 23845
+                },
+                {
+                    "id": "workflow_infile_0013",
+                    "sizeInBytes": 23845
+                },
+                {
+                    "id": "haplotype_caller_ID0000013_outfile_0023",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "alignment_to_reference_ID0000053_outfile_0101",
+                    "sizeInBytes": 112561
+                },
+                {
+                    "id": "haplotype_caller_ID0000092_outfile_0176",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000059_outfile_0112",
+                    "sizeInBytes": 75727
+                },
+                {
+                    "id": "haplotype_caller_ID0000115_outfile_0220",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "indel_realign_ID0000006_outfile_0010",
+                    "sizeInBytes": 127424
+                },
+                {
+                    "id": "haplotype_caller_ID0000076_outfile_0146",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000151_outfile_0292",
+                    "sizeInBytes": 28497
+                },
+                {
+                    "id": "haplotype_caller_ID0000071_outfile_0136",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "haplotype_caller_ID0000023_outfile_0043",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "add_replace_ID0000004_outfile_0007",
+                    "sizeInBytes": 37955
+                },
+                {
+                    "id": "workflow_infile_0011",
+                    "sizeInBytes": 15976
+                },
+                {
+                    "id": "add_replace_ID0000108_outfile_0206",
+                    "sizeInBytes": 37954
+                },
+                {
+                    "id": "haplotype_caller_ID0000042_outfile_0080",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000089_outfile_0170",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000069_outfile_0131",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000065_outfile_0123",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000086_outfile_0163",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000145_outfile_0280",
+                    "sizeInBytes": 28497
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000146_outfile_0281",
+                    "sizeInBytes": 28497
+                },
+                {
+                    "id": "haplotype_caller_ID0000015_outfile_0028",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "haplotype_caller_ID0000077_outfile_0147",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000094_outfile_0179",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000024_outfile_0045",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "select_variants_snp_ID0000153_outfile_0295",
+                    "sizeInBytes": 72786
+                },
+                {
+                    "id": "haplotype_caller_ID0000049_outfile_0094",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "dedup_ID0000055_outfile_0105",
+                    "sizeInBytes": 127424
+                },
+                {
+                    "id": "add_replace_ID0000030_outfile_0057",
+                    "sizeInBytes": 127424
+                },
+                {
+                    "id": "haplotype_caller_ID0000051_outfile_0097",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "sort_sam_ID0000054_outfile_0102",
+                    "sizeInBytes": 127424
+                },
+                {
+                    "id": "dedup_ID0000029_outfile_0055",
+                    "sizeInBytes": 127424
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000143_outfile_0276",
+                    "sizeInBytes": 59101
+                },
+                {
+                    "id": "haplotype_caller_ID0000096_outfile_0184",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000020_outfile_0037",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "haplotype_caller_ID0000126_outfile_0242",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "alignment_to_reference_ID0000105_outfile_0201",
+                    "sizeInBytes": 112561
+                },
+                {
+                    "id": "haplotype_caller_ID0000018_outfile_0033",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "haplotype_caller_ID0000022_outfile_0042",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "merge_gcvf_ID0000131_outfile_0251",
+                    "sizeInBytes": 109270
+                },
+                {
+                    "id": "combine_variants_ID0000152_outfile_0293",
+                    "sizeInBytes": 28577
+                },
+                {
+                    "id": "haplotype_caller_ID0000124_outfile_0237",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "haplotype_caller_ID0000091_outfile_0173",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "select_variants_indel_ID0000155_outfile_0298",
+                    "sizeInBytes": 68060
+                },
+                {
+                    "id": "workflow_infile_0010",
+                    "sizeInBytes": 978495356
+                },
+                {
+                    "id": "indel_realign_ID0000032_outfile_0060",
+                    "sizeInBytes": 127424
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000140_outfile_0270",
+                    "sizeInBytes": 59101
+                },
+                {
+                    "id": "dedup_ID0000107_outfile_0205",
+                    "sizeInBytes": 37468
+                },
+                {
+                    "id": "haplotype_caller_ID0000085_outfile_0161",
+                    "sizeInBytes": 75728
+                },
+                {
+                    "id": "sort_sam_ID0000080_outfile_0152",
+                    "sizeInBytes": 36576
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000150_outfile_0289",
+                    "sizeInBytes": 59101
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000132_outfile_0254",
+                    "sizeInBytes": 66691
+                },
+                {
+                    "id": "haplotype_caller_ID0000044_outfile_0083",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000112_outfile_0214",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000098_outfile_0188",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "add_replace_ID0000082_outfile_0156",
+                    "sizeInBytes": 37953
+                },
+                {
+                    "id": "haplotype_caller_ID0000092_outfile_0175",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000037_outfile_0069",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000099_outfile_0189",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000098_outfile_0187",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000138_outfile_0266",
+                    "sizeInBytes": 59101
+                },
+                {
+                    "id": "filtering_indel_ID0000156_outfile_0300",
+                    "sizeInBytes": 70781
+                },
+                {
+                    "id": "haplotype_caller_ID0000097_outfile_0185",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "workflow_infile_0002",
+                    "sizeInBytes": 244623820
+                },
+                {
+                    "id": "haplotype_caller_ID0000087_outfile_0165",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000103_outfile_0198",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000021_outfile_0039",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "add_replace_ID0000056_outfile_0107",
+                    "sizeInBytes": 37953
+                },
+                {
+                    "id": "haplotype_caller_ID0000011_outfile_0019",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000095_outfile_0181",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000140_outfile_0269",
+                    "sizeInBytes": 28497
+                },
+                {
+                    "id": "haplotype_caller_ID0000085_outfile_0162",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000078_outfile_0150",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "alignment_to_reference_ID0000027_outfile_0051",
+                    "sizeInBytes": 112561
+                },
+                {
+                    "id": "haplotype_caller_ID0000040_outfile_0076",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000046_outfile_0088",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000026_outfile_0050",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "haplotype_caller_ID0000129_outfile_0248",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "indel_realign_ID0000058_outfile_0110",
+                    "sizeInBytes": 127424
+                },
+                {
+                    "id": "sort_sam_ID0000054_outfile_0103",
+                    "sizeInBytes": 36576
+                },
+                {
+                    "id": "haplotype_caller_ID0000060_outfile_0114",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "workflow_infile_0012",
+                    "sizeInBytes": 23845
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000144_outfile_0277",
+                    "sizeInBytes": 28497
+                },
+                {
+                    "id": "combine_variants_ID0000152_outfile_0294",
+                    "sizeInBytes": 71234
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000143_outfile_0275",
+                    "sizeInBytes": 28497
+                },
+                {
+                    "id": "workflow_infile_0004",
+                    "sizeInBytes": 23845
+                },
+                {
+                    "id": "haplotype_caller_ID0000125_outfile_0239",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "workflow_infile_0001",
+                    "sizeInBytes": 142561
+                },
+                {
+                    "id": "haplotype_caller_ID0000076_outfile_0145",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000010_outfile_0017",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "haplotype_caller_ID0000087_outfile_0166",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000102_outfile_0195",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000116_outfile_0221",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000121_outfile_0232",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000072_outfile_0138",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "add_replace_ID0000108_outfile_0207",
+                    "sizeInBytes": 127424
+                },
+                {
+                    "id": "haplotype_caller_ID0000096_outfile_0183",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000111_outfile_0212",
+                    "sizeInBytes": 75727
+                },
+                {
+                    "id": "workflow_infile_0006",
+                    "sizeInBytes": 108988506
+                },
+                {
+                    "id": "haplotype_caller_ID0000121_outfile_0231",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "haplotype_caller_ID0000112_outfile_0213",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "realign_target_creator_ID0000031_outfile_0058",
+                    "sizeInBytes": 40
+                },
+                {
+                    "id": "haplotype_caller_ID0000007_outfile_0011",
+                    "sizeInBytes": 75727
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000134_outfile_0258",
+                    "sizeInBytes": 59101
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000149_outfile_0287",
+                    "sizeInBytes": 59101
+                },
+                {
+                    "id": "indel_realign_ID0000058_outfile_0109",
+                    "sizeInBytes": 39552
+                },
+                {
+                    "id": "haplotype_caller_ID0000013_outfile_0024",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000051_outfile_0098",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000133_outfile_0255",
+                    "sizeInBytes": 28497
+                },
+                {
+                    "id": "haplotype_caller_ID0000123_outfile_0236",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "haplotype_caller_ID0000104_outfile_0200",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "workflow_infile_0009",
+                    "sizeInBytes": 47448
+                },
+                {
+                    "id": "haplotype_caller_ID0000071_outfile_0135",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "sort_sam_ID0000106_outfile_0203",
+                    "sizeInBytes": 36576
+                },
+                {
+                    "id": "indel_realign_ID0000006_outfile_0009",
+                    "sizeInBytes": 39552
+                },
+                {
+                    "id": "workflow_infile_0020",
+                    "sizeInBytes": 23845
+                },
+                {
+                    "id": "haplotype_caller_ID0000015_outfile_0027",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000120_outfile_0229",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000068_outfile_0130",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000137_outfile_0263",
+                    "sizeInBytes": 28497
+                },
+                {
+                    "id": "add_replace_ID0000004_outfile_0006",
+                    "sizeInBytes": 127424
+                },
+                {
+                    "id": "haplotype_caller_ID0000088_outfile_0168",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "workflow_infile_0018",
+                    "sizeInBytes": 23845
+                },
+                {
+                    "id": "haplotype_caller_ID0000074_outfile_0141",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000012_outfile_0022",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000036_outfile_0068",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000113_outfile_0215",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000068_outfile_0129",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000118_outfile_0225",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000069_outfile_0132",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "workflow_infile_0021",
+                    "sizeInBytes": 3400
+                },
+                {
+                    "id": "haplotype_caller_ID0000063_outfile_0120",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000118_outfile_0226",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "alignment_to_reference_ID0000079_outfile_0151",
+                    "sizeInBytes": 112561
+                },
+                {
+                    "id": "haplotype_caller_ID0000044_outfile_0084",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000039_outfile_0073",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "sort_sam_ID0000002_outfile_0002",
+                    "sizeInBytes": 36576
+                },
+                {
+                    "id": "haplotype_caller_ID0000073_outfile_0139",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000114_outfile_0217",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000137_outfile_0264",
+                    "sizeInBytes": 59101
+                },
+                {
+                    "id": "haplotype_caller_ID0000050_outfile_0096",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000070_outfile_0134",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000010_outfile_0018",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000097_outfile_0186",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000078_outfile_0149",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000014_outfile_0026",
+                    "sizeInBytes": 28448
+                },
+                {
                     "id": "sort_sam_ID0000002_outfile_0003",
                     "sizeInBytes": 127424
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000141_outfile_0272",
+                    "sizeInBytes": 28497
+                },
+                {
+                    "id": "haplotype_caller_ID0000114_outfile_0218",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000075_outfile_0143",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000142_outfile_0273",
+                    "sizeInBytes": 28497
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000146_outfile_0282",
+                    "sizeInBytes": 59101
+                },
+                {
+                    "id": "haplotype_caller_ID0000128_outfile_0245",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "realign_target_creator_ID0000005_outfile_0008",
+                    "sizeInBytes": 40
+                },
+                {
+                    "id": "haplotype_caller_ID0000007_outfile_0012",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000050_outfile_0095",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000019_outfile_0035",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "dedup_ID0000003_outfile_0005",
+                    "sizeInBytes": 127424
+                },
+                {
+                    "id": "haplotype_caller_ID0000048_outfile_0091",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000123_outfile_0235",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "filtering_snp_ID0000154_outfile_0297",
+                    "sizeInBytes": 75606
+                },
+                {
+                    "id": "haplotype_caller_ID0000064_outfile_0121",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000048_outfile_0092",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000090_outfile_0172",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000045_outfile_0086",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000035_outfile_0065",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000094_outfile_0180",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000046_outfile_0087",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000060_outfile_0113",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000075_outfile_0144",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000100_outfile_0192",
+                    "sizeInBytes": 28449
                 },
                 {
                     "id": "genotype_gvcfs_ID0000148_outfile_0285",
@@ -5551,55 +6019,35 @@
                     "sizeInBytes": 37954
                 },
                 {
-                    "id": "add_replace_ID0000004_outfile_0006",
-                    "sizeInBytes": 127424
-                },
-                {
-                    "id": "realign_target_creator_ID0000005_outfile_0008",
-                    "sizeInBytes": 40
-                },
-                {
-                    "id": "add_replace_ID0000108_outfile_0206",
-                    "sizeInBytes": 37954
-                },
-                {
-                    "id": "haplotype_caller_ID0000124_outfile_0238",
+                    "id": "haplotype_caller_ID0000021_outfile_0040",
                     "sizeInBytes": 28448
                 },
                 {
-                    "id": "haplotype_caller_ID0000016_outfile_0029",
+                    "id": "haplotype_caller_ID0000034_outfile_0063",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "workflow_infile_0005",
+                    "sizeInBytes": 489247688
+                },
+                {
+                    "id": "haplotype_caller_ID0000008_outfile_0014",
                     "sizeInBytes": 59038
                 },
                 {
-                    "id": "genotype_gvcfs_ID0000133_outfile_0256",
-                    "sizeInBytes": 59101
+                    "id": "haplotype_caller_ID0000103_outfile_0197",
+                    "sizeInBytes": 59038
                 },
                 {
-                    "id": "haplotype_caller_ID0000050_outfile_0096",
+                    "id": "haplotype_caller_ID0000093_outfile_0178",
                     "sizeInBytes": 59039
                 },
                 {
-                    "id": "haplotype_caller_ID0000073_outfile_0140",
-                    "sizeInBytes": 28449
+                    "id": "haplotype_caller_ID0000061_outfile_0115",
+                    "sizeInBytes": 28448
                 },
                 {
-                    "id": "haplotype_caller_ID0000102_outfile_0196",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000147_outfile_0284",
-                    "sizeInBytes": 28497
-                },
-                {
-                    "id": "haplotype_caller_ID0000036_outfile_0068",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "combine_variants_ID0000152_outfile_0293",
-                    "sizeInBytes": 28577
-                },
-                {
-                    "id": "haplotype_caller_ID0000097_outfile_0185",
+                    "id": "haplotype_caller_ID0000065_outfile_0124",
                     "sizeInBytes": 59039
                 },
                 {
@@ -5607,99 +6055,15 @@
                     "sizeInBytes": 59039
                 },
                 {
-                    "id": "workflow_infile_0015",
-                    "sizeInBytes": 23845
-                },
-                {
-                    "id": "haplotype_caller_ID0000101_outfile_0193",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000037_outfile_0070",
-                    "sizeInBytes": 59039
-                },
-                {
                     "id": "haplotype_caller_ID0000115_outfile_0219",
                     "sizeInBytes": 28448
                 },
                 {
-                    "id": "haplotype_caller_ID0000104_outfile_0200",
+                    "id": "haplotype_caller_ID0000073_outfile_0140",
                     "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000100_outfile_0192",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000017_outfile_0031",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000129_outfile_0248",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000150_outfile_0289",
-                    "sizeInBytes": 59101
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000136_outfile_0261",
-                    "sizeInBytes": 59101
-                },
-                {
-                    "id": "sort_sam_ID0000028_outfile_0053",
-                    "sizeInBytes": 127424
-                },
-                {
-                    "id": "dedup_ID0000107_outfile_0204",
-                    "sizeInBytes": 127424
-                },
-                {
-                    "id": "haplotype_caller_ID0000078_outfile_0150",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000092_outfile_0175",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000061_outfile_0115",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000045_outfile_0086",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000086_outfile_0164",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "indel_realign_ID0000006_outfile_0010",
-                    "sizeInBytes": 127424
-                },
-                {
-                    "id": "haplotype_caller_ID0000022_outfile_0042",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "haplotype_caller_ID0000122_outfile_0234",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "indel_realign_ID0000084_outfile_0160",
-                    "sizeInBytes": 127424
-                },
-                {
-                    "id": "haplotype_caller_ID0000045_outfile_0085",
-                    "sizeInBytes": 59039
                 },
                 {
                     "id": "haplotype_caller_ID0000117_outfile_0224",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000128_outfile_0246",
                     "sizeInBytes": 28448
                 },
                 {
@@ -5707,28 +6071,16 @@
                     "sizeInBytes": 127424
                 },
                 {
-                    "id": "workflow_infile_0018",
-                    "sizeInBytes": 23845
-                },
-                {
-                    "id": "workflow_infile_0007",
-                    "sizeInBytes": 259156
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000151_outfile_0291",
-                    "sizeInBytes": 59101
-                },
-                {
-                    "id": "haplotype_caller_ID0000049_outfile_0093",
+                    "id": "haplotype_caller_ID0000100_outfile_0191",
                     "sizeInBytes": 59039
                 },
                 {
-                    "id": "haplotype_caller_ID0000130_outfile_0249",
-                    "sizeInBytes": 59038
+                    "id": "add_replace_ID0000056_outfile_0106",
+                    "sizeInBytes": 127424
                 },
                 {
-                    "id": "genotype_gvcfs_ID0000140_outfile_0270",
-                    "sizeInBytes": 59101
+                    "id": "haplotype_caller_ID0000016_outfile_0029",
+                    "sizeInBytes": 59038
                 },
                 {
                     "id": "haplotype_caller_ID0000066_outfile_0126",
@@ -5739,39 +6091,7 @@
                     "sizeInBytes": 28497
                 },
                 {
-                    "id": "haplotype_caller_ID0000008_outfile_0014",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "haplotype_caller_ID0000113_outfile_0216",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "haplotype_caller_ID0000051_outfile_0098",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000033_outfile_0062",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000122_outfile_0233",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000096_outfile_0184",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "filtering_snp_ID0000154_outfile_0296",
-                    "sizeInBytes": 28546
-                },
-                {
-                    "id": "haplotype_caller_ID0000007_outfile_0011",
-                    "sizeInBytes": 75727
-                },
-                {
-                    "id": "haplotype_caller_ID0000010_outfile_0018",
+                    "id": "haplotype_caller_ID0000017_outfile_0031",
                     "sizeInBytes": 28448
                 },
                 {
@@ -5779,171 +6099,31 @@
                     "sizeInBytes": 28449
                 },
                 {
-                    "id": "haplotype_caller_ID0000099_outfile_0190",
-                    "sizeInBytes": 28449
+                    "id": "haplotype_caller_ID0000052_outfile_0099",
+                    "sizeInBytes": 59039
                 },
                 {
-                    "id": "haplotype_caller_ID0000116_outfile_0221",
+                    "id": "haplotype_caller_ID0000119_outfile_0228",
                     "sizeInBytes": 28448
                 },
                 {
-                    "id": "genotype_gvcfs_ID0000141_outfile_0271",
+                    "id": "haplotype_caller_ID0000077_outfile_0148",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000130_outfile_0250",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000144_outfile_0278",
                     "sizeInBytes": 59101
                 },
                 {
-                    "id": "haplotype_caller_ID0000043_outfile_0082",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000059_outfile_0111",
+                    "id": "haplotype_caller_ID0000072_outfile_0137",
                     "sizeInBytes": 28448
                 },
                 {
-                    "id": "haplotype_caller_ID0000085_outfile_0162",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000149_outfile_0287",
-                    "sizeInBytes": 59101
-                },
-                {
-                    "id": "haplotype_caller_ID0000068_outfile_0130",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000100_outfile_0191",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000119_outfile_0227",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "haplotype_caller_ID0000102_outfile_0195",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "add_replace_ID0000056_outfile_0106",
-                    "sizeInBytes": 127424
-                },
-                {
-                    "id": "haplotype_caller_ID0000070_outfile_0134",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "sort_sam_ID0000080_outfile_0152",
-                    "sizeInBytes": 36576
-                },
-                {
-                    "id": "filtering_snp_ID0000154_outfile_0297",
-                    "sizeInBytes": 75606
-                },
-                {
-                    "id": "haplotype_caller_ID0000060_outfile_0113",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "dedup_ID0000003_outfile_0005",
-                    "sizeInBytes": 127424
-                },
-                {
-                    "id": "workflow_infile_0009",
-                    "sizeInBytes": 47448
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000149_outfile_0288",
-                    "sizeInBytes": 28497
-                },
-                {
-                    "id": "haplotype_caller_ID0000065_outfile_0124",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "alignment_to_reference_ID0000027_outfile_0051",
-                    "sizeInBytes": 112561
-                },
-                {
-                    "id": "workflow_infile_0003",
-                    "sizeInBytes": 41379
-                },
-                {
-                    "id": "haplotype_caller_ID0000069_outfile_0131",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000060_outfile_0114",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "haplotype_caller_ID0000064_outfile_0121",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000090_outfile_0172",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000036_outfile_0067",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000103_outfile_0198",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "sort_sam_ID0000106_outfile_0203",
-                    "sizeInBytes": 36576
-                },
-                {
-                    "id": "merge_gcvf_ID0000131_outfile_0252",
-                    "sizeInBytes": 29187
-                },
-                {
-                    "id": "workflow_infile_0008",
-                    "sizeInBytes": 990744229
-                },
-                {
-                    "id": "haplotype_caller_ID0000024_outfile_0045",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000023_outfile_0043",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "haplotype_caller_ID0000034_outfile_0064",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "workflow_infile_0011",
-                    "sizeInBytes": 15976
-                },
-                {
-                    "id": "haplotype_caller_ID0000011_outfile_0020",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "haplotype_caller_ID0000041_outfile_0078",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000044_outfile_0083",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "select_variants_indel_ID0000155_outfile_0298",
-                    "sizeInBytes": 68060
-                },
-                {
-                    "id": "dedup_ID0000081_outfile_0155",
-                    "sizeInBytes": 127424
-                },
-                {
-                    "id": "haplotype_caller_ID0000062_outfile_0118",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000151_outfile_0292",
+                    "id": "genotype_gvcfs_ID0000139_outfile_0268",
                     "sizeInBytes": 28497
                 },
                 {
@@ -5951,219 +6131,147 @@
                     "sizeInBytes": 40
                 },
                 {
-                    "id": "select_variants_snp_ID0000153_outfile_0295",
-                    "sizeInBytes": 72786
-                },
-                {
-                    "id": "haplotype_caller_ID0000123_outfile_0235",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000014_outfile_0025",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000144_outfile_0277",
-                    "sizeInBytes": 28497
-                },
-                {
-                    "id": "haplotype_caller_ID0000061_outfile_0116",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "haplotype_caller_ID0000111_outfile_0211",
-                    "sizeInBytes": 28448
-                },
-                {
                     "id": "alignment_to_reference_ID0000001_outfile_0001",
                     "sizeInBytes": 112561
                 },
                 {
-                    "id": "filtering_indel_ID0000156_outfile_0299",
-                    "sizeInBytes": 28576
-                },
-                {
-                    "id": "workflow_infile_0002",
-                    "sizeInBytes": 244623820
-                },
-                {
-                    "id": "haplotype_caller_ID0000098_outfile_0187",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000132_outfile_0253",
-                    "sizeInBytes": 28584
-                },
-                {
-                    "id": "haplotype_caller_ID0000077_outfile_0147",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000047_outfile_0089",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000138_outfile_0266",
-                    "sizeInBytes": 59101
-                },
-                {
-                    "id": "haplotype_caller_ID0000008_outfile_0013",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000043_outfile_0081",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000020_outfile_0037",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000137_outfile_0264",
-                    "sizeInBytes": 59101
-                },
-                {
-                    "id": "haplotype_caller_ID0000073_outfile_0139",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "dedup_ID0000107_outfile_0205",
-                    "sizeInBytes": 37468
-                },
-                {
-                    "id": "haplotype_caller_ID0000116_outfile_0222",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "haplotype_caller_ID0000063_outfile_0119",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "workflow_infile_0017",
-                    "sizeInBytes": 23845
-                },
-                {
-                    "id": "haplotype_caller_ID0000112_outfile_0214",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "sort_sam_ID0000054_outfile_0103",
-                    "sizeInBytes": 36576
-                },
-                {
-                    "id": "haplotype_caller_ID0000009_outfile_0016",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000087_outfile_0166",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000124_outfile_0237",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "realign_target_creator_ID0000109_outfile_0208",
-                    "sizeInBytes": 40
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000132_outfile_0254",
-                    "sizeInBytes": 66691
-                },
-                {
-                    "id": "haplotype_caller_ID0000026_outfile_0049",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000071_outfile_0136",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000142_outfile_0274",
-                    "sizeInBytes": 59101
-                },
-                {
-                    "id": "haplotype_caller_ID0000066_outfile_0125",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000091_outfile_0173",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000150_outfile_0290",
+                    "id": "genotype_gvcfs_ID0000147_outfile_0284",
                     "sizeInBytes": 28497
                 },
                 {
-                    "id": "haplotype_caller_ID0000118_outfile_0226",
+                    "id": "haplotype_caller_ID0000018_outfile_0034",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000130_outfile_0249",
                     "sizeInBytes": 59038
                 },
                 {
-                    "id": "haplotype_caller_ID0000015_outfile_0028",
-                    "sizeInBytes": 59038
+                    "id": "workflow_infile_0007",
+                    "sizeInBytes": 259156
                 },
                 {
-                    "id": "haplotype_caller_ID0000099_outfile_0189",
+                    "id": "haplotype_caller_ID0000093_outfile_0177",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000095_outfile_0182",
                     "sizeInBytes": 59039
-                },
-                {
-                    "id": "sort_sam_ID0000054_outfile_0102",
-                    "sizeInBytes": 127424
-                },
-                {
-                    "id": "haplotype_caller_ID0000021_outfile_0040",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "indel_realign_ID0000058_outfile_0110",
-                    "sizeInBytes": 127424
-                },
-                {
-                    "id": "haplotype_caller_ID0000075_outfile_0143",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000103_outfile_0197",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "sort_sam_ID0000080_outfile_0153",
-                    "sizeInBytes": 127424
-                },
-                {
-                    "id": "haplotype_caller_ID0000114_outfile_0218",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "add_replace_ID0000004_outfile_0007",
-                    "sizeInBytes": 37955
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000140_outfile_0269",
-                    "sizeInBytes": 28497
-                },
-                {
-                    "id": "haplotype_caller_ID0000130_outfile_0250",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000145_outfile_0280",
-                    "sizeInBytes": 28497
-                },
-                {
-                    "id": "haplotype_caller_ID0000013_outfile_0024",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000120_outfile_0230",
-                    "sizeInBytes": 59038
                 },
                 {
                     "id": "haplotype_caller_ID0000042_outfile_0079",
                     "sizeInBytes": 59039
                 },
                 {
-                    "id": "haplotype_caller_ID0000126_outfile_0242",
+                    "id": "realign_target_creator_ID0000109_outfile_0208",
+                    "sizeInBytes": 40
+                },
+                {
+                    "id": "haplotype_caller_ID0000038_outfile_0071",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000063_outfile_0119",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000124_outfile_0238",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000023_outfile_0044",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000026_outfile_0049",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "realign_target_creator_ID0000057_outfile_0108",
+                    "sizeInBytes": 40
+                },
+                {
+                    "id": "dedup_ID0000055_outfile_0104",
+                    "sizeInBytes": 37468
+                },
+                {
+                    "id": "haplotype_caller_ID0000091_outfile_0174",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "dedup_ID0000107_outfile_0204",
+                    "sizeInBytes": 127424
+                },
+                {
+                    "id": "workflow_infile_0014",
+                    "sizeInBytes": 23845
+                },
+                {
+                    "id": "haplotype_caller_ID0000101_outfile_0193",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000022_outfile_0041",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000047_outfile_0090",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000066_outfile_0125",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "haplotype_caller_ID0000033_outfile_0062",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "haplotype_caller_ID0000117_outfile_0223",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "workflow_infile_0015",
+                    "sizeInBytes": 23845
+                },
+                {
+                    "id": "haplotype_caller_ID0000067_outfile_0127",
+                    "sizeInBytes": 59039
+                },
+                {
+                    "id": "dedup_ID0000081_outfile_0154",
+                    "sizeInBytes": 37468
+                },
+                {
+                    "id": "indel_realign_ID0000084_outfile_0159",
+                    "sizeInBytes": 39552
+                },
+                {
+                    "id": "haplotype_caller_ID0000012_outfile_0021",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "haplotype_caller_ID0000116_outfile_0222",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "haplotype_caller_ID0000126_outfile_0241",
+                    "sizeInBytes": 28448
+                },
+                {
+                    "id": "haplotype_caller_ID0000019_outfile_0036",
+                    "sizeInBytes": 59038
+                },
+                {
+                    "id": "haplotype_caller_ID0000074_outfile_0142",
+                    "sizeInBytes": 28449
+                },
+                {
+                    "id": "genotype_gvcfs_ID0000149_outfile_0288",
+                    "sizeInBytes": 28497
+                },
+                {
+                    "id": "haplotype_caller_ID0000011_outfile_0020",
                     "sizeInBytes": 59038
                 },
                 {
@@ -6171,138 +6279,30 @@
                     "sizeInBytes": 28448
                 },
                 {
-                    "id": "haplotype_caller_ID0000123_outfile_0236",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "haplotype_caller_ID0000068_outfile_0129",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000019_outfile_0035",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000146_outfile_0282",
-                    "sizeInBytes": 59101
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000145_outfile_0279",
-                    "sizeInBytes": 59101
-                },
-                {
-                    "id": "haplotype_caller_ID0000040_outfile_0076",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000139_outfile_0268",
+                    "id": "genotype_gvcfs_ID0000134_outfile_0257",
                     "sizeInBytes": 28497
                 },
                 {
-                    "id": "haplotype_caller_ID0000059_outfile_0112",
-                    "sizeInBytes": 75727
-                },
-                {
-                    "id": "haplotype_caller_ID0000040_outfile_0075",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000112_outfile_0213",
+                    "id": "haplotype_caller_ID0000009_outfile_0015",
                     "sizeInBytes": 59038
                 },
                 {
-                    "id": "haplotype_caller_ID0000052_outfile_0099",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000064_outfile_0122",
+                    "id": "haplotype_caller_ID0000043_outfile_0081",
                     "sizeInBytes": 28449
                 },
                 {
-                    "id": "add_replace_ID0000108_outfile_0207",
-                    "sizeInBytes": 127424
-                },
-                {
-                    "id": "workflow_infile_0010",
-                    "sizeInBytes": 978495356
-                },
-                {
-                    "id": "indel_realign_ID0000058_outfile_0109",
-                    "sizeInBytes": 39552
-                },
-                {
-                    "id": "haplotype_caller_ID0000121_outfile_0231",
+                    "id": "haplotype_caller_ID0000125_outfile_0240",
                     "sizeInBytes": 59038
                 },
                 {
-                    "id": "haplotype_caller_ID0000020_outfile_0038",
+                    "id": "haplotype_caller_ID0000127_outfile_0244",
                     "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000063_outfile_0120",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000024_outfile_0046",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "haplotype_caller_ID0000078_outfile_0149",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "haplotype_caller_ID0000120_outfile_0229",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000113_outfile_0215",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000007_outfile_0012",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000090_outfile_0171",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "haplotype_caller_ID0000048_outfile_0092",
-                    "sizeInBytes": 59039
-                },
-                {
-                    "id": "genotype_gvcfs_ID0000135_outfile_0260",
-                    "sizeInBytes": 59101
-                },
-                {
-                    "id": "haplotype_caller_ID0000062_outfile_0117",
-                    "sizeInBytes": 28449
-                },
-                {
-                    "id": "workflow_infile_0020",
-                    "sizeInBytes": 23845
-                },
-                {
-                    "id": "haplotype_caller_ID0000018_outfile_0033",
-                    "sizeInBytes": 59038
-                },
-                {
-                    "id": "haplotype_caller_ID0000121_outfile_0232",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "haplotype_caller_ID0000014_outfile_0026",
-                    "sizeInBytes": 28448
-                },
-                {
-                    "id": "workflow_infile_0013",
-                    "sizeInBytes": 23845
                 }
             ]
         },
         "execution": {
             "makespanInSeconds": 13459,
-            "executedAt": "2025-02-25T16:57:28.253046-10:00",
+            "executedAt": "2025-03-01T18:08:55.460632-10:00",
             "tasks": [
                 {
                     "id": "alignment_to_reference_ID0000001",

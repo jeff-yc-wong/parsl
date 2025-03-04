@@ -1,0 +1,39 @@
+{
+  "platform": {
+    "wms": {
+      "hostname": "wms",
+      "disk_read_bandwidth": "[[calibration parameter]]",
+      "disk_write_bandwidth": "[[calibration parameter]]",
+      "network_bandwidth": "[[calibration parameter]]"
+    },
+    "workers": {
+     "worker1":{
+        "speed": "[[calibration parameter]]",
+        "num_cores": 2,
+        "network_bandwidth": "[[calibration parameter]]"
+      },
+      "worker2":{
+        "speed": "[[calibration parameter]]",
+        "num_cores": 2,
+        "network_bandwidth": "[[calibration parameter]]"
+      }
+    }
+  },
+  "workflow": {
+    "file": "[[mandatory config]]",
+    "reference_flops": "1f",
+    "done_tasks": [
+    ],
+    "ongoing_tasks": [
+      ],
+    "interest_tasks": [
+    ]
+  },
+  "scheduling": {
+    "task_selection_scheme": "[[mandatory config]]",
+    "worker_selection_scheme": "[[mandatory config]]",
+    "num_cores_selection_scheme": "[[mandatory config]]",
+    "task_scheduling_overhead": "[[calibration parameter]]"
+  }
+}
+

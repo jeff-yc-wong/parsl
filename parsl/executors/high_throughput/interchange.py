@@ -27,6 +27,11 @@ from parsl.serialize import serialize as serialize_object
 from parsl.utils import setproctitle
 from parsl.version import VERSION as PARSL_VERSION
 
+
+from parsl.calibrator.simulator import SchedulingSimulator
+from parsl.calibrator.alg_manager import AlgManager, SchedulingAlg
+import parsl.calibrator.metrics as metrics
+
 PKL_HEARTBEAT_CODE = pickle.dumps((2 ** 32) - 1)
 PKL_DRAINED_CODE = pickle.dumps((2 ** 32) - 2)
 
@@ -56,9 +61,16 @@ class Interchange:
                  logging_level: int,
                  poll_period: int,
                  cert_dir: Optional[str],
+                 run_id: str,
                  manager_selector: ManagerSelector = RandomManagerSelector(),
                  task_selector: Optional[str] = None,
-                 run_id: str,
+                 workflow_file: Optional[str] = None,
+                 simulator_path: Optional[str] = None,
+                 template: Optional[str] = None,
+                 metric: Optional[str] = None,
+                 num_threads: Optional[int] = None,
+                 verbose: Optional[bool] = False,
+                 calibration: Optional[Dict] = None
                  ) -> None:
         """
         Parameters
@@ -173,8 +185,6 @@ class Interchange:
 
         self.heartbeat_threshold = heartbeat_threshold
 
-        self.manager_selector = manager_selector
-        self.task_selector = task_selector
 
         self.current_platform = {'parsl_v': PARSL_VERSION,
                                  'python_v': "{}.{}.{}".format(sys.version_info.major,
@@ -183,6 +193,50 @@ class Interchange:
                                  'os': platform.system(),
                                  'hostname': platform.node(),
                                  'dir': os.getcwd()}
+
+        self.manager_selector = manager_selector
+        self.task_selector = task_selector
+        self.workflow_file = workflow_file
+        self.simulator_path = simulator_path
+        self.template = template
+        self.metric = metric
+        self.num_threads = num_threads
+        self.verbose = verbose
+        self.calibration = calibration
+
+        if not self.calibration:
+            self.calibration = {"platform":{"wms":{"disk_read_bandwidth":"100MBps","disk_write_bandwidth":"100MBps","network_bandwidth":"10Gbps"},"workers":{"worker1":{"speed":"1f","network_bandwidth":"10Gbps"},"worker2":{"speed":"1f","network_bandwidth":"10Gbps"}}},"scheduling":{"task_scheduling_overhead":1}}
+
+        self.possible_task_params = { "most_data": "data_size", "most_flops": "computation", "most_children": "num_children", "highest_bottom_level": "bottom_level"}
+        self.possible_managers = {"most_idle_cores": MostIdleSelector(), "fastest_cores": FastestManagerSelector()}
+
+        self.algs = AlgManager(self.possible_task_params.keys(), self.possible_managers.keys(), ["one_core"])
+
+        if self.simulator_path and self.template and self.metric:
+            if self.verbose:
+                self.verbosity = ["sim_error","parse_error"]
+            else:
+                self.verbosity = []
+
+            try: 
+                with open(self.template) as template_file:
+                        self.template=json.load(template_file)
+            except FileNotFoundError:
+                try:
+                    self.template=json.loads(self.template)
+                except Exception as e:
+                    print("Template provided is not a path or a json object",file=sys.stderr)
+                    raise
+
+            if hasattr(metrics, self.metric):
+                self.metric = getattr(metrics, self.metric)  # Get the function
+            else:
+                print(f"Error: metric {self.metric} does not exist")
+                raise
+
+            self.simulator = SchedulingSimulator(self.simulator_path, self.template, self.calibration, self.algs, self.metric, None, verbosity=self.verbosity)
+        else:
+            self.simulator = None
 
         logger.info("Platform info: {}".format(self.current_platform))
 
@@ -528,8 +582,6 @@ class Interchange:
                 self._send_monitoring_info(monitoring_radio, m)
 
     def pick_scheduling_algorithm(self) -> str:
-        possible_task_params = [None, "data_size", "computation", "num_children", "bottom_level"]
-        possible_managers = [RandomManagerSelector(), MostIdleSelector(), FastestManagerSelector()]
 
         # INPUT: TASKS STATES, WFFORMAT FILE
         # OUTPUT: SELECTED ALGORITHM
@@ -563,11 +615,20 @@ class Interchange:
 
         #TODO: WORKFLOW SIMULATION - PICK A PARAMETER TO SORT THE TASKS AND MANAGERS
 
-        # cmd = [""]
-        # sim_process = subprocess.run(cmd, capture_output=True, text=True)
+        state = {}
 
-        # self.manager_selector = possible_managers[0]
-        # self.task_selector = possible_task_params[0]
+        state["file"] = self.workflow_file
+        state["done_tasks"] = done_tasks
+        state["ongoing_tasks"] = ongoing_tasks
+        # state["interest_tasks"] = interest_tasks
+
+        state = {"workflow": state}
+
+        if self.simulator:
+            list_of_algorithms = self.simulator(state)
+            my_logger.debug(f"\033[33mJEFF: Simulator output: {list_of_algorithms}\033[0m\n")
+
+        # TODO: pick one algo from the list of algorithms
 
     def process_tasks_to_send(self, interesting_managers: Set[bytes]) -> None:
         # Check if there are tasks that could be sent to managers

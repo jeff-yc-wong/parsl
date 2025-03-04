@@ -265,10 +265,18 @@ class HighThroughputExecutor(BlockProviderExecutor, RepresentationMixin, UsageIn
                  worker_logdir_root: Optional[str] = None,
                  enable_mpi_mode: bool = False,
                  mpi_launcher: str = "mpiexec",
+                 block_error_handler: Union[bool, Callable[[BlockProviderExecutor, Dict[str, JobStatus]], None]] = True,
+                 encrypted: bool = False,
                  manager_selector: ManagerSelector = RandomManagerSelector(),
                  task_selector: Optional[str] = None,
-                 block_error_handler: Union[bool, Callable[[BlockProviderExecutor, Dict[str, JobStatus]], None]] = True,
-                 encrypted: bool = False):
+                 workflow_file: Optional[str] = None,
+                 simulator_path: Optional[str] = None,
+                 template: Optional[str] = None,
+                 metric: Optional[str] = None,
+                 num_threads: Optional[int] = None,
+                 verbose: Optional[bool] = False,
+                 calibration: Optional[Dict] = None
+                 ):
 
         logger.debug("Initializing HighThroughputExecutor")
 
@@ -282,8 +290,18 @@ class HighThroughputExecutor(BlockProviderExecutor, RepresentationMixin, UsageIn
         self.prefetch_capacity = prefetch_capacity
         self.address = address
         self.address_probe_timeout = address_probe_timeout
+
+        # scheduling stuff
         self.manager_selector = manager_selector
         self.task_selector = task_selector
+        self.workflow_file = workflow_file
+        self.simulator_path = simulator_path
+        self.template = template
+        self.metric = metric
+        self.num_threads = num_threads
+        self.verbose = verbose
+        self.calibration = calibration
+
         if self.address:
             self.all_addresses = address
         else:
@@ -554,6 +572,13 @@ class HighThroughputExecutor(BlockProviderExecutor, RepresentationMixin, UsageIn
                               "cert_dir": self.cert_dir,
                               "manager_selector": self.manager_selector,
                               "task_selector": self.task_selector,
+                              "workflow_file": self.workflow_file,
+                              "simulator_path": self.simulator_path,
+                              "template": self.template,
+                              "metric": self.metric,
+                              "num_threads": self.num_threads,
+                              "verbose": self.verbose,
+                              "calibration": self.calibration,
                               "run_id": self.run_id,
                               }
 

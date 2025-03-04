@@ -13,6 +13,7 @@ import json
 import logging
 import pathlib
 import argparse
+import shutil
 from typing import Union, Optional
 from collections import defaultdict, deque
 from wfcommons.common import Workflow
@@ -99,6 +100,13 @@ class ParslTranslator(Translator):
         self._copy_binary_files(output_folder)
         self._generate_input_files(output_folder)
 
+        shutil.copy(this_dir.joinpath("docker_scripts/start_docker.sh"), output_folder.joinpath("start_docker.sh"))
+        shutil.copy(this_dir.joinpath("docker_scripts/kill_docker.sh"), output_folder.joinpath("kill_docker.sh"))
+
+        shutil.copy(this_dir.joinpath("analyze.py"), output_folder.joinpath("analyze.py"))
+        output_folder.joinpath("jsons").mkdir(parents=True)
+        shutil.copy(this_dir.joinpath("templates/template.json"), output_folder.joinpath("jsons/template.json"))
+
     def _parsl_wftasks_codelines(self) -> None:
         codelines = ["task_arr = []\n"]
 
@@ -159,7 +167,7 @@ class ParslTranslator(Translator):
                 }
 
                 code = [
-                    f"{task.task_id} = generic_shell_app(\"bin/{task.program} {args}\",",
+                    f"{task.task_id} = generic_shell_app(\"{task.program} {args}\",",
                     f"                                 inputs={dependency},",
                     f"                                 outputs=get_parsl_files({output_files},",
                      "                                                         True),",
@@ -225,11 +233,12 @@ def main():
         raise e
 
     workflow_obj = instance.workflow
-    workflow_obj = instance.workflow
 
     translator = ParslTranslator(workflow_obj)
 
     translator.translate(output_folder=outdir_path)
+
+    shutil.copyfile(wf_input, outdir_path.joinpath("jsons/workflow.json"))
 
     return 0
 
