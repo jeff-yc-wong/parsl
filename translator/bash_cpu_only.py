@@ -12,7 +12,10 @@ import pathlib
 import argparse
 import subprocess
 import os
+import platform
+import psutil
 from wfcommons.wfinstances import Instance
+from wfcommons.common.machine import Machine, MachineSystem
 
 this_dir = pathlib.Path(__file__).resolve().parent
 
@@ -63,6 +66,24 @@ def main():
 
         print(cmd)
 
+        cpu_info = {
+            "coreCount": os.cpu_count(),
+            
+            "vendor": platform.processor()
+        }
+        
+        if psutil.cpu_freq().max:
+            cpu_info["speedInMHz"] =  psutil.cpu_freq().max
+        # Get system information
+        system_info = Machine(
+                name=platform.node(),
+                cpu = cpu_info,
+                system= MachineSystem('macos') if platform.system() == "Darwin" else MachineSystem(platform.system().lower()),
+                architecture=platform.machine(),
+                release=platform.release(),
+                memory=psutil.virtual_memory().total
+            )
+
         if args.run:
 
             # Create a copy of the current environment and modify it
@@ -75,6 +96,8 @@ def main():
             print(elapsed_time)
 
             task.runtime = float(elapsed_time)
+
+        task.machines = [system_info]
 
     workflow_obj.write_json(outdir_path.joinpath(f"{workflow_obj.name}.json"))
 
