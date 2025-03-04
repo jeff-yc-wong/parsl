@@ -21,7 +21,7 @@ recipes = {
     "workflow-test": SrasearchRecipe
 }
 
-def write_benchmark(workflow_path: str, cpu_bench_ref: float = 1.0):
+def write_benchmark(workflow_path: str, cpu_bench_ref: float = 1.0, scale: float = 1.0):
     # create a workflow benchmark from a synthetic workflow (workflow used in the fgcs paper)
     workflow_instance = Instance(workflow_path)
     workflow = workflow_instance.workflow
@@ -29,6 +29,7 @@ def write_benchmark(workflow_path: str, cpu_bench_ref: float = 1.0):
     for task in workflow.tasks.values():
         task.category = task.task_id
         cpu_work[task.category] = (task.runtime * task.avg_cpu/ 100) / cpu_bench_ref * 100
+        cpu_work[task.category] *= scale
         task.avg_cpu = None
         task.memory = None
 
@@ -60,6 +61,7 @@ def main():
     parser.add_argument("--workflow", type=str, help="Path to the workflow JSON file.")
     parser.add_argument("--test", action="store_true", help="Create a test benchmark")
     parser.add_argument("--all", action="store_true", help="Create benchmarks for all workflows")
+    parser.add_argument("--scale", type=float, default=1.0, help="Scale the CPU work")
     
     args = parser.parse_args()
 
@@ -75,6 +77,7 @@ def main():
         for task in workflow.tasks.values():
             task.category = task.task_id
             cpu_work[task.category] = (task.runtime * task.avg_cpu/ 100) / ref * 100
+            cpu_work[task.category] *= args.scale
             task.avg_cpu = None
             task.memory = None
 
@@ -111,14 +114,14 @@ def main():
 
     
     if args.workflow:
-        write_benchmark(args.workflow, ref)
+        write_benchmark(args.workflow, ref, args.scale)
         
     if args.all:
         all_path = pathlib.Path("./workflows")
 
         for file in all_path.iterdir():
             if file.suffix == ".json":
-                write_benchmark(file, ref)
+                write_benchmark(file, ref, args.scale)
 
 if __name__ == "__main__":
     main()
