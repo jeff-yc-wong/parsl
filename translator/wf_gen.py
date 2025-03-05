@@ -148,11 +148,18 @@ def main():
         log_info("[WARNING]: taskset is not available, benchmarking cpu-benchmark instead of wfbench (this might be less accurate)")
 
     with multiprocessing.Pool(4) as pool:
-        result = pool.map(bench, range(50))
+        results = pool.imap(bench, range(50))
 
-    ref = float(sum(result) / len(result))
+        i = 1
+        ref_sum = 0
+        for result in results:
+            print(f"Benching Wfbench/cpu-benchmark: {round(i / 50 * 100, 2)}%", end="\r")
+            i += 1
+            ref_sum += result
 
-    logging.info(f"Reference CPU benchmark: {ref}s per 100 cpu-work")
+        ref = ref_sum / 50
+
+        logging.info(f"Reference CPU benchmark: {ref}s per 100 cpu-work")
 
     if args.test:
         write_benchmark("./workflows/montage-chameleon-2mass-005d-001.json", ref, args.scale)
