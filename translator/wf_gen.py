@@ -4,7 +4,6 @@ import copy
 import subprocess
 import math
 import platform
-import multiprocessing
 import logging
 
 from wfcommons import BlastRecipe, MontageRecipe, SoykbRecipe, EpigenomicsRecipe
@@ -120,17 +119,6 @@ def write_benchmark(workflow_path: str, cpu_bench_ref: float = 1.0, scale: float
 
     benchmark.workflow.write_json(path)
 
-def bench(i):
-    if platform.system().lower().startswith("linux"):
-        cmd = ["taskset", "-c", "0", "bash", "-c","TIMEFORMAT='%3R'; time wfbench --cpu-work 100 --percent-cpu 1.0 --name bench &> /dev/null"]
-    else:
-        cmd = ["bash", "-c","TIMEFORMAT='%3R'; time cpu-benchmark 100"]
-
-    result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
-
-    return float(result.stderr.decode("utf-8"))
-
-
 def main():
     parser = argparse.ArgumentParser(description="Process a workflow JSON file.")
     parser.add_argument("--workflow", type=str, help="Path to the workflow JSON file.")
@@ -147,19 +135,22 @@ def main():
     if not platform.system().lower().startswith("linux"):
         log_info("[WARNING]: taskset is not available, benchmarking cpu-benchmark instead of wfbench (this might be less accurate)")
 
-    with multiprocessing.Pool(4) as pool:
-        results = pool.imap(bench, range(50))
+    if platform.system().lower().startswith("linux"):
+        cmd = ["bash", "-c","TIMEFORMAT='%3R'; time wfbench --cpu-work 100 --percent-cpu 1.0 --name bench &> /dev/null"]
+    else:
+        cmd = ["bash", "-c","TIMEFORMAT='%3R'; time cpu-benchmark 100"]
 
-        i = 1
-        ref_sum = 0
-        for result in results:
-            print(f"Benching Wfbench/cpu-benchmark: {round(i / 50 * 100, 2)}%", end="\r")
-            i += 1
-            ref_sum += result
+    ref_sum = 0
 
-        ref = ref_sum / 50
+    for i in range(10):
+        print(f"Benchmarking Wfbench/cpu-benchmark {i+1}/10", end="\r")
+        result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
 
-        logging.info(f"Reference CPU benchmark: {ref}s per 100 cpu-work")
+        ref_sum += float(result.stderr.decode("utf-8"))
+
+    ref = ref_sum / 10
+
+    log_info(f"Reference CPU benchmark: {ref}s per 100 cpu-work")
 
     if args.test:
         write_benchmark("./workflows/montage-chameleon-2mass-005d-001.json", ref, args.scale)
