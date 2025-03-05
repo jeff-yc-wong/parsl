@@ -113,7 +113,7 @@ def write_benchmark(workflow_path: str, cpu_bench_ref: float = 1.0, scale: float
 
         assert round(runtimes[task.task_id], 4), round((cpu_work[task.category] / 100) * cpu_bench_ref, 4)
 
-        task.runtime = runtimes[task.task_id]
+        task.runtime = round(runtimes[task.task_id], 4)
 
     benchmark._rename_files_to_wfbench_format()
 
@@ -158,8 +158,14 @@ def main():
         workflow = Instance("./workflows/montage-chameleon-2mass-005d-001.json").workflow
         output_path = pathlib.Path("./benchmarks/test")
         benchmark = WorkflowBenchmark(recipe=MontageRecipe, num_tasks=len(workflow.tasks))
+        benchmark.workflow = copy.deepcopy(workflow)
         benchmark.workflow.name = "test"
         path = benchmark.create_benchmark(output_path, percent_cpu=1.0, cpu_work=100, regenerate=False, data=10)
+
+        for task in benchmark.workflow.tasks.values():
+            task.runtime = round(ref, 4)
+
+        benchmark.workflow.write_json(path)
 
         ## create a workflow benchmark object to generate specifications based on a Montage recipe (small benchmark for testing)
         # workflow_instance = Instance("./workflows/montage-chameleon-2mass-005d-001.json")
