@@ -136,7 +136,7 @@ def main():
         log_info("[WARNING]: taskset is not available, benchmarking cpu-benchmark instead of wfbench (this might be less accurate)")
 
     if platform.system().lower().startswith("linux"):
-        cmd = ["bash", "-c","TIMEFORMAT='%3R'; time wfbench --cpu-work 100 --percent-cpu 1.0 --name bench &> /dev/null"]
+        cmd = ["taskset", "-c", "0", "bash", "-c","TIMEFORMAT='%3R'; time wfbench --cpu-work 100 --percent-cpu 1.0 --name bench &> /dev/null"]
     else:
         cmd = ["bash", "-c","TIMEFORMAT='%3R'; time cpu-benchmark 100"]
 
