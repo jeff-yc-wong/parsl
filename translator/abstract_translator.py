@@ -12,6 +12,7 @@ import logging
 import os
 import pathlib
 import shutil
+import json
 
 from abc import ABC, abstractmethod
 from typing import Optional, Union
@@ -39,11 +40,11 @@ class Translator(ABC):
         
         if isinstance(workflow, Workflow):
             self.workflow = workflow
+            self.workflow.write_json()
         else:
             instance = Instance(workflow, logger=logger)
             self.workflow = instance.workflow
-
-        self.workflow.write_json()
+            self.workflow.workflow_json = json.loads(workflow.read_text())
 
         # find all tasks
         self.tasks = {}
