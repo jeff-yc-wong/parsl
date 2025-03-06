@@ -104,8 +104,14 @@ def write_benchmark(workflow_path: str, cpu_bench_ref: float = 1.0, scale: float
         task.output_files = workflow.tasks[key].output_files
         task.input_files = workflow.tasks[key].input_files
 
+        for file in task.output_files:
+            file.size = int(file.size * scale)
+
+        for file in task.input_files:
+            file.size = int(file.size * scale)
+
         output_files = {file.file_id: file.size for file in task.output_files}
-        input_files = {file.file_id: file.size for file in task.input_files}
+        input_files = [file.file_id for file in task.input_files]
 
         task.args.append(f"--output-files {output_files}")
         task.args.append(f"--input-files {input_files}")
