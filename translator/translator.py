@@ -66,11 +66,12 @@ class ParslTranslator(Translator):
         for task_name, level in levels.items():
             self.task_level_map[level].append(task_name)
 
-        bottom_level = {task_name: 0 for task_name in top_sort}
+        bottom_level = {task_name: self.tasks[task_name].runtime for task_name in top_sort}
+
 
         for task_name in reversed(top_sort):
             for child in self.task_children[task_name]:
-                bottom_level[task_name] = max(bottom_level[task_name], bottom_level[child] + 1)
+                bottom_level[task_name] = max(bottom_level[task_name], bottom_level[child] + self.tasks[task_name].runtime)
 
         self.bottom_level = bottom_level
 
@@ -92,7 +93,17 @@ class ParslTranslator(Translator):
         run_workflow_code = run_workflow_code.replace("# Generated code goes here", wf_codelines)
 
          # Writing the generated parsl code to a file
-        output_folder.mkdir(parents=True)
+        try:
+            output_folder.mkdir(parents=True)
+        except FileExistsError as exc:
+            x = input(f"Output folder {output_folder} already exists. Do you want to overwrite it? [y/n]: ")
+
+            if x.lower() == "y":
+                shutil.rmtree(output_folder)
+                output_folder.mkdir(parents=True)
+            else:
+                raise FileExistsError(f"Output folder {output_folder} already exists, Exiting...") from exc
+
         with open(output_folder.joinpath("parsl_workflow.py"), "w", encoding="utf-8") as fp:
             fp.write(run_workflow_code)
 
@@ -209,36 +220,51 @@ class ParslTranslator(Translator):
 def get_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
 
-    parser.add_argument(
-        "wfformat_file", help="path to WfFormat JSON input file")
+    group = parser.add_mutually_exclusive_group(required=True)
+
+    group.add_argument(
+        "--workflow", type=str, help="path to WfFormat JSON input file")
+    group.add_argument("--all", action="store_true", help="Translate all the workflows in the benchmark directory")
     parser.add_argument("--outdir", default=pathlib.Path.cwd().joinpath("parsl_script"),
                         help="Output directory in which to store the translated files")
 
     return parser
 
 
+def translate_workflow(workflow_path: str, outdir_path: pathlib.Path) -> None:
+    print("Translating workflow: ", workflow_path)
+
+    workflow_path = pathlib.Path(workflow_path)
+
+    translator = ParslTranslator(workflow_path)
+
+    wf_outdir = outdir_path.joinpath(translator.workflow.name)
+
+    translator.translate(output_folder=wf_outdir)
+
+    shutil.copyfile(workflow_path, wf_outdir.joinpath("jsons/workflow.json"))
+
+
 def main():
     parser = get_parser()
     args = parser.parse_args()
 
-    wf_input = args.wfformat_file
     outdir_path = args.outdir
 
     if not isinstance(outdir_path, pathlib.Path):
         outdir_path = pathlib.Path(outdir_path)
 
-    try:
-        instance = Instance(wf_input)
-    except Exception as e:
-        raise e
+    if args.workflow:
+        translate_workflow(args.workflow, outdir_path)
 
-    workflow_obj = instance.workflow
+    elif args.all:
+        all_path = pathlib.Path("./benchmarks")
 
-    translator = ParslTranslator(workflow_obj)
-
-    translator.translate(output_folder=outdir_path)
-
-    shutil.copyfile(wf_input, outdir_path.joinpath("jsons/workflow.json"))
+        for wf in all_path.iterdir():
+            if wf.is_dir():
+                for wf_file in wf.iterdir():
+                    if wf_file.name.endswith(".json"):
+                        translate_workflow(wf_file, outdir_path)
 
     return 0
 
