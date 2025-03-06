@@ -8,10 +8,10 @@ def process_workflow(directory, num_workers):
         workflow_dir = Path(directory).resolve()
         
         # Kill existing docker processes
-        subprocess.run(["sh", "kill_docker.sh"], check=True, cwd=workflow_dir)
+        subprocess.run(["bash", "kill_docker.sh"], check=True, cwd=workflow_dir)
         
         # Start the workers
-        subprocess.run(["sh", "start_workers.sh", str(num_workers)], check=True, cwd=workflow_dir)
+        subprocess.run(["bash", "start_workers.sh", str(num_workers)], check=True, cwd=workflow_dir)
         
         # Run the Parsl workflow
         subprocess.run(["python", "parsl_workflow.py", "--docker", "--num_workers", str(num_workers)], check=True, cwd=workflow_dir)
