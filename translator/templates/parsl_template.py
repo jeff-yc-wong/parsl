@@ -1,6 +1,6 @@
 import parsl
 import time
-import multiprocessing
+import argparse
 from pathlib import Path
 import logging
 from typing import List
@@ -12,20 +12,41 @@ from parsl.providers import LocalProvider, AdHocProvider
 from parsl.channels import LocalChannel, SSHChannel
 from parsl.addresses import address_by_hostname
 from parsl.data_provider.files import File
-from parsl.executors.high_throughput.manager_selector import MostIdleSelector
+from parsl.executors.high_throughput.manager_selector import MostIdleSelector, FastestManagerSelector, RandomManagerSelector
 
 
-scheduling_config = {
-    "manager_selector": MostIdleSelector(),
-    "task_selector": "bottom_level",
-    "workflow_file": str(Path("./jsons/workflow.json").absolute()),
-    "simulator_path": "workflow_simulator",
-    "template": str(Path("./jsons/template.json").absolute()),
-    "metric": "makespan",
-    "num_threads": 1,
-    "verbose": None,
-    "calibration": None
-}
+parser = argparse.ArgumentParser(description="Run a parsl workflow.")
+
+parser.add_argument("--docker", action="store_true", help="Run the workflow in a docker container.")
+parser.add_argument("-v", "--verbose", action="store_true", help="Increase output verbosity.")
+parser.add_argument("-tss", "--task_selection_scheme", default="fcfs", type=str, help="The task selection scheme to use.")
+parser.add_argument("-wss", "--worker_selection_scheme", default="random", type=str, help="The worker selection scheme to use.")
+parser.add_argument("-m", "--metric", default="makespan", type=str, help="The metric to optimize for.")
+parser.add_argument("-c", "--calibration", default=None, type=str, help="The calibration file to use.")
+parser.add_argument("-n", "--num_threads", default=1, type=int, help="The number of threads to use.")
+parser.add_argument("--simulate", action="store_true", help="Run the workflow in simulation mode.")
+
+args = parser.parse_args()
+
+possible_task_params = {"fcfs": None, "most_data": "data_size", "most_flops": "computation",
+                        "most_children": "num_children", "highest_bottom_level": "bottom_level"}
+possible_managers = {"most_idle_cores": MostIdleSelector(), 
+                     "fastest_cores": FastestManagerSelector(), "random": RandomManagerSelector()}
+
+scheduling_config = {}
+
+if args.simulate:
+    scheduling_config = {
+        "manager_selector": possible_managers[args.worker_selection_scheme],
+        "task_selector": possible_task_params[args.task_selection_scheme],
+        "workflow_file": str(Path("./jsons/workflow.json").absolute()),
+        "simulator_path": "workflow_simulator",
+        "template": str(Path("./jsons/template.json").absolute()),
+        "metric": args.metric,
+        "num_threads": args.num_threads,
+        "verbose": args.verbose,
+        "calibration": args.calibration,
+    }
 
 docker_htex = Config(
     executors=[
@@ -53,10 +74,10 @@ docker_htex = Config(
     ],
     strategy=None,
     monitoring=MonitoringHub(
-       hub_address=address_by_hostname(),
-       monitoring_debug=False,
-       resource_monitoring_interval=10,
-   ),
+        hub_address=address_by_hostname(),
+        monitoring_debug=False,
+        resource_monitoring_interval=10,
+    ),
 )
 
 local_htex = Config(
@@ -71,6 +92,7 @@ local_htex = Config(
                 init_blocks=2,
                 max_blocks=2,
             ),
+            **scheduling_config
         )
     ],
     strategy=None,
@@ -82,28 +104,26 @@ local_htex = Config(
 )
 
 parsl.clear()
-# parsl.load(local_htex)
-# Uncomment to use docker containers as workers
 
-x = input("Will you be using docker containers? (local will be used otherwise) [y/n]: ")
-
-if x.lower() == "y" or x.lower() == "yes":
+if args.docker:
     parsl.load(docker_htex)
 else:
     parsl.load(local_htex)
 
-# Emit log lines to the screen
-# parsl.set_stream_logger(level=logging.DEBUG)
+if args.verbose:
+    # Emit log lines to the screen
+    parsl.set_stream_logger(level=logging.DEBUG)
 
 # Write log to file, specify level of detail for logs
 FILENAME = "parsl_debug.log"
 parsl.set_file_logger(FILENAME, level=logging.DEBUG)
 
+
 @bash_app
 def generic_shell_app(cmd: str, inputs=[], outputs=[], stdout="stdout.txt", stderr="stderr.txt", parsl_resource_specification=None):
     from pathlib import Path
     from parsl.data_provider.files import File
-    #TODO: make sure file directory exists, if not, create them
+    # TODO: make sure file directory exists, if not, create them
     for i in inputs:
         if isinstance(i, File):
             input_path = Path(i.filepath)
@@ -114,15 +134,18 @@ def generic_shell_app(cmd: str, inputs=[], outputs=[], stdout="stdout.txt", stde
         cmd = cmd.replace(output_path.name, o.filepath)
     return cmd
 
+
 @python_app
 def barrier():
     return 0
+
 
 current_workdir = Path.cwd()
 
 file_map = {}
 
-def get_parsl_files (filenames: List[str], is_output: bool = False) -> List[File]:
+
+def get_parsl_files(filenames: List[str], is_output: bool = False) -> List[File]:
     parsl_files = []
 
     for filename in filenames:
@@ -132,9 +155,7 @@ def get_parsl_files (filenames: List[str], is_output: bool = False) -> List[File
                 file_folder = "output"
             file_map[filename] = File(str(current_workdir.joinpath(f"{file_folder}/{filename}")))
         parsl_files.append(file_map[filename])
-    
+
     return parsl_files
 
 # Generated code goes here
-
-
