@@ -207,8 +207,9 @@ class Interchange:
         if not self.calibration:
             self.calibration = {"platform":{"wms":{"disk_read_bandwidth":"100MBps","disk_write_bandwidth":"100MBps","network_bandwidth":"10Gbps"},"workers":{"worker1":{"speed":"1f","network_bandwidth":"10Gbps"},"worker2":{"speed":"1f","network_bandwidth":"10Gbps"}}},"scheduling":{"task_scheduling_overhead":1}}
 
-        self.possible_task_params = { "most_data": "data_size", "most_flops": "computation", "most_children": "num_children", "highest_bottom_level": "bottom_level"}
-        self.possible_managers = {"most_idle_cores": MostIdleSelector(), "fastest_cores": FastestManagerSelector()}
+        self.possible_task_params = { "fcfs": None, "most_data": "data_size", "most_flops": "computation", "most_children": "num_children", "highest_bottom_level": "bottom_level"}
+        self.possible_managers = {"most_idle_cores": MostIdleSelector(), "fastest_cores": FastestManagerSelector(), "random": RandomManagerSelector()}
+
 
         self.algs = AlgManager(self.possible_task_params.keys(), self.possible_managers.keys(), ["one_core"])
 
