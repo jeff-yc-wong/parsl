@@ -158,9 +158,7 @@ def main():
 
     log_info(f"Reference CPU benchmark: {ref}s per 100 cpu-work")
 
-    if args.test:
-        write_benchmark("./workflows/montage-chameleon-2mass-005d-001.json", ref, args.scale)
-
+    if args.test or args.all:
         workflow = Instance("./workflows/montage-chameleon-2mass-005d-001.json").workflow
         output_path = pathlib.Path("./benchmarks/test")
         benchmark = WorkflowBenchmark(recipe=MontageRecipe, num_tasks=len(workflow.tasks))
@@ -168,18 +166,12 @@ def main():
         benchmark.workflow.name = "test"
         path = benchmark.create_benchmark(output_path, percent_cpu=1.0, cpu_work=100, regenerate=False, data=10)
 
+        benchmark.workflow.makespan = 0
+
         for task in benchmark.workflow.tasks.values():
             task.runtime = round(ref, 4)
 
         benchmark.workflow.write_json(path)
-
-        ## create a workflow benchmark object to generate specifications based on a Montage recipe (small benchmark for testing)
-        # workflow_instance = Instance("./workflows/montage-chameleon-2mass-005d-001.json")
-        # benchmark = WorkflowBenchmark(recipe=MontageRecipe, num_tasks=len(workflow_instance.workflow.tasks))
-        # output_path = pathlib.Path(f"./benchmarks/{workflow_instance.name}")
-        # path = benchmark.create_benchmark_from_synthetic_workflow(output_path, workflow_instance.workflow)
-
-    
     if args.workflow:
         write_benchmark(args.workflow, ref, args.scale)
         
