@@ -18,7 +18,7 @@ from typing import Union, Optional
 from collections import defaultdict, deque
 from wfcommons.common import Workflow
 from wfcommons.wfinstances import Instance
-from abstract_translator import Translator
+from wfcommons.wfbench.translator.abstract_translator import Translator
 
 this_dir = pathlib.Path(__file__).resolve().parent
 
