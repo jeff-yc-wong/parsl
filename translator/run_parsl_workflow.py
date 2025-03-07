@@ -25,7 +25,7 @@ def main():
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--path", type=str, help="Path containing Parsl workflow directories.")
     group.add_argument("--workflow", type=str, help="Path of a single workflow directory to process.")
-    parser.add_argument("--num-workers", default=2, type=int, help="Number of workers to start.")
+    parser.add_argument("--num_workers", default=2, type=int, help="Number of workers to start.")
     args = parser.parse_args()
 
     if args.path:
