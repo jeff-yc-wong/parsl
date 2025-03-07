@@ -120,18 +120,24 @@ parsl.set_file_logger(FILENAME, level=logging.DEBUG)
 
 
 @bash_app
-def generic_shell_app(cmd: str, inputs=[], outputs=[], stdout="stdout.txt", stderr="stderr.txt", parsl_resource_specification=None):
+def generic_shell_app(cmd: str, file_inputs=[],  inputs=[], outputs=[], stdout="stdout.txt", stderr="stderr.txt", parsl_resource_specification=None):
     from pathlib import Path
     from parsl.data_provider.files import File
-    # TODO: make sure file directory exists, if not, create them
-    for i in inputs:
+
+    # replace filepaths using regex (?:^|(?<=\s)|(?<=['"])|(?<=\\")|(?<=\\'))path_name(?:$|(?=\s)|(?=['"])|(?=\\"|\\'))
+
+    file_inputs = sorted(file_inputs, key=lambda x: len(x.filepath))
+    outputs = sorted(outputs, key=lambda x: len(x.filepath))
+
+    for i in file_inputs:
         if isinstance(i, File):
             input_path = Path(i.filepath)
             cmd = cmd.replace(input_path.name, i.filepath)
     for o in outputs:
-        output_path = Path(o.filepath)
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        cmd = cmd.replace(output_path.name, o.filepath)
+        if isinstance(o, File):
+            output_path = Path(o.filepath)
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+            cmd = cmd.replace(output_path.name, o.filepath)
     return cmd
 
 
@@ -143,7 +149,6 @@ def barrier():
 current_workdir = Path.cwd()
 
 file_map = {}
-
 
 def get_parsl_files(filenames: List[str], is_output: bool = False) -> List[File]:
     parsl_files = []
