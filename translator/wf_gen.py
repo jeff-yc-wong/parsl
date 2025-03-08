@@ -5,12 +5,14 @@ import subprocess
 import math
 import platform
 import logging
+import psutil
+import os
 
 from wfcommons import BlastRecipe, MontageRecipe, SoykbRecipe, EpigenomicsRecipe
 from wfcommons import GenomeRecipe, BwaRecipe, CyclesRecipe, SrasearchRecipe
 from wfcommons.wfbench import WorkflowBenchmark
 from wfcommons.wfinstances import Instance
-from wfcommons.common import Task
+from wfcommons.common import Machine, MachineSystem
 
 # Configure logging
 logging.basicConfig(
@@ -59,7 +61,7 @@ recipes = {
     "workflow-test": SrasearchRecipe
 }
 
-def write_benchmark(workflow_path: str, cpu_bench_ref: float = 1.0, scale: float = 1.0):
+def write_benchmark(workflow_path: str, cpu_bench_ref: float = 1.0, scale: float = 1.0, system_info: Machine = None):
     # create a workflow benchmark from a synthetic workflow (workflow used in the fgcs paper)
     workflow_instance = Instance(workflow_path)
     workflow = workflow_instance.workflow
@@ -121,6 +123,9 @@ def write_benchmark(workflow_path: str, cpu_bench_ref: float = 1.0, scale: float
 
         task.runtime = round(runtimes[task.task_id], 4)
 
+        if system_info:
+            task.machines = [system_info]
+
     benchmark._rename_files_to_wfbench_format()
 
     benchmark.workflow.write_json(path)
@@ -158,6 +163,24 @@ def main():
 
     log_info(f"Reference CPU benchmark: {ref}s per 100 cpu-work")
 
+    cpu_info = {
+            "coreCount": os.cpu_count(),
+            "vendor": platform.processor()
+        }
+
+    if psutil.cpu_freq().max:
+        cpu_info["speedInMHz"] =  int(psutil.cpu_freq().max)
+    # Get system information
+    system_info = Machine(
+            name=platform.node(),
+            cpu = cpu_info,
+            system= MachineSystem('macos') if platform.system() == "Darwin" else MachineSystem(platform.system().lower()),
+            architecture=platform.machine(),
+            release=platform.release(),
+            memory=psutil.virtual_memory().total
+        )
+    
+
     if args.test or args.all:
         workflow = Instance("./workflows/montage-chameleon-2mass-005d-001.json").workflow
         output_path = pathlib.Path("./benchmarks/test")
@@ -170,17 +193,18 @@ def main():
 
         for task in benchmark.workflow.tasks.values():
             task.runtime = round(ref, 4)
+            task.machines = [system_info]
 
         benchmark.workflow.write_json(path)
     if args.workflow:
-        write_benchmark(args.workflow, ref, args.scale)
+        write_benchmark(args.workflow, ref, args.scale, system_info)
         
     if args.all:
         all_path = pathlib.Path("./workflows")
 
         for file in all_path.iterdir():
             if file.suffix == ".json":
-                write_benchmark(file, ref, args.scale)
+                write_benchmark(file, ref, args.scale, system_info)
 
 if __name__ == "__main__":
     main()

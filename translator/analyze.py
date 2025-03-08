@@ -3,49 +3,135 @@ from parsl.monitoring.queries.pandas import *
 import pandas as pd
 import re
 import ast
+import argparse
+from pathlib import Path
+import json
 
-# Create a database connection (Replace with your DB details)
-engine = create_engine("sqlite:///runinfo/monitoring.db")  # For SQLite
+def main():
+    parser = argparse.ArgumentParser(description="Analyze a parsl workflow run.")
+    parser.add_argument("--workflow", type=str, help="Path to the workflow run dir.", required=True)
+    parser.add_argument("--debug", action="store_true", help="Enable debug logging")
+    
+    args = parser.parse_args()
 
-# Create an inspector object
-inspector = inspect(engine)
+    if args.workflow:
+        workflow_path = Path(args.workflow)
 
-# Get list of table names
-tables = inspector.get_table_names()
-
-print("Tables in the database:", tables)
-
-df = pd.read_sql("SELECT * FROM workflow", engine)
-
-workflow_id = df.iloc[-1]['run_id']
-
-tasks_df = tasks_for_workflow(workflow_id, engine)
-
-tries_df = tries_for_workflow(workflow_id, engine)
-
-tries_df['task_time_returned'] = pd.to_datetime(tries_df['task_time_returned'])
-tries_df['task_try_time_running'] = pd.to_datetime(tries_df['task_try_time_running'])
-tasks_df['task_time_invoked'] = pd.to_datetime(tasks_df['task_time_invoked'])
-
-tries_df['runtime'] = (tries_df['task_time_returned'] - tries_df['task_try_time_running']).dt.total_seconds()
-
-print(tries_df[['task_func_name', 'task_try_time_running', 'task_time_returned', 'runtime']])
-
-print("Total runtime in seconds:", (tries_df['task_time_returned'].max() - tasks_df['task_time_invoked'].min()).total_seconds())
-
-nodes_df = nodes_for_workflow(workflow_id, engine)
-# print(nodes_df[['id', 'run_id', 'block_id', 'worker_count']])
+        if not workflow_path.exists():
+            print(f"Workflow path '{workflow_path}' does not exist.")
+            return
+    
+        generate_groundtruth(workflow_path)
 
 
-with open('runinfo/000/htex_docker/debug.log', 'rb') as f:
+def generate_groundtruth(workflow_path: Path):
+    # Create a database connection (Replace with your DB details)
+    sql_path = "sqlite:///" + str(workflow_path.absolute() / "runinfo" / "monitoring.db")
 
-    pattern = "^.*Task done: ({.*}).*$"
+    engine = create_engine(sql_path)  # For SQLite
 
-    # Read the file line by line
-    matches = []
-    for line in f.readlines():
-        match = re.match(pattern, line.decode('utf-8'))
-        if match:
-            matches.append(ast.literal_eval(match.group(1)))
+    # Create an inspector object
+    inspector = inspect(engine)
 
-    # print(matches)
+    # Get list of table names
+    tables = inspector.get_table_names()
+
+    print("Tables in the database:", tables)
+
+    df = pd.read_sql("SELECT * FROM workflow", engine)
+
+    assert len(df) == 1, "More than one workflow found."
+
+    workflow_id = df.iloc[-1]['run_id']
+
+    tasks_df = tasks_for_workflow(workflow_id, engine)
+
+    tries_df = tries_for_workflow(workflow_id, engine)
+
+    tries_df['task_time_returned'] = pd.to_datetime(tries_df['task_time_returned'])
+    tries_df['task_try_time_running'] = pd.to_datetime(tries_df['task_try_time_running'])
+    tasks_df['task_time_invoked'] = pd.to_datetime(tasks_df['task_time_invoked'])
+
+    tries_df['runtime'] = (tries_df['task_time_returned'] - tries_df['task_try_time_running']).dt.total_seconds()
+
+    print(tries_df[['task_func_name', 'task_try_time_running', 'task_time_returned', 'runtime']])
+
+    workflow_json_path = workflow_path / "jsons"
+    with open(workflow_json_path / "workflow.json", "r") as f:
+        workflow_json = json.load(f)
+
+        tasks = workflow_json['workflow']['execution']['tasks']
+
+
+        # TODO: can prob move to a function
+        matches = {}
+        reg_matches = []
+        with open(f'{workflow_path}/runinfo/000/htex_docker/debug.log', 'rb') as f:
+            # regex pattern for matching
+            pattern = "^.*Task done: ({.*}).*$"
+            reg_pattern = "^.*Registration info for manager b'.*': ({.*}).*$"
+
+            # Read the file line by line
+            for line in f.readlines():
+                # Matching for task done lines
+                match = re.match(pattern, line.decode('utf-8'))
+                if match:
+                    info = ast.literal_eval(match.group(1))
+                    matches[info['task']] = info
+
+                # Matching for worker registration
+                match = re.match(reg_pattern, line.decode('utf-8'))
+                if match:
+                    info = ast.literal_eval(match.group(1))
+                    reg_matches.append(info)
+
+            assert len(matches) == len(tasks), "Number of tasks and number of matches do not match."
+
+        ############################################################################################################
+
+        for task in tasks:
+
+            task_id = task['id']
+
+            row = tries_df[tries_df['task_func_name'] == task_id].iloc[0]
+
+            task_start_time = pd.to_datetime(row['task_try_time_running']).isoformat()
+            task_runtime = row['runtime']
+
+            cpu_runtime = task['runtimeInSeconds']
+
+            task['runtimeInSeconds'] = task_runtime
+            task['executedAt'] = task_start_time
+            task['machines'] = [matches[task_id]['worker']]
+            task['avgCPU'] = round((cpu_runtime / task_runtime) * 100, 2)
+            task['coreCount'] = 1
+
+        workflow_makespan = (tries_df['task_time_returned'].max() - tasks_df['task_time_invoked'].min()).total_seconds()
+
+        workflow_json['workflow']['execution']['makespanInSeconds'] = workflow_makespan
+        print("Total runtime in seconds:", workflow_makespan)
+
+        machines = []
+        for machine in reg_matches:
+            machine_dict = {}
+
+            machine_dict['nodeName'] = machine['hostname']
+            machine_dict['system'] = machine['os'].lower()
+
+            cpu_info = {
+                "coreCount": 1,
+                "speedInMHz":  machine['cpu_speed']
+            }
+            machine_dict['cpu'] = cpu_info
+
+            machines.append(machine_dict)
+
+        workflow_json['workflow']['execution']['machines'] = machines
+
+        with open(workflow_json_path / "parsl_workflow.json", "w") as f:
+            json.dump(workflow_json, f, indent=4)
+
+
+
+if __name__ == "__main__":
+    main()
