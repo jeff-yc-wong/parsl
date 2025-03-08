@@ -63,7 +63,7 @@ docker_htex = Config(
     executors=[
         HighThroughputExecutor(
             label="htex_docker",
-            worker_debug=True,
+            worker_debug=False,
             cores_per_worker=1,
             max_workers_per_node=1,
             provider=AdHocProvider(
