@@ -126,8 +126,8 @@ def generic_shell_app(cmd: str, file_inputs=[],  inputs=[], outputs=[], stdout="
 
     # replace filepaths using regex (?:^|(?<=\s)|(?<=['"])|(?<=\\")|(?<=\\'))path_name(?:$|(?=\s)|(?=['"])|(?=\\"|\\'))
 
-    file_inputs = sorted(file_inputs, key=lambda x: len(x.filepath))
-    outputs = sorted(outputs, key=lambda x: len(x.filepath))
+    file_inputs = sorted(file_inputs, key=lambda x: -len(x.filepath))
+    outputs = sorted(outputs, key=lambda x: -len(x.filepath))
 
     for i in file_inputs:
         if isinstance(i, File):

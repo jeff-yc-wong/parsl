@@ -99,7 +99,7 @@ def write_benchmark(workflow_path: str, cpu_bench_ref: float = 1.0, scale: float
         return
     benchmark = WorkflowBenchmark(recipe=recipes[workflow.name], num_tasks=len(workflow.tasks))
     benchmark.workflow = copy.deepcopy(workflow)
-    output_path = pathlib.Path(f"./benchmarks/{workflow.name}")
+    output_path = pathlib.Path(f"./benchmarks/{workflow.name}_{scale}")
     path = benchmark.create_benchmark(output_path, percent_cpu=1.0, cpu_work=cpu_work, regenerate=False)
 
     for key, task in benchmark.workflow.tasks.items():
@@ -107,10 +107,10 @@ def write_benchmark(workflow_path: str, cpu_bench_ref: float = 1.0, scale: float
         task.input_files = workflow.tasks[key].input_files
 
         for file in task.output_files:
-            file.size = int(file.size * scale)
+            file.size = math.ceil(file.size * scale)
 
         for file in task.input_files:
-            file.size = int(file.size * scale)
+            file.size = math.ceil(file.size * scale)
 
         output_files = {file.file_id: file.size for file in task.output_files}
         input_files = [file.file_id for file in task.input_files]
