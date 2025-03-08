@@ -6,6 +6,7 @@ import ast
 import argparse
 from pathlib import Path
 import json
+from parsl import VERSION
 
 def main():
     parser = argparse.ArgumentParser(description="Analyze a parsl workflow run.")
@@ -126,6 +127,14 @@ def generate_groundtruth(workflow_path: Path):
             machines.append(machine_dict)
 
         workflow_json['workflow']['execution']['machines'] = machines
+
+        runtime_system = {
+            "name": "parsl",
+            "version": VERSION,
+            "url": "https://github.com/jeff-yc-wong/parsl/tree/scheduling_using_simulation"
+        }
+
+        workflow_json['runtimeSystem'] = runtime_system
 
         with open(workflow_json_path / "parsl_workflow.json", "w") as f:
             json.dump(workflow_json, f, indent=4)
