@@ -117,6 +117,8 @@ class ParslTranslator(Translator):
         shutil.copy(this_dir.joinpath("analyze.py"), output_folder.joinpath("analyze.py"))
         output_folder.joinpath("jsons").mkdir(parents=True)
         shutil.copy(this_dir.joinpath("templates/template.json"), output_folder.joinpath("jsons/template.json"))
+        output_folder.joinpath("logs").mkdir(parents=True)
+        output_folder.joinpath("output").mkdir(parents=True)
 
     def _parsl_wftasks_codelines(self) -> None:
         codelines = ["task_arr = []\n"]
