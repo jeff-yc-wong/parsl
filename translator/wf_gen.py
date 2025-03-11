@@ -128,6 +128,8 @@ def write_benchmark(workflow_path: str, cpu_bench_ref: float = 1.0, scale: float
 
     benchmark._rename_files_to_wfbench_format()
 
+    benchmark.workflow.name = f"{workflow.name}_{scale}"
+
     benchmark.workflow.write_json(path)
 
 def main():

@@ -157,7 +157,7 @@ class ParslTranslator(Translator):
                 # else:
                 input_files = [f"{i.file_id}" for i in task.input_files]
 
-                dependency = [f"{p}.outputs" for p in self.task_parents[task.task_id]]
+                dependency = [f"{p.rsplit("_", 1)[1]}.outputs" for p in self.task_parents[task.task_id]]
                 dependency = " + ".join(dependency)
 
                 if len(dependency) == 0:
@@ -179,9 +179,9 @@ class ParslTranslator(Translator):
                     "bottom_level": self.bottom_level[task.task_id],
                     "task_name": task.task_id,
                 }
-
+                var_name = task.task_id.rsplit("_", 1)[1]
                 code = [
-                    f"{task.task_id} = generic_shell_app(\"{task.program} {args}\",",
+                    f"{var_name} = generic_shell_app(\"{task.program} {args}\",",
                     f"                                 file_inputs=get_parsl_files({input_files}),",
                     f"                                 inputs={dependency},",
                     f"                                 outputs=get_parsl_files({output_files},",
@@ -189,7 +189,7 @@ class ParslTranslator(Translator):
                     f"                                 stdout=\"logs/{task.task_id}_stdout.txt\",",
                     f"                                 stderr=\"logs/{task.task_id}_stderr.txt\",",
                     f"                                 parsl_resource_specification={resource_spec})",
-                    f"task_arr.append({task.task_id})\n",
+                    f"task_arr.append({var_name})\n",
                 ]
 
                 codelines.extend(code)

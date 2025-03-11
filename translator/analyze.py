@@ -136,7 +136,7 @@ def generate_groundtruth(workflow_path: Path):
 
         workflow_json['runtimeSystem'] = runtime_system
 
-        with open(workflow_json_path / "parsl_workflow.json", "w") as f:
+        with open(workflow_json_path / f"groundtruth_{workflow_json['name']}.json", "w") as f:
             json.dump(workflow_json, f, indent=4)
 
 
