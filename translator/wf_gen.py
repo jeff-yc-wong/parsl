@@ -61,7 +61,7 @@ recipes = {
     "workflow-test": SrasearchRecipe
 }
 
-def write_benchmark(workflow_path: str, cpu_bench_ref: float = 1.0, scale: float = 1.0, system_info: Machine = None):
+def write_benchmark(workflow_path: pathlib.Path, cpu_bench_ref: float = 1.0, scale: float = 1.0, system_info: Machine = None):
     # create a workflow benchmark from a synthetic workflow (workflow used in the fgcs paper)
     workflow_instance = Instance(workflow_path)
     workflow = workflow_instance.workflow
@@ -128,7 +128,9 @@ def write_benchmark(workflow_path: str, cpu_bench_ref: float = 1.0, scale: float
 
     benchmark._rename_files_to_wfbench_format()
 
-    benchmark.workflow.name = f"{workflow.name}_{scale}"
+    workflow_name = str(workflow_path).rsplit("/", 1)[1].split("-", 1)[0]
+
+    benchmark.workflow.name = f"{workflow_name}_{scale}"
 
     benchmark.workflow.write_json(path)
 
