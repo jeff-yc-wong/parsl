@@ -34,6 +34,12 @@ possible_task_params = {"fcfs": None, "most_data": "data_size", "most_flops": "c
 possible_managers = {"most_idle_cores": MostIdleSelector(), 
                      "fastest_cores": FastestManagerSelector(), "random": RandomManagerSelector()}
 
+print(
+f"""Running workflow with the following algorihtms:
+    Task selection scheme: {args.task_selection_scheme}
+    Worker selection scheme: {args.worker_selection_scheme}
+""")
+
 scheduling_config = {}
 
 if args.simulate:
