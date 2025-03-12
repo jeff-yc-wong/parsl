@@ -25,16 +25,10 @@ def process_workflow(directory, args):
         if args.worker_selection_scheme:
             cmd.extend(["--worker_selection_scheme", args.worker_selection_scheme])
 
-        if args.metric:
-            cmd.extend(["--metric", args.metric])
-
-        if args.calibration:
-            cmd.extend(["--calibration", args.calibration])
-
-        if args.num_threads:
-            cmd.extend(["--num_threads", str(args.num_threads)])
-
         if args.simulate:
+            cmd.extend(["--metric", args.metric])
+            cmd.extend(["--calibration", args.calibration])
+            cmd.extend(["--num_threads", str(args.num_threads)])
             cmd.append("--simulate")
 
         subprocess.run(cmd, check=True, cwd=workflow_dir)
