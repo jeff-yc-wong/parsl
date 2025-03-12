@@ -38,8 +38,6 @@ scheduling_config = {}
 
 if args.simulate:
     scheduling_config = {
-        "manager_selector": possible_managers[args.worker_selection_scheme],
-        "task_selector": possible_task_params[args.task_selection_scheme],
         "workflow_file": str(Path("./jsons/workflow.json").absolute()),
         "simulator_path": "workflow_simulator",
         "template": str(Path("./jsons/template.json").absolute()),
@@ -69,6 +67,8 @@ docker_htex = Config(
             provider=AdHocProvider(
                 channels=channels,
             ),
+            manager_selector=possible_managers[args.worker_selection_scheme],
+            task_selector=possible_task_params[args.task_selection_scheme],
             **scheduling_config
         )
     ],
@@ -92,6 +92,8 @@ local_htex = Config(
                 init_blocks=args.num_workers,
                 max_blocks=args.num_workers,
             ),
+            manager_selector=possible_managers[args.worker_selection_scheme],
+            task_selector=possible_task_params[args.task_selection_scheme],
             **scheduling_config
         )
     ],

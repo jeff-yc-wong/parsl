@@ -240,6 +240,8 @@ class Interchange:
             self.simulator = None
 
         logger.info("Platform info: {}".format(self.current_platform))
+        my_logger.info(f"Manger Selector: {self.manager_selector}")
+        my_logger.info(f"Task Selector: {self.task_selector}")
 
     # TODO: JEFF - ADD A PARAMETER TO THIS FUNCTION THAT SPECIFY THE PARAMETER FOR TASK SELECTION
     def get_tasks(self, param: str = None) -> Sequence[dict]:
@@ -649,8 +651,6 @@ class Interchange:
                 m = self._ready_managers[manager_id]
                 tasks_inflight = len(m['tasks'])
                 real_capacity = m['max_capacity'] - tasks_inflight
-
-                logger.info(f"Manager's cpu_speed: {m['cpu_speed']}")
 
                 if (real_capacity and m['active'] and not m['draining']):
                     tasks = self.get_tasks(param=self.task_selector) # technically should only contain 1 task

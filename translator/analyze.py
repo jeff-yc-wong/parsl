@@ -24,7 +24,7 @@ def main():
 
         generate_groundtruth(workflow_path)
 
-def generate_groundtruth(workflow_path: Path):
+def generate_groundtruth(workflow_path: Path, iteration: int = 0):
     # Create a database connection (Replace with your DB details)
     sql_path = "sqlite:///" + str(workflow_path.absolute() / "runinfo" / "monitoring.db")
 
@@ -136,7 +136,7 @@ def generate_groundtruth(workflow_path: Path):
 
         workflow_json['runtimeSystem'] = runtime_system
 
-        with open(workflow_json_path / f"groundtruth_{workflow_json['name']}.json", "w") as f:
+        with open(f"./groundtruth/groundtruth_{workflow_json['name']}_{iteration}.json", "w") as f:
             json.dump(workflow_json, f, indent=4)
 
 

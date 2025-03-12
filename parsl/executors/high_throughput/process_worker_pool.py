@@ -273,7 +273,7 @@ class Manager:
                'dir': os.getcwd(),
                'cpu_count': psutil.cpu_count(logical=False),
                'total_memory': psutil.virtual_memory().total,
-               'cpu_speed': psutil.cpu_freq().max if psutil.cpu_freq().max else os.environ.get("CPU_SPEED", "1")
+               'cpu_speed': float(os.environ.get("CPU_SPEED")) if  os.environ.get("CPU_SPEED") else psutil.cpu_freq().max,
                }
         b_msg = json.dumps(msg).encode('utf-8')
         return b_msg

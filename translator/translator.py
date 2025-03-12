@@ -114,7 +114,6 @@ class ParslTranslator(Translator):
         shutil.copy(this_dir.joinpath("docker_scripts/start_workers.sh"), output_folder.joinpath("start_workers.sh"))
         shutil.copy(this_dir.joinpath("docker_scripts/kill_docker.sh"), output_folder.joinpath("kill_docker.sh"))
 
-        shutil.copy(this_dir.joinpath("analyze.py"), output_folder.joinpath("analyze.py"))
         output_folder.joinpath("jsons").mkdir(parents=True)
         shutil.copy(this_dir.joinpath("templates/template.json"), output_folder.joinpath("jsons/template.json"))
         output_folder.joinpath("logs").mkdir(parents=True)

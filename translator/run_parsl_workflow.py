@@ -13,8 +13,6 @@ def process_workflow(directory, args):
         # Start the workers
         subprocess.run(["bash", "start_workers.sh", str(args.num_workers)], check=True, cwd=workflow_dir)
 
-        print("Running Parsl workflow at {workflow_dir}...")
-        
         # Run the Parsl workflow
         cmd = ["python", "parsl_workflow.py", "--docker", "--num_workers", str(args.num_workers)]
 
