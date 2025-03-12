@@ -56,7 +56,6 @@ def main():
     parser.add_argument("-c", "--calibration", default=None, type=str, help="The calibration file to use.")
     parser.add_argument("-n", "--num_threads", default=1, type=int, help="The number of threads to use.")
     parser.add_argument("--simulate", action="store_true", help="Run the workflow in simulation mode.")
-    parser.add_argument("--num_workers", default=2, type=int, help="The number of workers to use.")
     args = parser.parse_args()
 
     if args.path:
