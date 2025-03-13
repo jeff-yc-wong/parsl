@@ -36,8 +36,8 @@ possible_managers = {"most_idle_cores": MostIdleSelector(),
 
 print(
 f"""Running workflow with the following algorihtms:
-    Task selection scheme: {args.task_selection_scheme}
-    Worker selection scheme: {args.worker_selection_scheme}
+    Task selection scheme: {args.task_selection_scheme} ({possible_task_params[args.task_selection_scheme]})
+    Worker selection scheme: {args.worker_selection_scheme} ({possible_managers[args.worker_selection_scheme]})
 """)
 
 scheduling_config = {}
@@ -75,6 +75,7 @@ docker_htex = Config(
             ),
             manager_selector=possible_managers[args.worker_selection_scheme],
             task_selector=possible_task_params[args.task_selection_scheme],
+            num_workers=args.num_workers,
             **scheduling_config
         )
     ],

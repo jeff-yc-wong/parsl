@@ -70,7 +70,8 @@ class Interchange:
                  metric: Optional[str] = None,
                  num_threads: Optional[int] = None,
                  verbose: Optional[bool] = False,
-                 calibration: Optional[Dict] = None
+                 calibration: Optional[Dict] = None,
+                 num_workers: int = 1,
                  ) -> None:
         """
         Parameters
@@ -203,6 +204,7 @@ class Interchange:
         self.num_threads = num_threads
         self.verbose = verbose
         self.calibration = calibration
+        self.num_workers = num_workers
 
         if not self.calibration:
             self.calibration = {"platform":{"wms":{"disk_read_bandwidth":"100MBps","disk_write_bandwidth":"100MBps","network_bandwidth":"10Gbps"},"workers":{"worker1":{"speed":"1f","network_bandwidth":"10Gbps"},"worker2":{"speed":"1f","network_bandwidth":"10Gbps"}}},"scheduling":{"task_scheduling_overhead":1}}
@@ -639,6 +641,10 @@ class Interchange:
         logger.debug("Managers count (interesting/total): {interesting}/{total}".format(
             total=len(self._ready_managers),
             interesting=len(interesting_managers)))
+
+        if len(self._ready_managers) != self.num_workers:
+            logger.debug("Not all managers have been registered, skipping this round")
+            return
 
         if interesting_managers and not self.pending_task_queue.empty():
             # Add a new manager_selector to implement cluster-based scheduling
