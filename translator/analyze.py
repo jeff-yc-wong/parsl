@@ -40,7 +40,10 @@ def generate_groundtruth(workflow_path: Path, iteration: int = 0):
 
     df = pd.read_sql("SELECT * FROM workflow", engine)
 
-    assert len(df) == 1, "More than one workflow found."
+    # assert len(df) == 1, "More than one workflow found."
+
+    df['time_began'] = pd.to_datetime(df['time_began'])
+    df['time_completed'] = pd.to_datetime(df['time_completed'])
 
     workflow_id = df.iloc[-1]['run_id']
 
@@ -66,7 +69,13 @@ def generate_groundtruth(workflow_path: Path, iteration: int = 0):
         # TODO: can prob move to a function
         matches = {}
         reg_matches = []
-        with open(f'{workflow_path}/runinfo/000/htex_docker/debug.log', 'rb') as f:
+        runinfo_path = workflow_path / "runinfo"
+
+        folders = [str(folder.name) for folder in runinfo_path.iterdir() if folder.is_dir() and str(folder.name).isdigit()]
+
+        last_run = max(folders, key=int)
+
+        with open(f'{workflow_path}/runinfo/{last_run}/htex_docker/debug.log', 'rb') as f:
             # regex pattern for matching
             pattern = "^.*Task done: ({.*}).*$"
             reg_pattern = "^.*Registration info for manager b'.*': ({.*}).*$"
@@ -85,6 +94,7 @@ def generate_groundtruth(workflow_path: Path, iteration: int = 0):
                     info = ast.literal_eval(match.group(1))
                     reg_matches.append(info)
 
+            print(len(matches), len(tasks))
             assert len(matches) == len(tasks), "Number of tasks and number of matches do not match."
 
         ############################################################################################################
@@ -107,6 +117,8 @@ def generate_groundtruth(workflow_path: Path, iteration: int = 0):
             task['coreCount'] = 1
 
         workflow_makespan = (tries_df['task_time_returned'].max() - tasks_df['task_time_invoked'].min()).total_seconds()
+
+        print("Total runtime (by parsl): ", (df.iloc[-1]['time_completed'] - df.iloc[-1]['time_began']).total_seconds())
 
         workflow_json['workflow']['execution']['makespanInSeconds'] = workflow_makespan
         print("Total runtime in seconds:", workflow_makespan)
