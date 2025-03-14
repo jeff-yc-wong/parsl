@@ -57,14 +57,11 @@ def generate_groundtruth(workflow_path: Path, iteration: int = 0):
 
     tries_df['runtime'] = (tries_df['task_time_returned'] - tries_df['task_try_time_running']).dt.total_seconds()
 
-    print(tries_df[['task_func_name', 'task_try_time_running', 'task_time_returned', 'runtime']])
-
     workflow_json_path = workflow_path / "jsons"
     with open(workflow_json_path / "workflow.json", "r") as f:
         workflow_json = json.load(f)
 
         tasks = workflow_json['workflow']['execution']['tasks']
-
 
         # TODO: can prob move to a function
         matches = {}
@@ -94,7 +91,6 @@ def generate_groundtruth(workflow_path: Path, iteration: int = 0):
                     info = ast.literal_eval(match.group(1))
                     reg_matches.append(info)
 
-            print(len(matches), len(tasks))
             assert len(matches) == len(tasks), "Number of tasks and number of matches do not match."
 
         ############################################################################################################
@@ -116,9 +112,7 @@ def generate_groundtruth(workflow_path: Path, iteration: int = 0):
             task['avgCPU'] = round((cpu_runtime / task_runtime) * 100, 2)
             task['coreCount'] = 1
 
-        workflow_makespan = (tries_df['task_time_returned'].max() - tasks_df['task_time_invoked'].min()).total_seconds()
-
-        print("Total runtime (by parsl): ", (df.iloc[-1]['time_completed'] - df.iloc[-1]['time_began']).total_seconds())
+        workflow_makespan = (tries_df['task_time_returned'].max() - tries_df['task_try_time_running'].min()).total_seconds()
 
         workflow_json['workflow']['execution']['makespanInSeconds'] = workflow_makespan
         print("Total runtime in seconds:", workflow_makespan)
