@@ -35,7 +35,7 @@ possible_managers = {"most_idle_cores": MostIdleSelector(),
                      "fastest_cores": FastestManagerSelector(), "random": RandomManagerSelector()}
 
 print(
-f"""Running workflow with the following algorihtms:
+f"""Running workflow with the following algorithms:
     Task selection scheme: {args.task_selection_scheme} ({possible_task_params[args.task_selection_scheme]})
     Worker selection scheme: {args.worker_selection_scheme} ({possible_managers[args.worker_selection_scheme]})
 """)
@@ -53,71 +53,54 @@ if args.simulate:
         "calibration": args.calibration,
     }
 
-channels = []
-
-for i in range(args.num_workers):
-    channel = SSHChannel(
-        hostname="localhost",
-        username="root",
-        port=2222+i,
-    )
-    channels.append(channel)
-
-docker_htex = Config(
-    executors=[
-        HighThroughputExecutor(
-            label="htex_docker",
-            worker_debug=True,
-            cores_per_worker=1,
-            max_workers_per_node=1,
-            provider=AdHocProvider(
-                channels=channels,
-            ),
-            manager_selector=possible_managers[args.worker_selection_scheme],
-            task_selector=possible_task_params[args.task_selection_scheme],
-            num_workers=args.num_workers,
-            **scheduling_config
-        )
-    ],
-    strategy=None,
-    monitoring=MonitoringHub(
-        hub_address=address_by_hostname(),
-        monitoring_debug=False,
-        resource_monitoring_interval=10,
-    ),
+label="htex_local"
+provider=LocalProvider(
+    channel=LocalChannel(),
+    init_blocks=args.num_workers,
+    max_blocks=args.num_workers,
 )
-
-local_htex = Config(
-    executors=[
-        HighThroughputExecutor(
-            label="htex_local",
-            worker_debug=True,
-            cores_per_worker=1,
-            max_workers_per_node=1,
-            provider=LocalProvider(
-                channel=LocalChannel(),
-                init_blocks=args.num_workers,
-                max_blocks=args.num_workers,
-            ),
-            manager_selector=possible_managers[args.worker_selection_scheme],
-            task_selector=possible_task_params[args.task_selection_scheme],
-            **scheduling_config
-        )
-    ],
-    strategy=None,
-    monitoring=MonitoringHub(
-        hub_address=address_by_hostname(),
-        monitoring_debug=False,
-        resource_monitoring_interval=10,
-    ),
-)
-
-parsl.clear()
 
 if args.docker:
-    parsl.load(docker_htex)
-else:
-    parsl.load(local_htex)
+    channels = []
+
+    for i in range(args.num_workers):
+        channel = SSHChannel(
+            hostname="localhost",
+            username="parsl",
+            port=2222+i,
+        )
+        channels.append(channel)
+
+    label="htex_docker"
+    provider=AdHocProvider(
+        channels=channels,
+    )
+
+
+config = Config(
+    executors=[
+        HighThroughputExecutor(
+            label=label,
+            worker_debug=True,
+            cores_per_worker=1,
+            max_workers_per_node=1,
+            num_workers=args.num_workers,
+            worker_logdir_root="logs",
+            provider=provider,
+            manager_selector=possible_managers[args.worker_selection_scheme],
+            task_selector=possible_task_params[args.task_selection_scheme],
+            **scheduling_config
+        )
+    ],
+    strategy=None,
+    monitoring=MonitoringHub(
+        hub_address=address_by_hostname(),
+        monitoring_debug=False,
+        resource_monitoring_interval=10,
+    ),
+)
+parsl.clear()
+parsl.load(config)
 
 if args.verbose:
     # Emit log lines to the screen

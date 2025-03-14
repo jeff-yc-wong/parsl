@@ -642,7 +642,7 @@ class Interchange:
             total=len(self._ready_managers),
             interesting=len(interesting_managers)))
 
-        if len(self._ready_managers) != self.num_workers:
+        if len(self._ready_managers) < self.num_workers:
             logger.debug("Not all managers have been registered, skipping this round")
             return
 

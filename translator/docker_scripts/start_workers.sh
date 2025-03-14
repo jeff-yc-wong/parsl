@@ -20,6 +20,6 @@ else
 
   for ((i = 0; i < $num_workers; i++)); do
     port=$((2222 + $i))
-    docker run --hostname worker$i --cpus=1 --name parsl-worker-$i -d -p $port:22 -v $path/data:$path/data -v $path/output:$path/output -v $path/logs:/root/logs parsl-worker 1
+    docker run --hostname worker$i --cpus=1 --name parsl-worker-$i -d -p $port:22 -v $path/data:$path/data -v $path/output:$path/output -v $path/logs:/home/parsl/logs parsl-worker 1
   done
 fi
