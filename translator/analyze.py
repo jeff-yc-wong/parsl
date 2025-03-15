@@ -12,6 +12,7 @@ def main():
     parser = argparse.ArgumentParser(description="Analyze a parsl workflow run.")
     parser.add_argument("--workflow", type=str, help="Path to the workflow run dir.", required=True)
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
+    parser.add_argument("-i", "--iteration", type=int, help="Iteration number for the groundtruth file", default=0)
 
     args = parser.parse_args()
 
@@ -22,7 +23,7 @@ def main():
             print(f"Workflow path '{workflow_path}' does not exist.")
             return
 
-        generate_groundtruth(workflow_path)
+        generate_groundtruth(workflow_path, iteration=args.iteration)
 
 def generate_groundtruth(workflow_path: Path, iteration: int = 0):
     # Create a database connection (Replace with your DB details)
