@@ -105,7 +105,10 @@ def generate_groundtruth(workflow_path: Path, iteration: int = 0):
                         info = ast.literal_eval(match.group(1))
                         reg_matches.append(info)
 
-                assert len(matches) == len(tasks), f"Number of tasks ({len(tasks)}) and number of matches ({len(matches)}) do not match."
+                if len(matches) != len(tasks):
+                    print(f"Number of tasks ({len(tasks)}) and number of matches ({len(matches)}) do not match.")
+                    print(f"Skipping run #{run}")
+                    continue
 
             ############################################################################################################
 
