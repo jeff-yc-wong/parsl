@@ -11,7 +11,7 @@ from parsl import VERSION
 def main():
     parser = argparse.ArgumentParser(description="Analyze a parsl workflow run.")
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument("--workflow", type=str, help="Path to the workflow run dir.", required=True)
+    group.add_argument("--workflow", type=str, help="Path to the workflow run dir.")
     group.add_argument("--path", type=str, help="Path containing Parsl workflow directories.")
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
 
