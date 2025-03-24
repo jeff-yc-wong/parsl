@@ -50,7 +50,7 @@ def main():
     parser.add_argument("-c", "--calibration", default=None, type=str, help="The calibration file to use.")
     parser.add_argument("-n", "--num_threads", default=1, type=int, help="The number of threads to use.")
     parser.add_argument("--simulate", action="store_true", help="Run the workflow in simulation mode.")
-    parser.add_argument("-i", "iterations", default=1, type=int, help="Number of iterations to run.")
+    parser.add_argument("-i", "--iterations", default=1, type=int, help="Number of iterations to run.")
     args = parser.parse_args()
     if args.path:
         base_path = Path(args.path).resolve()
