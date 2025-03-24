@@ -46,18 +46,6 @@ def generate_groundtruth(workflow_path: Path, iteration: int = 0):
     df['time_began'] = pd.to_datetime(df['time_began'])
     df['time_completed'] = pd.to_datetime(df['time_completed'])
 
-    workflow_id = df.iloc[-1]['run_id']
-
-    tasks_df = tasks_for_workflow(workflow_id, engine)
-
-    tries_df = tries_for_workflow(workflow_id, engine)
-
-    tries_df['task_time_returned'] = pd.to_datetime(tries_df['task_time_returned'])
-    tries_df['task_try_time_running'] = pd.to_datetime(tries_df['task_try_time_running'])
-    tasks_df['task_time_invoked'] = pd.to_datetime(tasks_df['task_time_invoked'])
-
-    tries_df['runtime'] = (tries_df['task_time_returned'] - tries_df['task_try_time_running']).dt.total_seconds()
-
     workflow_json_path = workflow_path / "jsons"
     with open(workflow_json_path / "workflow.json", "r") as f:
         workflow_json = json.load(f)
@@ -71,80 +59,105 @@ def generate_groundtruth(workflow_path: Path, iteration: int = 0):
 
         folders = [str(folder.name) for folder in runinfo_path.iterdir() if folder.is_dir() and str(folder.name).isdigit()]
 
-        last_run = max(folders, key=int)
+        sorted_runs = sorted(folders, key=int)
 
-        with open(f'{workflow_path}/runinfo/{last_run}/htex_docker/debug.log', 'rb') as f:
-            # regex pattern for matching
-            pattern = "^.*Task done: ({.*}).*$"
-            reg_pattern = "^.*Registration info for manager b'.*': ({.*}).*$"
+        for run in sorted_runs:
+            workflow_id = df.iloc[-1]['run_id']
 
-            # Read the file line by line
-            for line in f.readlines():
-                # Matching for task done lines
-                match = re.match(pattern, line.decode('utf-8'))
-                if match:
-                    info = ast.literal_eval(match.group(1))
-                    matches[info['task']] = info
+            with open(f'{workflow_path}/runinfo/{run}/parsl.log', 'rb') as f:
+                # regex pattern for matching
+                pattern = "^.*Run id is: (.*)$"
+                # Read the file line by line
+                for line in f.readlines():
+                    # Matching for task done lines
+                    match = re.match(pattern, line.decode('utf-8'))
+                    if match:
+                        workflow_id = match.group(1)
+                        print(f"Workflow ID: {workflow_id}")
+                        break
 
-                # Matching for worker registration
-                match = re.match(reg_pattern, line.decode('utf-8'))
-                if match:
-                    info = ast.literal_eval(match.group(1))
-                    reg_matches.append(info)
+            tasks_df = tasks_for_workflow(workflow_id, engine)
 
-            assert len(matches) == len(tasks), "Number of tasks and number of matches do not match."
+            tries_df = tries_for_workflow(workflow_id, engine)
 
-        ############################################################################################################
+            tries_df['task_time_returned'] = pd.to_datetime(tries_df['task_time_returned'])
+            tries_df['task_try_time_running'] = pd.to_datetime(tries_df['task_try_time_running'])
+            tasks_df['task_time_invoked'] = pd.to_datetime(tasks_df['task_time_invoked'])
 
-        for task in tasks:
+            tries_df['runtime'] = (tries_df['task_time_returned'] - tries_df['task_try_time_running']).dt.total_seconds()
 
-            task_id = task['id']
+            with open(f'{workflow_path}/runinfo/{run}/htex_docker/debug.log', 'rb') as f:
+                # regex pattern for matching
+                pattern = "^.*Task done: ({.*}).*$"
+                reg_pattern = "^.*Registration info for manager b'.*': ({.*}).*$"
 
-            row = tries_df[tries_df['task_func_name'] == task_id].iloc[0]
+                # Read the file line by line
+                for line in f.readlines():
+                    # Matching for task done lines
+                    match = re.match(pattern, line.decode('utf-8'))
+                    if match:
+                        info = ast.literal_eval(match.group(1))
+                        matches[info['task']] = info
 
-            task_start_time = pd.to_datetime(row['task_try_time_running']).isoformat()
-            task_runtime = row['runtime']
+                    # Matching for worker registration
+                    match = re.match(reg_pattern, line.decode('utf-8'))
+                    if match:
+                        info = ast.literal_eval(match.group(1))
+                        reg_matches.append(info)
 
-            cpu_runtime = task['runtimeInSeconds']
+                assert len(matches) == len(tasks), f"Number of tasks ({len(tasks)}) and number of matches ({len(matches)}) do not match."
 
-            task['runtimeInSeconds'] = task_runtime
-            task['executedAt'] = task_start_time
-            task['machines'] = [matches[task_id]['worker']]
-            task['avgCPU'] = round((cpu_runtime / task_runtime) * 100, 2)
-            task['coreCount'] = 1
+            ############################################################################################################
 
-        workflow_makespan = (tries_df['task_time_returned'].max() - tries_df['task_try_time_running'].min()).total_seconds()
+            for task in tasks:
 
-        workflow_json['workflow']['execution']['makespanInSeconds'] = workflow_makespan
-        print("Total runtime in seconds:", workflow_makespan)
+                task_id = task['id']
 
-        machines = []
-        for machine in reg_matches:
-            machine_dict = {}
+                row = tries_df[tries_df['task_func_name'] == task_id].iloc[0]
 
-            machine_dict['nodeName'] = machine['hostname']
-            machine_dict['system'] = machine['os'].lower()
+                task_start_time = pd.to_datetime(row['task_try_time_running']).isoformat()
+                task_runtime = row['runtime']
 
-            cpu_info = {
-                "coreCount": 1,
-                "speedInMHz":  machine['cpu_speed']
+                cpu_runtime = task['runtimeInSeconds']
+
+                task['runtimeInSeconds'] = task_runtime
+                task['executedAt'] = task_start_time
+                task['machines'] = [matches[task_id]['worker']]
+                task['avgCPU'] = round((cpu_runtime / task_runtime) * 100, 2)
+                task['coreCount'] = 1
+
+            workflow_makespan = (tries_df['task_time_returned'].max() - tries_df['task_try_time_running'].min()).total_seconds()
+
+            workflow_json['workflow']['execution']['makespanInSeconds'] = workflow_makespan
+            print("Total runtime in seconds:", workflow_makespan)
+
+            machines = []
+            for machine in reg_matches:
+                machine_dict = {}
+
+                machine_dict['nodeName'] = machine['hostname']
+                machine_dict['system'] = machine['os'].lower()
+
+                cpu_info = {
+                    "coreCount": 1,
+                    "speedInMHz":  machine['cpu_speed']
+                }
+                machine_dict['cpu'] = cpu_info
+
+                machines.append(machine_dict)
+
+            workflow_json['workflow']['execution']['machines'] = machines
+
+            runtime_system = {
+                "name": "parsl",
+                "version": VERSION,
+                "url": "https://github.com/jeff-yc-wong/parsl/tree/scheduling_using_simulation"
             }
-            machine_dict['cpu'] = cpu_info
 
-            machines.append(machine_dict)
+            workflow_json['runtimeSystem'] = runtime_system
 
-        workflow_json['workflow']['execution']['machines'] = machines
-
-        runtime_system = {
-            "name": "parsl",
-            "version": VERSION,
-            "url": "https://github.com/jeff-yc-wong/parsl/tree/scheduling_using_simulation"
-        }
-
-        workflow_json['runtimeSystem'] = runtime_system
-
-        with open(f"./groundtruth/groundtruth_{workflow_json['name']}_{iteration}.json", "w") as f:
-            json.dump(workflow_json, f, indent=4)
+            with open(f"./groundtruth/groundtruth_{workflow_json['name']}_{int(run)}.json", "w") as f:
+                json.dump(workflow_json, f, indent=4)
 
 
 
