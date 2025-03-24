@@ -50,19 +50,24 @@ def main():
     parser.add_argument("-c", "--calibration", default=None, type=str, help="The calibration file to use.")
     parser.add_argument("-n", "--num_threads", default=1, type=int, help="The number of threads to use.")
     parser.add_argument("--simulate", action="store_true", help="Run the workflow in simulation mode.")
+    parser.add_argument("-i", "iterations", default=1, type=int, help="Number of iterations to run.")
     args = parser.parse_args()
-
     if args.path:
         base_path = Path(args.path).resolve()
 
-        # Get all directories in the given path
-        for entry in base_path.iterdir():
-            if entry.is_dir():
-                print(f"Processing workflow in {entry}...")
-                process_workflow(entry, args)
+        for i in range(args.iterations):
+            # Get all directories in the given path
+            for entry in base_path.iterdir():
+                if entry.is_dir():
+                    print(f"Processing workflow in {entry}...")
+                    process_workflow(entry, args)
+
+            print(f"Iteration {i}: Successfully processed all workflows in {base_path}")
 
     if args.workflow:
-        process_workflow(args.workflow, args)
+
+        for _ in range(args.iterations):
+            process_workflow(args.workflow, args)
 
 if __name__ == "__main__":
     main()
