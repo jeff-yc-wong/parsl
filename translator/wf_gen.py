@@ -1,4 +1,5 @@
 import pathlib
+import os
 import argparse
 import copy
 import subprocess
@@ -6,7 +7,6 @@ import math
 import platform
 import logging
 import psutil
-import os
 
 from wfcommons import BlastRecipe, MontageRecipe, SoykbRecipe, EpigenomicsRecipe
 from wfcommons import GenomeRecipe, BwaRecipe, CyclesRecipe, SrasearchRecipe
@@ -61,12 +61,17 @@ recipes = {
     "workflow-test": SrasearchRecipe
 }
 
-def write_benchmark(workflow_path: pathlib.Path, cpu_bench_ref: float = 1.0, scale: float = 1.0, system_info: Machine = None):
+def write_benchmark(workflow_path: pathlib.Path, cpu_bench_ref: float = 1.0, scale: float = 1.0, system_info: Machine = None, cpu_only: bool = False, io_only: bool = False):
     # create a workflow benchmark from a synthetic workflow (workflow used in the fgcs paper)
     workflow_instance = Instance(workflow_path)
     workflow = workflow_instance.workflow
     cpu_work = {}
     runtimes = {}
+
+    if cpu_only and io_only:
+        raise ValueError("Cannot create a benchmark with both cpu_only and io_only set to True")
+
+    workflow_name = str(workflow_path).rsplit("/", 1)[1].split("-", 1)[0]
 
     workflow.makespan = 0
 
@@ -87,9 +92,15 @@ def write_benchmark(workflow_path: pathlib.Path, cpu_bench_ref: float = 1.0, sca
 
 
         # cpu time
-        runtimes[task.task_id] = task.runtime * task.avg_cpu / (100 * task.cores) * scale
 
-        cpu_work[task.category] =  runtimes[task.task_id] / cpu_bench_ref * 100
+        if not io_only:
+            runtimes[task.task_id] = task.runtime * task.avg_cpu / (100 * task.cores) * scale
+
+            cpu_work[task.category] =  runtimes[task.task_id] / cpu_bench_ref * 100
+        else:
+            runtimes[task.task_id] = cpu_bench_ref / 100
+            cpu_work[task.category] = 1
+
         task.memory = None
         task.avg_cpu = 100
         task.cores = 1
@@ -99,19 +110,28 @@ def write_benchmark(workflow_path: pathlib.Path, cpu_bench_ref: float = 1.0, sca
         return
     benchmark = WorkflowBenchmark(recipe=recipes[workflow.name], num_tasks=len(workflow.tasks))
     benchmark.workflow = copy.deepcopy(workflow)
-    output_path = pathlib.Path(f"./benchmarks/{workflow.name}_{scale}")
+    if cpu_only:
+        output_path = pathlib.Path(f"./benchmarks/{workflow_name}_{scale}_cpu")
+    elif io_only:
+        output_path = pathlib.Path(f"./benchmarks/{workflow_name}_{scale}_io")
+    else:
+        output_path = pathlib.Path(f"./benchmarks/{workflow_name}_{scale}")
+
     path = benchmark.create_benchmark(output_path, percent_cpu=1.0, cpu_work=cpu_work, regenerate=False)
 
     for key, task in benchmark.workflow.tasks.items():
+
+        
         task.output_files = workflow.tasks[key].output_files
         task.input_files = workflow.tasks[key].input_files
 
         for file in task.output_files:
-            file.size = math.ceil(file.size * scale)
+            file.size = 0 if cpu_only else math.ceil(file.size * scale)
 
         for file in task.input_files:
-            file.size = math.ceil(file.size * scale)
+            file.size = 0 if cpu_only else math.ceil(file.size * scale)
 
+    
         output_files = {file.file_id: file.size for file in task.output_files}
         input_files = [file.file_id for file in task.input_files]
 
@@ -126,13 +146,17 @@ def write_benchmark(workflow_path: pathlib.Path, cpu_bench_ref: float = 1.0, sca
         if system_info:
             task.machines = [system_info]
 
-    benchmark._rename_files_to_wfbench_format()
-
-    workflow_name = str(workflow_path).rsplit("/", 1)[1].split("-", 1)[0]
-
     benchmark.workflow.name = f"{workflow_name}_{scale}"
 
-    benchmark.workflow.write_json(path)
+    if cpu_only:
+        benchmark.workflow.name += "_cpu"
+    elif io_only:
+        benchmark.workflow.name += "_io"
+
+    benchmark._rename_files_to_wfbench_format()
+
+    os.remove(path)
+    benchmark.workflow.write_json(output_path.joinpath(benchmark.workflow.name + ".json"))
 
 def main():
     parser = argparse.ArgumentParser(description="Process a workflow JSON file.")
@@ -141,6 +165,8 @@ def main():
     parser.add_argument("--all", action="store_true", help="Create benchmarks for all workflows")
     parser.add_argument("--scale", type=float, default=1.0, help="Scale the CPU work")
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
+    parser.add_argument("--cpu-only", action="store_true", help="Create a benchmark with only CPU tasks")
+    parser.add_argument("--io-only", action="store_true", help="Create a benchmark with only IO tasks")
     
     args = parser.parse_args()
 
@@ -201,14 +227,23 @@ def main():
 
         benchmark.workflow.write_json(path)
     if args.workflow:
-        write_benchmark(args.workflow, ref, args.scale, system_info)
+        write_benchmark(args.workflow, ref, args.scale, system_info, False, False)
+        if args.cpu_only:
+            write_benchmark(args.workflow, ref, args.scale, system_info, True, False)
+        if args.io_only:
+            write_benchmark(args.workflow, ref, args.scale, system_info, False, True)
         
     if args.all:
         all_path = pathlib.Path("./workflows")
 
         for file in all_path.iterdir():
             if file.suffix == ".json":
-                write_benchmark(file, ref, args.scale, system_info)
+                write_benchmark(file, ref, args.scale, system_info, False, False)
+
+                if args.cpu_only:
+                    write_benchmark(file, ref, args.scale, system_info, True, False)
+                if args.io_only:
+                    write_benchmark(file, ref, args.scale, system_info, False, True)
 
 if __name__ == "__main__":
     main()
