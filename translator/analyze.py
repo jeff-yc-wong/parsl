@@ -53,8 +53,6 @@ def generate_groundtruth(workflow_path: Path, iteration: int = 0):
         tasks = workflow_json['workflow']['execution']['tasks']
 
         # TODO: can prob move to a function
-        matches = {}
-        reg_matches = []
         runinfo_path = workflow_path / "runinfo"
 
         folders = [str(folder.name) for folder in runinfo_path.iterdir() if folder.is_dir() and str(folder.name).isdigit()]
@@ -62,7 +60,11 @@ def generate_groundtruth(workflow_path: Path, iteration: int = 0):
         sorted_runs = sorted(folders, key=int)
 
         for run in sorted_runs:
+            print(f"Currently process run #{run}")
             workflow_id = df.iloc[-1]['run_id']
+
+            matches = {}
+            reg_matches = []
 
             with open(f'{workflow_path}/runinfo/{run}/parsl.log', 'rb') as f:
                 # regex pattern for matching
