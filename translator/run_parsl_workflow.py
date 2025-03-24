@@ -51,6 +51,9 @@ def main():
     parser.add_argument("-n", "--num_threads", default=1, type=int, help="The number of threads to use.")
     parser.add_argument("--simulate", action="store_true", help="Run the workflow in simulation mode.")
     parser.add_argument("-i", "--iterations", default=1, type=int, help="Number of iterations to run.")
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument("--io-only", action="store_true", help="Run workflow with only IO tasks.")
+    group.add_argument("--cpu-only", action="store_true", help="Run workflow with only CPU tasks")
     args = parser.parse_args()
     if args.path:
         base_path = Path(args.path).resolve()
@@ -59,6 +62,10 @@ def main():
             # Get all directories in the given path
             for entry in base_path.iterdir():
                 if entry.is_dir():
+                    if args.io_only and not entry.name.endswith("_io"):
+                        continue
+                    if args.cpu_only and not entry.name.endswith("_cpu"):
+                        continue
                     print(f"Processing workflow in {entry}...")
                     process_workflow(entry, args)
 
