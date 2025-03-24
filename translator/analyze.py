@@ -159,7 +159,9 @@ def generate_groundtruth(workflow_path: Path, iteration: int = 0):
 
             workflow_json['runtimeSystem'] = runtime_system
 
-            with open(f"./groundtruth/groundtruth_{workflow_json['name']}_{int(run)}.json", "w") as f:
+            Path(f"./groundtruth/{workflow_json['name']}").mkdir(parents=True, exist_ok=True)
+
+            with open(f"./groundtruth/{workflow_json['name']}/groundtruth_{workflow_json['name']}_{int(run)}.json", "w") as f:
                 json.dump(workflow_json, f, indent=4)
 
 
