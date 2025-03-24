@@ -10,9 +10,10 @@ from parsl import VERSION
 
 def main():
     parser = argparse.ArgumentParser(description="Analyze a parsl workflow run.")
-    parser.add_argument("--workflow", type=str, help="Path to the workflow run dir.", required=True)
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--workflow", type=str, help="Path to the workflow run dir.", required=True)
+    group.add_argument("--path", type=str, help="Path containing Parsl workflow directories.")
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
-    parser.add_argument("-i", "--iteration", type=int, help="Iteration number for the groundtruth file", default=0)
 
     args = parser.parse_args()
 
@@ -23,9 +24,17 @@ def main():
             print(f"Workflow path '{workflow_path}' does not exist.")
             return
 
-        generate_groundtruth(workflow_path, iteration=args.iteration)
+        generate_groundtruth(workflow_path)
 
-def generate_groundtruth(workflow_path: Path, iteration: int = 0):
+    if args.path:
+        base_path = Path(args.path).resolve()
+
+        for workflow_path in base_path.iterdir():
+            if workflow_path.is_dir():
+                print(f"Processing workflow {workflow_path}")
+                generate_groundtruth(workflow_path)
+
+def generate_groundtruth(workflow_path: Path):
     # Create a database connection (Replace with your DB details)
     sql_path = "sqlite:///" + str(workflow_path.absolute() / "runinfo" / "monitoring.db")
 
