@@ -231,6 +231,8 @@ def get_parser() -> argparse.ArgumentParser:
     group.add_argument(
         "--workflow", type=str, help="path to WfFormat JSON input file")
     group.add_argument("--all", action="store_true", help="Translate all the workflows in the benchmark directory")
+    group.add_argument("--io-only", action="store_true", help="Translate all the workflows in the benchmark directory")
+    group.add_argument("--cpu-only", action="store_true", help="Translate all the workflows in the benchmark directory")
     parser.add_argument("--outdir", default=pathlib.Path.cwd().joinpath("parsl_script"),
                         help="Output directory in which to store the translated files")
 
@@ -268,6 +270,22 @@ def main():
 
         for wf in all_path.iterdir():
             if wf.is_dir():
+                for wf_file in wf.iterdir():
+                    if wf_file.name.endswith(".json"):
+                        translate_workflow(wf_file, outdir_path)
+    elif args.io_only:
+        all_path = pathlib.Path("./benchmarks")
+
+        for wf in all_path.iterdir():
+            if wf.is_dir() and wf.name.endswith("_io"):
+                for wf_file in wf.iterdir():
+                    if wf_file.name.endswith(".json"):
+                        translate_workflow(wf_file, outdir_path)
+    elif args.cpu_only:
+        all_path = pathlib.Path("./benchmarks")
+
+        for wf in all_path.iterdir():
+            if wf.is_dir() and wf.name.endswith("_cpu"):
                 for wf_file in wf.iterdir():
                     if wf_file.name.endswith(".json"):
                         translate_workflow(wf_file, outdir_path)
