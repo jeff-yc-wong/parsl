@@ -54,6 +54,7 @@ def main():
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--io-only", action="store_true", help="Run workflow with only IO tasks.")
     group.add_argument("--cpu-only", action="store_true", help="Run workflow with only CPU tasks")
+    group.add_argument("--all", action="store_true", help="Run all workflows in the given path.")
     args = parser.parse_args()
     if args.path:
         base_path = Path(args.path).resolve()
@@ -66,6 +67,9 @@ def main():
                         continue
                     if args.cpu_only and not entry.name.endswith("_cpu"):
                         continue
+                    if not args.all and (entry.name.endswith("_io") or entry.name.endswith("_cpu")):
+                        continue
+
                     print(f"Processing workflow in {entry}...")
                     process_workflow(entry, args)
 
