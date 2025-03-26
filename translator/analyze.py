@@ -17,8 +17,11 @@ def main():
     group2.add_argument("--cpu-only", action="store_true", help="Analyze workflow with only CPU tasks.")
     group2.add_argument("--io-only", action="store_true", help="Analyze workflow with only IO tasks")
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
+    parser.add_argument("--outdir", default="./groundtruth", type=str, help="Output directory for groundtruth files.")
 
     args = parser.parse_args()
+
+    output_dir = Path(args.outdir)
 
     if args.workflow:
         workflow_path = Path(args.workflow)
@@ -27,7 +30,7 @@ def main():
             print(f"Workflow path '{workflow_path}' does not exist.")
             return
 
-        generate_groundtruth(workflow_path)
+        generate_groundtruth(workflow_path, outdir=output_dir)
 
     if args.path:
         base_path = Path(args.path).resolve()
@@ -39,9 +42,9 @@ def main():
                 if args.io_only and not workflow_path.name.endswith("_io"):
                     continue
                 print(f"Processing workflow {workflow_path}")
-                generate_groundtruth(workflow_path)
+                generate_groundtruth(workflow_path, outdir=output_dir)
 
-def generate_groundtruth(workflow_path: Path):
+def generate_groundtruth(workflow_path: Path, outdir: Path):
     # Create a database connection (Replace with your DB details)
     sql_path = "sqlite:///" + str(workflow_path.absolute() / "runinfo" / "monitoring.db")
 
@@ -177,9 +180,9 @@ def generate_groundtruth(workflow_path: Path):
 
             workflow_json['runtimeSystem'] = runtime_system
 
-            Path(f"./groundtruth/{workflow_json['name']}").mkdir(parents=True, exist_ok=True)
+            Path(f"{outdir}/{workflow_json['name']}").mkdir(parents=True, exist_ok=True)
 
-            with open(f"./groundtruth/{workflow_json['name']}/groundtruth_{workflow_json['name']}_{int(run)}.json", "w") as f:
+            with open(f"{outdir}/{workflow_json['name']}/groundtruth_{workflow_json['name']}_{int(run)}.json", "w") as f:
                 json.dump(workflow_json, f, indent=4)
 
 
