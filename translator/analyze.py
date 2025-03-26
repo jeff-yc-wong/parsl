@@ -13,6 +13,9 @@ def main():
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--workflow", type=str, help="Path to the workflow run dir.")
     group.add_argument("--path", type=str, help="Path containing Parsl workflow directories.")
+    group2 = parser.add_mutually_exclusive_group()
+    group2.add_argument("--cpu-only", action="store_true", help="Analyze workflow with only CPU tasks.")
+    group2.add_argument("--io-only", action="store_true", help="Analyze workflow with only IO tasks")
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
 
     args = parser.parse_args()
@@ -31,6 +34,10 @@ def main():
 
         for workflow_path in base_path.iterdir():
             if workflow_path.is_dir():
+                if args.cpu_only and not workflow_path.name.endswith("_cpu"):
+                    continue
+                if args.io_only and not workflow_path.name.endswith("_io"):
+                    continue
                 print(f"Processing workflow {workflow_path}")
                 generate_groundtruth(workflow_path)
 
