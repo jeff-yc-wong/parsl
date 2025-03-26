@@ -1,3 +1,4 @@
+import sys
 import argparse
 import subprocess
 from pathlib import Path
@@ -31,8 +32,8 @@ def process_workflow(directory, args):
             cmd.extend(["--num_threads", str(args.num_threads)])
             cmd.append("--simulate")
 
-        subprocess.run(cmd, check=True, cwd=workflow_dir)
-        
+        subprocess.run(cmd, check=True, cwd=workflow_dir, stdout=sys.stdout, stderr=sys.stderr)
+
         print(f"Successfully processed workflow in {workflow_dir}")
     except subprocess.CalledProcessError as e:
         print(f"Error processing {workflow_dir}: {e}")

@@ -289,6 +289,7 @@ def main():
                 for wf_file in wf.iterdir():
                     if wf_file.name.endswith(".json"):
                         translate_workflow(wf_file, outdir_path)
+    else
 
     return 0
 
