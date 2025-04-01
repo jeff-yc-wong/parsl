@@ -1,0 +1,2759 @@
+{
+    "name": "test",
+    "description": "Instance generated with WfCommons - https://wfcommons.org",
+    "createdAt": "2025-03-12T00:51:56.669753+00:00",
+    "schemaVersion": "1.5",
+    "author": {
+        "name": "cc",
+        "email": "support@wfcommons.org"
+    },
+    "workflow": {
+        "specification": {
+            "tasks": [
+                {
+                    "name": "mProject_ID0000001",
+                    "id": "mProject_ID0000001",
+                    "parents": [],
+                    "children": [
+                        "mDiffFit_ID0000005",
+                        "mDiffFit_ID0000006",
+                        "mDiffFit_ID0000007",
+                        "mBackground_ID0000013"
+                    ],
+                    "inputFiles": [
+                        "workflow_infile_0001"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0001"
+                    ]
+                },
+                {
+                    "name": "mProject_ID0000002",
+                    "id": "mProject_ID0000002",
+                    "parents": [],
+                    "children": [
+                        "mDiffFit_ID0000005",
+                        "mDiffFit_ID0000008",
+                        "mDiffFit_ID0000009",
+                        "mBackground_ID0000014"
+                    ],
+                    "inputFiles": [
+                        "workflow_infile_0002"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0002"
+                    ]
+                },
+                {
+                    "name": "mProject_ID0000003",
+                    "id": "mProject_ID0000003",
+                    "parents": [],
+                    "children": [
+                        "mDiffFit_ID0000006",
+                        "mDiffFit_ID0000008",
+                        "mDiffFit_ID0000010",
+                        "mBackground_ID0000015"
+                    ],
+                    "inputFiles": [
+                        "workflow_infile_0003"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0003"
+                    ]
+                },
+                {
+                    "name": "mProject_ID0000004",
+                    "id": "mProject_ID0000004",
+                    "parents": [],
+                    "children": [
+                        "mDiffFit_ID0000007",
+                        "mDiffFit_ID0000009",
+                        "mDiffFit_ID0000010",
+                        "mBackground_ID0000016"
+                    ],
+                    "inputFiles": [
+                        "workflow_infile_0004"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0004"
+                    ]
+                },
+                {
+                    "name": "mDiffFit_ID0000005",
+                    "id": "mDiffFit_ID0000005",
+                    "parents": [
+                        "mProject_ID0000001",
+                        "mProject_ID0000002"
+                    ],
+                    "children": [
+                        "mConcatFit_ID0000011"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0001",
+                        "workflow_outfile_0002"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0005"
+                    ]
+                },
+                {
+                    "name": "mDiffFit_ID0000006",
+                    "id": "mDiffFit_ID0000006",
+                    "parents": [
+                        "mProject_ID0000001",
+                        "mProject_ID0000003"
+                    ],
+                    "children": [
+                        "mConcatFit_ID0000011"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0001",
+                        "workflow_outfile_0003"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0006"
+                    ]
+                },
+                {
+                    "name": "mDiffFit_ID0000007",
+                    "id": "mDiffFit_ID0000007",
+                    "parents": [
+                        "mProject_ID0000001",
+                        "mProject_ID0000004"
+                    ],
+                    "children": [
+                        "mConcatFit_ID0000011"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0001",
+                        "workflow_outfile_0004"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0007"
+                    ]
+                },
+                {
+                    "name": "mDiffFit_ID0000008",
+                    "id": "mDiffFit_ID0000008",
+                    "parents": [
+                        "mProject_ID0000002",
+                        "mProject_ID0000003"
+                    ],
+                    "children": [
+                        "mConcatFit_ID0000011"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0003",
+                        "workflow_outfile_0002"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0008"
+                    ]
+                },
+                {
+                    "name": "mDiffFit_ID0000009",
+                    "id": "mDiffFit_ID0000009",
+                    "parents": [
+                        "mProject_ID0000002",
+                        "mProject_ID0000004"
+                    ],
+                    "children": [
+                        "mConcatFit_ID0000011"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0004",
+                        "workflow_outfile_0002"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0009"
+                    ]
+                },
+                {
+                    "name": "mDiffFit_ID0000010",
+                    "id": "mDiffFit_ID0000010",
+                    "parents": [
+                        "mProject_ID0000003",
+                        "mProject_ID0000004"
+                    ],
+                    "children": [
+                        "mConcatFit_ID0000011"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0004",
+                        "workflow_outfile_0003"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0010"
+                    ]
+                },
+                {
+                    "name": "mConcatFit_ID0000011",
+                    "id": "mConcatFit_ID0000011",
+                    "parents": [
+                        "mDiffFit_ID0000005",
+                        "mDiffFit_ID0000006",
+                        "mDiffFit_ID0000007",
+                        "mDiffFit_ID0000008",
+                        "mDiffFit_ID0000009",
+                        "mDiffFit_ID0000010"
+                    ],
+                    "children": [
+                        "mBgModel_ID0000012"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0008",
+                        "workflow_outfile_0006",
+                        "workflow_outfile_0007",
+                        "workflow_outfile_0010",
+                        "workflow_outfile_0005",
+                        "workflow_outfile_0009"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0011"
+                    ]
+                },
+                {
+                    "name": "mBgModel_ID0000012",
+                    "id": "mBgModel_ID0000012",
+                    "parents": [
+                        "mConcatFit_ID0000011"
+                    ],
+                    "children": [
+                        "mBackground_ID0000013",
+                        "mBackground_ID0000014",
+                        "mBackground_ID0000015",
+                        "mBackground_ID0000016"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0011"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0012"
+                    ]
+                },
+                {
+                    "name": "mBackground_ID0000013",
+                    "id": "mBackground_ID0000013",
+                    "parents": [
+                        "mProject_ID0000001",
+                        "mBgModel_ID0000012"
+                    ],
+                    "children": [
+                        "mImgtbl_ID0000017",
+                        "mAdd_ID0000018"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0001",
+                        "workflow_outfile_0012"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0013"
+                    ]
+                },
+                {
+                    "name": "mBackground_ID0000014",
+                    "id": "mBackground_ID0000014",
+                    "parents": [
+                        "mProject_ID0000002",
+                        "mBgModel_ID0000012"
+                    ],
+                    "children": [
+                        "mImgtbl_ID0000017",
+                        "mAdd_ID0000018"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0012",
+                        "workflow_outfile_0002"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0014"
+                    ]
+                },
+                {
+                    "name": "mBackground_ID0000015",
+                    "id": "mBackground_ID0000015",
+                    "parents": [
+                        "mProject_ID0000003",
+                        "mBgModel_ID0000012"
+                    ],
+                    "children": [
+                        "mImgtbl_ID0000017",
+                        "mAdd_ID0000018"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0003",
+                        "workflow_outfile_0012"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0015"
+                    ]
+                },
+                {
+                    "name": "mBackground_ID0000016",
+                    "id": "mBackground_ID0000016",
+                    "parents": [
+                        "mProject_ID0000004",
+                        "mBgModel_ID0000012"
+                    ],
+                    "children": [
+                        "mImgtbl_ID0000017",
+                        "mAdd_ID0000018"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0004",
+                        "workflow_outfile_0012"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0016"
+                    ]
+                },
+                {
+                    "name": "mImgtbl_ID0000017",
+                    "id": "mImgtbl_ID0000017",
+                    "parents": [
+                        "mBackground_ID0000013",
+                        "mBackground_ID0000014",
+                        "mBackground_ID0000015",
+                        "mBackground_ID0000016"
+                    ],
+                    "children": [
+                        "mAdd_ID0000018"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0013",
+                        "workflow_outfile_0016",
+                        "workflow_outfile_0015",
+                        "workflow_outfile_0014"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0017"
+                    ]
+                },
+                {
+                    "name": "mAdd_ID0000018",
+                    "id": "mAdd_ID0000018",
+                    "parents": [
+                        "mBackground_ID0000013",
+                        "mBackground_ID0000014",
+                        "mBackground_ID0000015",
+                        "mBackground_ID0000016",
+                        "mImgtbl_ID0000017"
+                    ],
+                    "children": [
+                        "mViewer_ID0000019",
+                        "mViewer_ID0000058"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0013",
+                        "workflow_outfile_0014",
+                        "workflow_outfile_0016",
+                        "workflow_outfile_0017",
+                        "workflow_outfile_0015"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0018"
+                    ]
+                },
+                {
+                    "name": "mViewer_ID0000019",
+                    "id": "mViewer_ID0000019",
+                    "parents": [
+                        "mAdd_ID0000018"
+                    ],
+                    "children": [],
+                    "inputFiles": [
+                        "workflow_outfile_0018"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0019"
+                    ]
+                },
+                {
+                    "name": "mProject_ID0000020",
+                    "id": "mProject_ID0000020",
+                    "parents": [],
+                    "children": [
+                        "mDiffFit_ID0000024",
+                        "mDiffFit_ID0000025",
+                        "mDiffFit_ID0000026",
+                        "mBackground_ID0000032"
+                    ],
+                    "inputFiles": [
+                        "workflow_infile_0005"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0020"
+                    ]
+                },
+                {
+                    "name": "mProject_ID0000021",
+                    "id": "mProject_ID0000021",
+                    "parents": [],
+                    "children": [
+                        "mDiffFit_ID0000024",
+                        "mDiffFit_ID0000027",
+                        "mDiffFit_ID0000028",
+                        "mBackground_ID0000033"
+                    ],
+                    "inputFiles": [
+                        "workflow_infile_0006"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0021"
+                    ]
+                },
+                {
+                    "name": "mProject_ID0000022",
+                    "id": "mProject_ID0000022",
+                    "parents": [],
+                    "children": [
+                        "mDiffFit_ID0000025",
+                        "mDiffFit_ID0000027",
+                        "mDiffFit_ID0000029",
+                        "mBackground_ID0000034"
+                    ],
+                    "inputFiles": [
+                        "workflow_infile_0007"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0022"
+                    ]
+                },
+                {
+                    "name": "mProject_ID0000023",
+                    "id": "mProject_ID0000023",
+                    "parents": [],
+                    "children": [
+                        "mDiffFit_ID0000026",
+                        "mDiffFit_ID0000028",
+                        "mDiffFit_ID0000029",
+                        "mBackground_ID0000035"
+                    ],
+                    "inputFiles": [
+                        "workflow_infile_0008"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0023"
+                    ]
+                },
+                {
+                    "name": "mDiffFit_ID0000024",
+                    "id": "mDiffFit_ID0000024",
+                    "parents": [
+                        "mProject_ID0000020",
+                        "mProject_ID0000021"
+                    ],
+                    "children": [
+                        "mConcatFit_ID0000030"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0021",
+                        "workflow_outfile_0020"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0024"
+                    ]
+                },
+                {
+                    "name": "mDiffFit_ID0000025",
+                    "id": "mDiffFit_ID0000025",
+                    "parents": [
+                        "mProject_ID0000020",
+                        "mProject_ID0000022"
+                    ],
+                    "children": [
+                        "mConcatFit_ID0000030"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0022",
+                        "workflow_outfile_0020"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0025"
+                    ]
+                },
+                {
+                    "name": "mDiffFit_ID0000026",
+                    "id": "mDiffFit_ID0000026",
+                    "parents": [
+                        "mProject_ID0000020",
+                        "mProject_ID0000023"
+                    ],
+                    "children": [
+                        "mConcatFit_ID0000030"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0023",
+                        "workflow_outfile_0020"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0026"
+                    ]
+                },
+                {
+                    "name": "mDiffFit_ID0000027",
+                    "id": "mDiffFit_ID0000027",
+                    "parents": [
+                        "mProject_ID0000021",
+                        "mProject_ID0000022"
+                    ],
+                    "children": [
+                        "mConcatFit_ID0000030"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0022",
+                        "workflow_outfile_0021"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0027"
+                    ]
+                },
+                {
+                    "name": "mDiffFit_ID0000028",
+                    "id": "mDiffFit_ID0000028",
+                    "parents": [
+                        "mProject_ID0000021",
+                        "mProject_ID0000023"
+                    ],
+                    "children": [
+                        "mConcatFit_ID0000030"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0023",
+                        "workflow_outfile_0021"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0028"
+                    ]
+                },
+                {
+                    "name": "mDiffFit_ID0000029",
+                    "id": "mDiffFit_ID0000029",
+                    "parents": [
+                        "mProject_ID0000022",
+                        "mProject_ID0000023"
+                    ],
+                    "children": [
+                        "mConcatFit_ID0000030"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0023",
+                        "workflow_outfile_0022"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0029"
+                    ]
+                },
+                {
+                    "name": "mConcatFit_ID0000030",
+                    "id": "mConcatFit_ID0000030",
+                    "parents": [
+                        "mDiffFit_ID0000024",
+                        "mDiffFit_ID0000025",
+                        "mDiffFit_ID0000026",
+                        "mDiffFit_ID0000027",
+                        "mDiffFit_ID0000028",
+                        "mDiffFit_ID0000029"
+                    ],
+                    "children": [
+                        "mBgModel_ID0000031"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0024",
+                        "workflow_outfile_0028",
+                        "workflow_outfile_0025",
+                        "workflow_outfile_0026",
+                        "workflow_outfile_0027",
+                        "workflow_outfile_0029"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0030"
+                    ]
+                },
+                {
+                    "name": "mBgModel_ID0000031",
+                    "id": "mBgModel_ID0000031",
+                    "parents": [
+                        "mConcatFit_ID0000030"
+                    ],
+                    "children": [
+                        "mBackground_ID0000032",
+                        "mBackground_ID0000033",
+                        "mBackground_ID0000034",
+                        "mBackground_ID0000035"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0030"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0031"
+                    ]
+                },
+                {
+                    "name": "mBackground_ID0000032",
+                    "id": "mBackground_ID0000032",
+                    "parents": [
+                        "mProject_ID0000020",
+                        "mBgModel_ID0000031"
+                    ],
+                    "children": [
+                        "mImgtbl_ID0000036",
+                        "mAdd_ID0000037"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0031",
+                        "workflow_outfile_0020"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0032"
+                    ]
+                },
+                {
+                    "name": "mBackground_ID0000033",
+                    "id": "mBackground_ID0000033",
+                    "parents": [
+                        "mProject_ID0000021",
+                        "mBgModel_ID0000031"
+                    ],
+                    "children": [
+                        "mImgtbl_ID0000036",
+                        "mAdd_ID0000037"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0031",
+                        "workflow_outfile_0021"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0033"
+                    ]
+                },
+                {
+                    "name": "mBackground_ID0000034",
+                    "id": "mBackground_ID0000034",
+                    "parents": [
+                        "mProject_ID0000022",
+                        "mBgModel_ID0000031"
+                    ],
+                    "children": [
+                        "mImgtbl_ID0000036",
+                        "mAdd_ID0000037"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0031",
+                        "workflow_outfile_0022"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0034"
+                    ]
+                },
+                {
+                    "name": "mBackground_ID0000035",
+                    "id": "mBackground_ID0000035",
+                    "parents": [
+                        "mProject_ID0000023",
+                        "mBgModel_ID0000031"
+                    ],
+                    "children": [
+                        "mImgtbl_ID0000036",
+                        "mAdd_ID0000037"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0023",
+                        "workflow_outfile_0031"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0035"
+                    ]
+                },
+                {
+                    "name": "mImgtbl_ID0000036",
+                    "id": "mImgtbl_ID0000036",
+                    "parents": [
+                        "mBackground_ID0000032",
+                        "mBackground_ID0000033",
+                        "mBackground_ID0000034",
+                        "mBackground_ID0000035"
+                    ],
+                    "children": [
+                        "mAdd_ID0000037"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0033",
+                        "workflow_outfile_0032",
+                        "workflow_outfile_0034",
+                        "workflow_outfile_0035"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0036"
+                    ]
+                },
+                {
+                    "name": "mAdd_ID0000037",
+                    "id": "mAdd_ID0000037",
+                    "parents": [
+                        "mBackground_ID0000032",
+                        "mBackground_ID0000033",
+                        "mBackground_ID0000034",
+                        "mBackground_ID0000035",
+                        "mImgtbl_ID0000036"
+                    ],
+                    "children": [
+                        "mViewer_ID0000038",
+                        "mViewer_ID0000058"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0032",
+                        "workflow_outfile_0036",
+                        "workflow_outfile_0034",
+                        "workflow_outfile_0033",
+                        "workflow_outfile_0035"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0037"
+                    ]
+                },
+                {
+                    "name": "mViewer_ID0000038",
+                    "id": "mViewer_ID0000038",
+                    "parents": [
+                        "mAdd_ID0000037"
+                    ],
+                    "children": [],
+                    "inputFiles": [
+                        "workflow_outfile_0037"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0038"
+                    ]
+                },
+                {
+                    "name": "mProject_ID0000039",
+                    "id": "mProject_ID0000039",
+                    "parents": [],
+                    "children": [
+                        "mDiffFit_ID0000043",
+                        "mDiffFit_ID0000044",
+                        "mDiffFit_ID0000045",
+                        "mBackground_ID0000051"
+                    ],
+                    "inputFiles": [
+                        "workflow_infile_0009"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0039"
+                    ]
+                },
+                {
+                    "name": "mProject_ID0000040",
+                    "id": "mProject_ID0000040",
+                    "parents": [],
+                    "children": [
+                        "mDiffFit_ID0000043",
+                        "mDiffFit_ID0000046",
+                        "mDiffFit_ID0000047",
+                        "mBackground_ID0000052"
+                    ],
+                    "inputFiles": [
+                        "workflow_infile_0010"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0040"
+                    ]
+                },
+                {
+                    "name": "mProject_ID0000041",
+                    "id": "mProject_ID0000041",
+                    "parents": [],
+                    "children": [
+                        "mDiffFit_ID0000044",
+                        "mDiffFit_ID0000046",
+                        "mDiffFit_ID0000048",
+                        "mBackground_ID0000053"
+                    ],
+                    "inputFiles": [
+                        "workflow_infile_0011"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0041"
+                    ]
+                },
+                {
+                    "name": "mProject_ID0000042",
+                    "id": "mProject_ID0000042",
+                    "parents": [],
+                    "children": [
+                        "mDiffFit_ID0000045",
+                        "mDiffFit_ID0000047",
+                        "mDiffFit_ID0000048",
+                        "mBackground_ID0000054"
+                    ],
+                    "inputFiles": [
+                        "workflow_infile_0012"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0042"
+                    ]
+                },
+                {
+                    "name": "mDiffFit_ID0000043",
+                    "id": "mDiffFit_ID0000043",
+                    "parents": [
+                        "mProject_ID0000039",
+                        "mProject_ID0000040"
+                    ],
+                    "children": [
+                        "mConcatFit_ID0000049"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0039",
+                        "workflow_outfile_0040"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0043"
+                    ]
+                },
+                {
+                    "name": "mDiffFit_ID0000044",
+                    "id": "mDiffFit_ID0000044",
+                    "parents": [
+                        "mProject_ID0000039",
+                        "mProject_ID0000041"
+                    ],
+                    "children": [
+                        "mConcatFit_ID0000049"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0039",
+                        "workflow_outfile_0041"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0044"
+                    ]
+                },
+                {
+                    "name": "mDiffFit_ID0000045",
+                    "id": "mDiffFit_ID0000045",
+                    "parents": [
+                        "mProject_ID0000039",
+                        "mProject_ID0000042"
+                    ],
+                    "children": [
+                        "mConcatFit_ID0000049"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0039",
+                        "workflow_outfile_0042"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0045"
+                    ]
+                },
+                {
+                    "name": "mDiffFit_ID0000046",
+                    "id": "mDiffFit_ID0000046",
+                    "parents": [
+                        "mProject_ID0000040",
+                        "mProject_ID0000041"
+                    ],
+                    "children": [
+                        "mConcatFit_ID0000049"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0041",
+                        "workflow_outfile_0040"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0046"
+                    ]
+                },
+                {
+                    "name": "mDiffFit_ID0000047",
+                    "id": "mDiffFit_ID0000047",
+                    "parents": [
+                        "mProject_ID0000040",
+                        "mProject_ID0000042"
+                    ],
+                    "children": [
+                        "mConcatFit_ID0000049"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0042",
+                        "workflow_outfile_0040"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0047"
+                    ]
+                },
+                {
+                    "name": "mDiffFit_ID0000048",
+                    "id": "mDiffFit_ID0000048",
+                    "parents": [
+                        "mProject_ID0000041",
+                        "mProject_ID0000042"
+                    ],
+                    "children": [
+                        "mConcatFit_ID0000049"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0042",
+                        "workflow_outfile_0041"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0048"
+                    ]
+                },
+                {
+                    "name": "mConcatFit_ID0000049",
+                    "id": "mConcatFit_ID0000049",
+                    "parents": [
+                        "mDiffFit_ID0000043",
+                        "mDiffFit_ID0000044",
+                        "mDiffFit_ID0000045",
+                        "mDiffFit_ID0000046",
+                        "mDiffFit_ID0000047",
+                        "mDiffFit_ID0000048"
+                    ],
+                    "children": [
+                        "mBgModel_ID0000050"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0047",
+                        "workflow_outfile_0044",
+                        "workflow_outfile_0048",
+                        "workflow_outfile_0043",
+                        "workflow_outfile_0045",
+                        "workflow_outfile_0046"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0049"
+                    ]
+                },
+                {
+                    "name": "mBgModel_ID0000050",
+                    "id": "mBgModel_ID0000050",
+                    "parents": [
+                        "mConcatFit_ID0000049"
+                    ],
+                    "children": [
+                        "mBackground_ID0000051",
+                        "mBackground_ID0000052",
+                        "mBackground_ID0000053",
+                        "mBackground_ID0000054"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0049"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0050"
+                    ]
+                },
+                {
+                    "name": "mBackground_ID0000051",
+                    "id": "mBackground_ID0000051",
+                    "parents": [
+                        "mProject_ID0000039",
+                        "mBgModel_ID0000050"
+                    ],
+                    "children": [
+                        "mImgtbl_ID0000055",
+                        "mAdd_ID0000056"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0039",
+                        "workflow_outfile_0050"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0051"
+                    ]
+                },
+                {
+                    "name": "mBackground_ID0000052",
+                    "id": "mBackground_ID0000052",
+                    "parents": [
+                        "mProject_ID0000040",
+                        "mBgModel_ID0000050"
+                    ],
+                    "children": [
+                        "mImgtbl_ID0000055",
+                        "mAdd_ID0000056"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0040",
+                        "workflow_outfile_0050"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0052"
+                    ]
+                },
+                {
+                    "name": "mBackground_ID0000053",
+                    "id": "mBackground_ID0000053",
+                    "parents": [
+                        "mProject_ID0000041",
+                        "mBgModel_ID0000050"
+                    ],
+                    "children": [
+                        "mImgtbl_ID0000055",
+                        "mAdd_ID0000056"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0041",
+                        "workflow_outfile_0050"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0053"
+                    ]
+                },
+                {
+                    "name": "mBackground_ID0000054",
+                    "id": "mBackground_ID0000054",
+                    "parents": [
+                        "mProject_ID0000042",
+                        "mBgModel_ID0000050"
+                    ],
+                    "children": [
+                        "mImgtbl_ID0000055",
+                        "mAdd_ID0000056"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0042",
+                        "workflow_outfile_0050"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0054"
+                    ]
+                },
+                {
+                    "name": "mImgtbl_ID0000055",
+                    "id": "mImgtbl_ID0000055",
+                    "parents": [
+                        "mBackground_ID0000051",
+                        "mBackground_ID0000052",
+                        "mBackground_ID0000053",
+                        "mBackground_ID0000054"
+                    ],
+                    "children": [
+                        "mAdd_ID0000056"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0052",
+                        "workflow_outfile_0054",
+                        "workflow_outfile_0053",
+                        "workflow_outfile_0051"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0055"
+                    ]
+                },
+                {
+                    "name": "mAdd_ID0000056",
+                    "id": "mAdd_ID0000056",
+                    "parents": [
+                        "mBackground_ID0000051",
+                        "mBackground_ID0000052",
+                        "mBackground_ID0000053",
+                        "mBackground_ID0000054",
+                        "mImgtbl_ID0000055"
+                    ],
+                    "children": [
+                        "mViewer_ID0000057",
+                        "mViewer_ID0000058"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0054",
+                        "workflow_outfile_0052",
+                        "workflow_outfile_0055",
+                        "workflow_outfile_0051",
+                        "workflow_outfile_0053"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0056"
+                    ]
+                },
+                {
+                    "name": "mViewer_ID0000057",
+                    "id": "mViewer_ID0000057",
+                    "parents": [
+                        "mAdd_ID0000056"
+                    ],
+                    "children": [],
+                    "inputFiles": [
+                        "workflow_outfile_0056"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0057"
+                    ]
+                },
+                {
+                    "name": "mViewer_ID0000058",
+                    "id": "mViewer_ID0000058",
+                    "parents": [
+                        "mAdd_ID0000018",
+                        "mAdd_ID0000037",
+                        "mAdd_ID0000056"
+                    ],
+                    "children": [],
+                    "inputFiles": [
+                        "workflow_outfile_0056",
+                        "workflow_outfile_0037",
+                        "workflow_outfile_0018"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0058"
+                    ]
+                }
+            ],
+            "files": [
+                {
+                    "id": "workflow_outfile_0032",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0046",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0050",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0009",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0053",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_infile_0010",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0003",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0012",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0037",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0044",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0057",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0052",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0033",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0029",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_infile_0008",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_infile_0009",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0024",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0054",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0018",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0001",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0035",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0022",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0038",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0002",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0045",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0043",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0049",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0014",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_infile_0002",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0017",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0013",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_infile_0006",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0026",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0039",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0056",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0004",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0028",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0011",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0015",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0008",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0048",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0042",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0055",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0027",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0036",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0047",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_infile_0001",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0041",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0034",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0021",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0016",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0006",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0031",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_infile_0011",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0051",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0040",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0010",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_infile_0012",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_infile_0005",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0058",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_infile_0003",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_infile_0007",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0025",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0007",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0020",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_infile_0004",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0023",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0019",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0030",
+                    "sizeInBytes": 142857
+                },
+                {
+                    "id": "workflow_outfile_0005",
+                    "sizeInBytes": 142857
+                }
+            ]
+        },
+        "execution": {
+            "makespanInSeconds": 58.285732,
+            "executedAt": "2025-03-12T00:51:56.669769+00:00",
+            "tasks": [
+                {
+                    "id": "mProject_ID0000001",
+                    "runtimeInSeconds": 3.828908,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mProject_ID0000001",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0001': 142857}",
+                            "--input-files ['workflow_infile_0001']"
+                        ]
+                    },
+                    "avgCPU": 97.91,
+                    "memoryInBytes": 14800000,
+                    "priority": 20,
+                    "machines": [
+                        "worker2"
+                    ],
+                    "executedAt": "2025-03-20T02:19:42.077625",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mProject_ID0000002",
+                    "runtimeInSeconds": 3.899419,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mProject_ID0000002",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0002': 142857}",
+                            "--input-files ['workflow_infile_0002']"
+                        ]
+                    },
+                    "avgCPU": 96.57,
+                    "memoryInBytes": 14660000,
+                    "priority": 20,
+                    "machines": [
+                        "worker1"
+                    ],
+                    "executedAt": "2025-03-20T02:19:42.037030",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mProject_ID0000003",
+                    "runtimeInSeconds": 3.861503,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mProject_ID0000003",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0003': 142857}",
+                            "--input-files ['workflow_infile_0003']"
+                        ]
+                    },
+                    "avgCPU": 99.28,
+                    "memoryInBytes": 14640000,
+                    "priority": 20,
+                    "machines": [
+                        "worker6"
+                    ],
+                    "executedAt": "2025-03-20T02:19:42.324739",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mProject_ID0000004",
+                    "runtimeInSeconds": 3.832186,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mProject_ID0000004",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0004': 142857}",
+                            "--input-files ['workflow_infile_0004']"
+                        ]
+                    },
+                    "avgCPU": 99.86,
+                    "memoryInBytes": 14716000,
+                    "priority": 20,
+                    "machines": [
+                        "worker0"
+                    ],
+                    "executedAt": "2025-03-20T02:19:41.956002",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mDiffFit_ID0000005",
+                    "runtimeInSeconds": 3.862575,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mDiffFit_ID0000005",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0005': 142857}",
+                            "--input-files ['workflow_outfile_0001', 'workflow_outfile_0002']"
+                        ]
+                    },
+                    "avgCPU": 102.46,
+                    "memoryInBytes": 2888000,
+                    "priority": 30,
+                    "machines": [
+                        "worker4"
+                    ],
+                    "executedAt": "2025-03-20T02:19:46.067665",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mDiffFit_ID0000006",
+                    "runtimeInSeconds": 3.814593,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mDiffFit_ID0000006",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0006': 142857}",
+                            "--input-files ['workflow_outfile_0001', 'workflow_outfile_0003']"
+                        ]
+                    },
+                    "avgCPU": 101.53,
+                    "memoryInBytes": 2916000,
+                    "priority": 30,
+                    "machines": [
+                        "worker6"
+                    ],
+                    "executedAt": "2025-03-20T02:19:46.192326",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mDiffFit_ID0000007",
+                    "runtimeInSeconds": 3.945044,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mDiffFit_ID0000007",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0007': 142857}",
+                            "--input-files ['workflow_outfile_0001', 'workflow_outfile_0004']"
+                        ]
+                    },
+                    "avgCPU": 94.8,
+                    "memoryInBytes": 2872000,
+                    "priority": 30,
+                    "machines": [
+                        "worker1"
+                    ],
+                    "executedAt": "2025-03-20T02:19:45.938029",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mDiffFit_ID0000008",
+                    "runtimeInSeconds": 3.89276,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mDiffFit_ID0000008",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0008': 142857}",
+                            "--input-files ['workflow_outfile_0003', 'workflow_outfile_0002']"
+                        ]
+                    },
+                    "avgCPU": 97.23,
+                    "memoryInBytes": 2868000,
+                    "priority": 30,
+                    "machines": [
+                        "worker5"
+                    ],
+                    "executedAt": "2025-03-20T02:19:46.205944",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mDiffFit_ID0000009",
+                    "runtimeInSeconds": 3.846217,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mDiffFit_ID0000009",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0009': 142857}",
+                            "--input-files ['workflow_outfile_0004', 'workflow_outfile_0002']"
+                        ]
+                    },
+                    "avgCPU": 98.72,
+                    "memoryInBytes": 2808000,
+                    "priority": 30,
+                    "machines": [
+                        "worker3"
+                    ],
+                    "executedAt": "2025-03-20T02:19:46.098860",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mDiffFit_ID0000010",
+                    "runtimeInSeconds": 3.847307,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mDiffFit_ID0000010",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0010': 142857}",
+                            "--input-files ['workflow_outfile_0004', 'workflow_outfile_0003']"
+                        ]
+                    },
+                    "avgCPU": 100.26,
+                    "memoryInBytes": 2804000,
+                    "priority": 30,
+                    "machines": [
+                        "worker7"
+                    ],
+                    "executedAt": "2025-03-20T02:19:46.252420",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mConcatFit_ID0000011",
+                    "runtimeInSeconds": 4.232929,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mConcatFit_ID0000011",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0011': 142857}",
+                            "--input-files ['workflow_outfile_0008', 'workflow_outfile_0006', 'workflow_outfile_0007', 'workflow_outfile_0010', 'workflow_outfile_0005', 'workflow_outfile_0009']"
+                        ]
+                    },
+                    "avgCPU": 149.79,
+                    "memoryInBytes": 70760000,
+                    "priority": 40,
+                    "machines": [
+                        "worker9"
+                    ],
+                    "executedAt": "2025-03-20T02:19:50.201370",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mBgModel_ID0000012",
+                    "runtimeInSeconds": 7.565235,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mBgModel_ID0000012",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0012': 142857}",
+                            "--input-files ['workflow_outfile_0011']"
+                        ]
+                    },
+                    "avgCPU": 99.81,
+                    "memoryInBytes": 137032000,
+                    "priority": 50,
+                    "machines": [
+                        "worker0"
+                    ],
+                    "executedAt": "2025-03-20T02:19:54.456810",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mBackground_ID0000013",
+                    "runtimeInSeconds": 5.947362,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mBackground_ID0000013",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0013': 142857}",
+                            "--input-files ['workflow_outfile_0001', 'workflow_outfile_0012']"
+                        ]
+                    },
+                    "avgCPU": 63.58,
+                    "memoryInBytes": 68952000,
+                    "priority": 60,
+                    "machines": [
+                        "worker0"
+                    ],
+                    "executedAt": "2025-03-20T02:20:02.035380",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mBackground_ID0000014",
+                    "runtimeInSeconds": 5.30088,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mBackground_ID0000014",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0014': 142857}",
+                            "--input-files ['workflow_outfile_0012', 'workflow_outfile_0002']"
+                        ]
+                    },
+                    "avgCPU": 72.42,
+                    "memoryInBytes": 68952000,
+                    "priority": 60,
+                    "machines": [
+                        "worker1"
+                    ],
+                    "executedAt": "2025-03-20T02:20:02.050383",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mBackground_ID0000015",
+                    "runtimeInSeconds": 6.027826,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mBackground_ID0000015",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0015': 142857}",
+                            "--input-files ['workflow_outfile_0003', 'workflow_outfile_0012']"
+                        ]
+                    },
+                    "avgCPU": 64.83,
+                    "memoryInBytes": 69008000,
+                    "priority": 60,
+                    "machines": [
+                        "worker8"
+                    ],
+                    "executedAt": "2025-03-20T02:20:02.054485",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mBackground_ID0000016",
+                    "runtimeInSeconds": 5.100638,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mBackground_ID0000016",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0016': 142857}",
+                            "--input-files ['workflow_outfile_0004', 'workflow_outfile_0012']"
+                        ]
+                    },
+                    "avgCPU": 73.85,
+                    "memoryInBytes": 68980000,
+                    "priority": 60,
+                    "machines": [
+                        "worker4"
+                    ],
+                    "executedAt": "2025-03-20T02:20:02.069970",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mImgtbl_ID0000017",
+                    "runtimeInSeconds": 5.129319,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mImgtbl_ID0000017",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0017': 142857}",
+                            "--input-files ['workflow_outfile_0013', 'workflow_outfile_0016', 'workflow_outfile_0015', 'workflow_outfile_0014']"
+                        ]
+                    },
+                    "avgCPU": 156.62,
+                    "memoryInBytes": 71044000,
+                    "priority": 70,
+                    "machines": [
+                        "worker0"
+                    ],
+                    "executedAt": "2025-03-20T02:20:08.106493",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mAdd_ID0000018",
+                    "runtimeInSeconds": 6.227174,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mAdd_ID0000018",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0018': 142857}",
+                            "--input-files ['workflow_outfile_0013', 'workflow_outfile_0014', 'workflow_outfile_0016', 'workflow_outfile_0017', 'workflow_outfile_0015']"
+                        ]
+                    },
+                    "avgCPU": 128.84,
+                    "memoryInBytes": 69952000,
+                    "priority": 80,
+                    "machines": [
+                        "worker0"
+                    ],
+                    "executedAt": "2025-03-20T02:20:13.247980",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mViewer_ID0000019",
+                    "runtimeInSeconds": 7.491805,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mViewer_ID0000019",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0019': 142857}",
+                            "--input-files ['workflow_outfile_0018']"
+                        ]
+                    },
+                    "avgCPU": 103.65,
+                    "memoryInBytes": 10752000,
+                    "priority": 90,
+                    "machines": [
+                        "worker0"
+                    ],
+                    "executedAt": "2025-03-20T02:20:19.487592",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mProject_ID0000020",
+                    "runtimeInSeconds": 3.806571,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mProject_ID0000020",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0020': 142857}",
+                            "--input-files ['workflow_infile_0005']"
+                        ]
+                    },
+                    "avgCPU": 102.4,
+                    "memoryInBytes": 14680000,
+                    "priority": 20,
+                    "machines": [
+                        "worker9"
+                    ],
+                    "executedAt": "2025-03-20T02:19:42.491089",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mProject_ID0000021",
+                    "runtimeInSeconds": 3.881007,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mProject_ID0000021",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0021': 142857}",
+                            "--input-files ['workflow_infile_0006']"
+                        ]
+                    },
+                    "avgCPU": 100.66,
+                    "memoryInBytes": 14896000,
+                    "priority": 20,
+                    "machines": [
+                        "worker7"
+                    ],
+                    "executedAt": "2025-03-20T02:19:42.369995",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mProject_ID0000022",
+                    "runtimeInSeconds": 3.91559,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mProject_ID0000022",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0022': 142857}",
+                            "--input-files ['workflow_infile_0007']"
+                        ]
+                    },
+                    "avgCPU": 98.33,
+                    "memoryInBytes": 14712000,
+                    "priority": 20,
+                    "machines": [
+                        "worker8"
+                    ],
+                    "executedAt": "2025-03-20T02:19:42.413182",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mProject_ID0000023",
+                    "runtimeInSeconds": 3.874015,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mProject_ID0000023",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0023': 142857}",
+                            "--input-files ['workflow_infile_0008']"
+                        ]
+                    },
+                    "avgCPU": 97.71,
+                    "memoryInBytes": 14544000,
+                    "priority": 20,
+                    "machines": [
+                        "worker4"
+                    ],
+                    "executedAt": "2025-03-20T02:19:42.192502",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mDiffFit_ID0000024",
+                    "runtimeInSeconds": 3.902142,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mDiffFit_ID0000024",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0024': 142857}",
+                            "--input-files ['workflow_outfile_0021', 'workflow_outfile_0020']"
+                        ]
+                    },
+                    "avgCPU": 98.91,
+                    "memoryInBytes": 2812000,
+                    "priority": 30,
+                    "machines": [
+                        "worker8"
+                    ],
+                    "executedAt": "2025-03-20T02:19:46.330967",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mDiffFit_ID0000025",
+                    "runtimeInSeconds": 3.856061,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mDiffFit_ID0000025",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0025': 142857}",
+                            "--input-files ['workflow_outfile_0022', 'workflow_outfile_0020']"
+                        ]
+                    },
+                    "avgCPU": 99.43,
+                    "memoryInBytes": 2804000,
+                    "priority": 30,
+                    "machines": [
+                        "worker2"
+                    ],
+                    "executedAt": "2025-03-20T02:19:49.686453",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mDiffFit_ID0000026",
+                    "runtimeInSeconds": 3.894214,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mDiffFit_ID0000026",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0026': 142857}",
+                            "--input-files ['workflow_outfile_0023', 'workflow_outfile_0020']"
+                        ]
+                    },
+                    "avgCPU": 97.24,
+                    "memoryInBytes": 2808000,
+                    "priority": 30,
+                    "machines": [
+                        "worker0"
+                    ],
+                    "executedAt": "2025-03-20T02:19:49.720987",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mDiffFit_ID0000027",
+                    "runtimeInSeconds": 3.823851,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mDiffFit_ID0000027",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0027': 142857}",
+                            "--input-files ['workflow_outfile_0022', 'workflow_outfile_0021']"
+                        ]
+                    },
+                    "avgCPU": 104.11,
+                    "memoryInBytes": 2816000,
+                    "priority": 30,
+                    "machines": [
+                        "worker1"
+                    ],
+                    "executedAt": "2025-03-20T02:19:49.884486",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mDiffFit_ID0000028",
+                    "runtimeInSeconds": 3.901325,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mDiffFit_ID0000028",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0028': 142857}",
+                            "--input-files ['workflow_outfile_0023', 'workflow_outfile_0021']"
+                        ]
+                    },
+                    "avgCPU": 97.8,
+                    "memoryInBytes": 2852000,
+                    "priority": 30,
+                    "machines": [
+                        "worker9"
+                    ],
+                    "executedAt": "2025-03-20T02:19:46.298978",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mDiffFit_ID0000029",
+                    "runtimeInSeconds": 3.933101,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mDiffFit_ID0000029",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0029': 142857}",
+                            "--input-files ['workflow_outfile_0023', 'workflow_outfile_0022']"
+                        ]
+                    },
+                    "avgCPU": 97.47,
+                    "memoryInBytes": 2812000,
+                    "priority": 30,
+                    "machines": [
+                        "worker4"
+                    ],
+                    "executedAt": "2025-03-20T02:19:49.931895",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mConcatFit_ID0000030",
+                    "runtimeInSeconds": 8.3222,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mConcatFit_ID0000030",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0030': 142857}",
+                            "--input-files ['workflow_outfile_0024', 'workflow_outfile_0028', 'workflow_outfile_0025', 'workflow_outfile_0026', 'workflow_outfile_0027', 'workflow_outfile_0029']"
+                        ]
+                    },
+                    "avgCPU": 69.44,
+                    "memoryInBytes": 70748000,
+                    "priority": 40,
+                    "machines": [
+                        "worker6"
+                    ],
+                    "executedAt": "2025-03-20T02:19:53.878134",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mBgModel_ID0000031",
+                    "runtimeInSeconds": 6.640685,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mBgModel_ID0000031",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0031': 142857}",
+                            "--input-files ['workflow_outfile_0030']"
+                        ]
+                    },
+                    "avgCPU": 110.63,
+                    "memoryInBytes": 137008000,
+                    "priority": 50,
+                    "machines": [
+                        "worker6"
+                    ],
+                    "executedAt": "2025-03-20T02:20:02.211733",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mBackground_ID0000032",
+                    "runtimeInSeconds": 4.926794,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mBackground_ID0000032",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0032': 142857}",
+                            "--input-files ['workflow_outfile_0031', 'workflow_outfile_0020']"
+                        ]
+                    },
+                    "avgCPU": 76.95,
+                    "memoryInBytes": 68980000,
+                    "priority": 60,
+                    "machines": [
+                        "worker6"
+                    ],
+                    "executedAt": "2025-03-20T02:20:08.875331",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mBackground_ID0000033",
+                    "runtimeInSeconds": 4.596191,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mBackground_ID0000033",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0033': 142857}",
+                            "--input-files ['workflow_outfile_0031', 'workflow_outfile_0021']"
+                        ]
+                    },
+                    "avgCPU": 86.84,
+                    "memoryInBytes": 69012000,
+                    "priority": 60,
+                    "machines": [
+                        "worker1"
+                    ],
+                    "executedAt": "2025-03-20T02:20:08.875107",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mBackground_ID0000034",
+                    "runtimeInSeconds": 4.672069,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mBackground_ID0000034",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0034': 142857}",
+                            "--input-files ['workflow_outfile_0031', 'workflow_outfile_0022']"
+                        ]
+                    },
+                    "avgCPU": 81.81,
+                    "memoryInBytes": 68936000,
+                    "priority": 60,
+                    "machines": [
+                        "worker8"
+                    ],
+                    "executedAt": "2025-03-20T02:20:08.889174",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mBackground_ID0000035",
+                    "runtimeInSeconds": 4.568617,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mBackground_ID0000035",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0035': 142857}",
+                            "--input-files ['workflow_outfile_0023', 'workflow_outfile_0031']"
+                        ]
+                    },
+                    "avgCPU": 84.74,
+                    "memoryInBytes": 68980000,
+                    "priority": 60,
+                    "machines": [
+                        "worker4"
+                    ],
+                    "executedAt": "2025-03-20T02:20:08.903600",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mImgtbl_ID0000036",
+                    "runtimeInSeconds": 6.739925,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mImgtbl_ID0000036",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0036': 142857}",
+                            "--input-files ['workflow_outfile_0033', 'workflow_outfile_0032', 'workflow_outfile_0034', 'workflow_outfile_0035']"
+                        ]
+                    },
+                    "avgCPU": 118.6,
+                    "memoryInBytes": 71020000,
+                    "priority": 70,
+                    "machines": [
+                        "worker6"
+                    ],
+                    "executedAt": "2025-03-20T02:20:13.814395",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mAdd_ID0000037",
+                    "runtimeInSeconds": 7.954748,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mAdd_ID0000037",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0037': 142857}",
+                            "--input-files ['workflow_outfile_0032', 'workflow_outfile_0036', 'workflow_outfile_0034', 'workflow_outfile_0033', 'workflow_outfile_0035']"
+                        ]
+                    },
+                    "avgCPU": 109.5,
+                    "memoryInBytes": 69928000,
+                    "priority": 80,
+                    "machines": [
+                        "worker6"
+                    ],
+                    "executedAt": "2025-03-20T02:20:20.578217",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mViewer_ID0000038",
+                    "runtimeInSeconds": 8.394527,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mViewer_ID0000038",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0038': 142857}",
+                            "--input-files ['workflow_outfile_0037']"
+                        ]
+                    },
+                    "avgCPU": 102.78,
+                    "memoryInBytes": 10680000,
+                    "priority": 90,
+                    "machines": [
+                        "worker6"
+                    ],
+                    "executedAt": "2025-03-20T02:20:28.556686",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mProject_ID0000039",
+                    "runtimeInSeconds": 3.951222,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mProject_ID0000039",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0039': 142857}",
+                            "--input-files ['workflow_infile_0009']"
+                        ]
+                    },
+                    "avgCPU": 94.95,
+                    "memoryInBytes": 14696000,
+                    "priority": 20,
+                    "machines": [
+                        "worker3"
+                    ],
+                    "executedAt": "2025-03-20T02:19:42.146233",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mProject_ID0000040",
+                    "runtimeInSeconds": 3.939894,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mProject_ID0000040",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0040': 142857}",
+                            "--input-files ['workflow_infile_0010']"
+                        ]
+                    },
+                    "avgCPU": 95.58,
+                    "memoryInBytes": 14660000,
+                    "priority": 20,
+                    "machines": [
+                        "worker5"
+                    ],
+                    "executedAt": "2025-03-20T02:19:42.253687",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mProject_ID0000041",
+                    "runtimeInSeconds": 3.929722,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mProject_ID0000041",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0041': 142857}",
+                            "--input-files ['workflow_infile_0011']"
+                        ]
+                    },
+                    "avgCPU": 97.57,
+                    "memoryInBytes": 14684000,
+                    "priority": 20,
+                    "machines": [
+                        "worker0"
+                    ],
+                    "executedAt": "2025-03-20T02:19:45.789207",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mProject_ID0000042",
+                    "runtimeInSeconds": 3.777513,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mProject_ID0000042",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0042': 142857}",
+                            "--input-files ['workflow_infile_0012']"
+                        ]
+                    },
+                    "avgCPU": 99.64,
+                    "memoryInBytes": 14632000,
+                    "priority": 20,
+                    "machines": [
+                        "worker2"
+                    ],
+                    "executedAt": "2025-03-20T02:19:45.907615",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mDiffFit_ID0000043",
+                    "runtimeInSeconds": 3.915958,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mDiffFit_ID0000043",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0043': 142857}",
+                            "--input-files ['workflow_outfile_0039', 'workflow_outfile_0040']"
+                        ]
+                    },
+                    "avgCPU": 100.15,
+                    "memoryInBytes": 2824000,
+                    "priority": 30,
+                    "machines": [
+                        "worker3"
+                    ],
+                    "executedAt": "2025-03-20T02:19:49.946089",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mDiffFit_ID0000044",
+                    "runtimeInSeconds": 3.777655,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mDiffFit_ID0000044",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0044': 142857}",
+                            "--input-files ['workflow_outfile_0039', 'workflow_outfile_0041']"
+                        ]
+                    },
+                    "avgCPU": 102.56,
+                    "memoryInBytes": 2864000,
+                    "priority": 30,
+                    "machines": [
+                        "worker6"
+                    ],
+                    "executedAt": "2025-03-20T02:19:50.008004",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mDiffFit_ID0000045",
+                    "runtimeInSeconds": 3.879476,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mDiffFit_ID0000045",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0045': 142857}",
+                            "--input-files ['workflow_outfile_0039', 'workflow_outfile_0042']"
+                        ]
+                    },
+                    "avgCPU": 99.29,
+                    "memoryInBytes": 2888000,
+                    "priority": 30,
+                    "machines": [
+                        "worker5"
+                    ],
+                    "executedAt": "2025-03-20T02:19:50.099794",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mDiffFit_ID0000046",
+                    "runtimeInSeconds": 3.9148,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mDiffFit_ID0000046",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0046': 142857}",
+                            "--input-files ['workflow_outfile_0041', 'workflow_outfile_0040']"
+                        ]
+                    },
+                    "avgCPU": 97.52,
+                    "memoryInBytes": 2868000,
+                    "priority": 30,
+                    "machines": [
+                        "worker7"
+                    ],
+                    "executedAt": "2025-03-20T02:19:50.100609",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mDiffFit_ID0000047",
+                    "runtimeInSeconds": 4.012576,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mDiffFit_ID0000047",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0047': 142857}",
+                            "--input-files ['workflow_outfile_0042', 'workflow_outfile_0040']"
+                        ]
+                    },
+                    "avgCPU": 100.19,
+                    "memoryInBytes": 2916000,
+                    "priority": 30,
+                    "machines": [
+                        "worker8"
+                    ],
+                    "executedAt": "2025-03-20T02:19:50.234180",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mDiffFit_ID0000048",
+                    "runtimeInSeconds": 6.767104,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mDiffFit_ID0000048",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0048': 142857}",
+                            "--input-files ['workflow_outfile_0042', 'workflow_outfile_0041']"
+                        ]
+                    },
+                    "avgCPU": 61.21,
+                    "memoryInBytes": 2868000,
+                    "priority": 30,
+                    "machines": [
+                        "worker2"
+                    ],
+                    "executedAt": "2025-03-20T02:19:53.543693",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mConcatFit_ID0000049",
+                    "runtimeInSeconds": 5.652592,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mConcatFit_ID0000049",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0049': 142857}",
+                            "--input-files ['workflow_outfile_0047', 'workflow_outfile_0044', 'workflow_outfile_0048', 'workflow_outfile_0043', 'workflow_outfile_0045', 'workflow_outfile_0046']"
+                        ]
+                    },
+                    "avgCPU": 113.88,
+                    "memoryInBytes": 70752000,
+                    "priority": 40,
+                    "machines": [
+                        "worker2"
+                    ],
+                    "executedAt": "2025-03-20T02:20:00.334539",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mBgModel_ID0000050",
+                    "runtimeInSeconds": 5.71944,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mBgModel_ID0000050",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0050': 142857}",
+                            "--input-files ['workflow_outfile_0049']"
+                        ]
+                    },
+                    "avgCPU": 127.89,
+                    "memoryInBytes": 137032000,
+                    "priority": 50,
+                    "machines": [
+                        "worker2"
+                    ],
+                    "executedAt": "2025-03-20T02:20:06.010958",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mBackground_ID0000051",
+                    "runtimeInSeconds": 4.846986,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mBackground_ID0000051",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0051': 142857}",
+                            "--input-files ['workflow_outfile_0039', 'workflow_outfile_0050']"
+                        ]
+                    },
+                    "avgCPU": 83.36,
+                    "memoryInBytes": 68880000,
+                    "priority": 60,
+                    "machines": [
+                        "worker2"
+                    ],
+                    "executedAt": "2025-03-20T02:20:11.742338",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mBackground_ID0000052",
+                    "runtimeInSeconds": 4.74705,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mBackground_ID0000052",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0052': 142857}",
+                            "--input-files ['workflow_outfile_0040', 'workflow_outfile_0050']"
+                        ]
+                    },
+                    "avgCPU": 80.62,
+                    "memoryInBytes": 68940000,
+                    "priority": 60,
+                    "machines": [
+                        "worker9"
+                    ],
+                    "executedAt": "2025-03-20T02:20:11.746226",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mBackground_ID0000053",
+                    "runtimeInSeconds": 5.052573,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mBackground_ID0000053",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0053': 142857}",
+                            "--input-files ['workflow_outfile_0041', 'workflow_outfile_0050']"
+                        ]
+                    },
+                    "avgCPU": 142.53,
+                    "memoryInBytes": 69008000,
+                    "priority": 60,
+                    "machines": [
+                        "worker3"
+                    ],
+                    "executedAt": "2025-03-20T02:20:11.750420",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mBackground_ID0000054",
+                    "runtimeInSeconds": 4.480124,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mBackground_ID0000054",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0054': 142857}",
+                            "--input-files ['workflow_outfile_0042', 'workflow_outfile_0050']"
+                        ]
+                    },
+                    "avgCPU": 186.32,
+                    "memoryInBytes": 68880000,
+                    "priority": 60,
+                    "machines": [
+                        "worker7"
+                    ],
+                    "executedAt": "2025-03-20T02:20:11.764951",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mImgtbl_ID0000055",
+                    "runtimeInSeconds": 7.688974,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mImgtbl_ID0000055",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0055': 142857}",
+                            "--input-files ['workflow_outfile_0052', 'workflow_outfile_0054', 'workflow_outfile_0053', 'workflow_outfile_0051']"
+                        ]
+                    },
+                    "avgCPU": 109.54,
+                    "memoryInBytes": 71084000,
+                    "priority": 70,
+                    "machines": [
+                        "worker2"
+                    ],
+                    "executedAt": "2025-03-20T02:20:16.827222",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mAdd_ID0000056",
+                    "runtimeInSeconds": 7.639768,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mAdd_ID0000056",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0056': 142857}",
+                            "--input-files ['workflow_outfile_0054', 'workflow_outfile_0052', 'workflow_outfile_0055', 'workflow_outfile_0051', 'workflow_outfile_0053']"
+                        ]
+                    },
+                    "avgCPU": 110.16,
+                    "memoryInBytes": 69948000,
+                    "priority": 80,
+                    "machines": [
+                        "worker2"
+                    ],
+                    "executedAt": "2025-03-20T02:20:24.539826",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mViewer_ID0000057",
+                    "runtimeInSeconds": 7.759048,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mViewer_ID0000057",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0057': 142857}",
+                            "--input-files ['workflow_outfile_0056']"
+                        ]
+                    },
+                    "avgCPU": 107.63,
+                    "memoryInBytes": 10692000,
+                    "priority": 90,
+                    "machines": [
+                        "worker2"
+                    ],
+                    "executedAt": "2025-03-20T02:20:32.192788",
+                    "coreCount": 1
+                },
+                {
+                    "id": "mViewer_ID0000058",
+                    "runtimeInSeconds": 8.033074,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name mViewer_ID0000058",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 100",
+                            "--output-files {'workflow_outfile_0058': 142857}",
+                            "--input-files ['workflow_outfile_0056', 'workflow_outfile_0037', 'workflow_outfile_0018']"
+                        ]
+                    },
+                    "avgCPU": 104.09,
+                    "memoryInBytes": 11428000,
+                    "priority": 90,
+                    "machines": [
+                        "worker0"
+                    ],
+                    "executedAt": "2025-03-20T02:20:32.208660",
+                    "coreCount": 1
+                }
+            ],
+            "machines": [
+                {
+                    "nodeName": "worker0",
+                    "system": "linux",
+                    "cpu": {
+                        "coreCount": 1,
+                        "speedInMHz": 1.0
+                    }
+                },
+                {
+                    "nodeName": "worker1",
+                    "system": "linux",
+                    "cpu": {
+                        "coreCount": 1,
+                        "speedInMHz": 1.0
+                    }
+                },
+                {
+                    "nodeName": "worker2",
+                    "system": "linux",
+                    "cpu": {
+                        "coreCount": 1,
+                        "speedInMHz": 1.0
+                    }
+                },
+                {
+                    "nodeName": "worker3",
+                    "system": "linux",
+                    "cpu": {
+                        "coreCount": 1,
+                        "speedInMHz": 1.0
+                    }
+                },
+                {
+                    "nodeName": "worker4",
+                    "system": "linux",
+                    "cpu": {
+                        "coreCount": 1,
+                        "speedInMHz": 1.0
+                    }
+                },
+                {
+                    "nodeName": "worker5",
+                    "system": "linux",
+                    "cpu": {
+                        "coreCount": 1,
+                        "speedInMHz": 1.0
+                    }
+                },
+                {
+                    "nodeName": "worker6",
+                    "system": "linux",
+                    "cpu": {
+                        "coreCount": 1,
+                        "speedInMHz": 1.0
+                    }
+                },
+                {
+                    "nodeName": "worker7",
+                    "system": "linux",
+                    "cpu": {
+                        "coreCount": 1,
+                        "speedInMHz": 1.0
+                    }
+                },
+                {
+                    "nodeName": "worker8",
+                    "system": "linux",
+                    "cpu": {
+                        "coreCount": 1,
+                        "speedInMHz": 1.0
+                    }
+                },
+                {
+                    "nodeName": "worker9",
+                    "system": "linux",
+                    "cpu": {
+                        "coreCount": 1,
+                        "speedInMHz": 1.0
+                    }
+                }
+            ]
+        }
+    },
+    "runtimeSystem": {
+        "name": "parsl",
+        "version": "1.3.0-dev",
+        "url": "https://github.com/jeff-yc-wong/parsl/tree/scheduling_using_simulation"
+    }
+}

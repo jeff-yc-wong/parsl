@@ -1,0 +1,1237 @@
+{
+    "name": "srasearch_0.1",
+    "description": "Instance generated with WfCommons - https://wfcommons.org",
+    "createdAt": "2025-03-12T00:51:58.430954+00:00",
+    "schemaVersion": "1.5",
+    "author": {
+        "name": "rafsilva",
+        "email": "support@workflowhub.org"
+    },
+    "workflow": {
+        "specification": {
+            "tasks": [
+                {
+                    "name": "bowtie2-build_ID0000001",
+                    "id": "bowtie2-build_ID0000001",
+                    "parents": [],
+                    "children": [
+                        "bowtie2_ID0000003",
+                        "bowtie2_ID0000005",
+                        "bowtie2_ID0000007",
+                        "bowtie2_ID0000009",
+                        "bowtie2_ID0000011",
+                        "bowtie2_ID0000013",
+                        "bowtie2_ID0000015",
+                        "bowtie2_ID0000017",
+                        "bowtie2_ID0000019",
+                        "bowtie2_ID0000021"
+                    ],
+                    "inputFiles": [
+                        "workflow_infile_0001"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0001",
+                        "workflow_outfile_0003",
+                        "workflow_outfile_0004",
+                        "workflow_outfile_0002",
+                        "workflow_outfile_0005",
+                        "workflow_outfile_0006"
+                    ]
+                },
+                {
+                    "name": "fasterq-dump_ID0000002",
+                    "id": "fasterq-dump_ID0000002",
+                    "parents": [],
+                    "children": [
+                        "bowtie2_ID0000003"
+                    ],
+                    "inputFiles": [],
+                    "outputFiles": [
+                        "workflow_outfile_0007",
+                        "workflow_outfile_0008"
+                    ]
+                },
+                {
+                    "name": "bowtie2_ID0000003",
+                    "id": "bowtie2_ID0000003",
+                    "parents": [
+                        "bowtie2-build_ID0000001",
+                        "fasterq-dump_ID0000002"
+                    ],
+                    "children": [
+                        "merge_ID0000022"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0001",
+                        "workflow_outfile_0003",
+                        "workflow_outfile_0004",
+                        "workflow_outfile_0002",
+                        "workflow_outfile_0008",
+                        "workflow_outfile_0007",
+                        "workflow_outfile_0005",
+                        "workflow_outfile_0006"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0009",
+                        "workflow_outfile_0010"
+                    ]
+                },
+                {
+                    "name": "fasterq-dump_ID0000004",
+                    "id": "fasterq-dump_ID0000004",
+                    "parents": [],
+                    "children": [
+                        "bowtie2_ID0000005"
+                    ],
+                    "inputFiles": [],
+                    "outputFiles": [
+                        "workflow_outfile_0011",
+                        "workflow_outfile_0012"
+                    ]
+                },
+                {
+                    "name": "bowtie2_ID0000005",
+                    "id": "bowtie2_ID0000005",
+                    "parents": [
+                        "bowtie2-build_ID0000001",
+                        "fasterq-dump_ID0000004"
+                    ],
+                    "children": [
+                        "merge_ID0000022"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0001",
+                        "workflow_outfile_0011",
+                        "workflow_outfile_0003",
+                        "workflow_outfile_0004",
+                        "workflow_outfile_0002",
+                        "workflow_outfile_0012",
+                        "workflow_outfile_0005",
+                        "workflow_outfile_0006"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0014",
+                        "workflow_outfile_0013"
+                    ]
+                },
+                {
+                    "name": "fasterq-dump_ID0000006",
+                    "id": "fasterq-dump_ID0000006",
+                    "parents": [],
+                    "children": [
+                        "bowtie2_ID0000007"
+                    ],
+                    "inputFiles": [],
+                    "outputFiles": [
+                        "workflow_outfile_0015",
+                        "workflow_outfile_0016"
+                    ]
+                },
+                {
+                    "name": "bowtie2_ID0000007",
+                    "id": "bowtie2_ID0000007",
+                    "parents": [
+                        "bowtie2-build_ID0000001",
+                        "fasterq-dump_ID0000006"
+                    ],
+                    "children": [
+                        "merge_ID0000022"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0001",
+                        "workflow_outfile_0016",
+                        "workflow_outfile_0003",
+                        "workflow_outfile_0004",
+                        "workflow_outfile_0002",
+                        "workflow_outfile_0015",
+                        "workflow_outfile_0005",
+                        "workflow_outfile_0006"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0018",
+                        "workflow_outfile_0017"
+                    ]
+                },
+                {
+                    "name": "fasterq-dump_ID0000008",
+                    "id": "fasterq-dump_ID0000008",
+                    "parents": [],
+                    "children": [
+                        "bowtie2_ID0000009"
+                    ],
+                    "inputFiles": [],
+                    "outputFiles": [
+                        "workflow_outfile_0019",
+                        "workflow_outfile_0020"
+                    ]
+                },
+                {
+                    "name": "bowtie2_ID0000009",
+                    "id": "bowtie2_ID0000009",
+                    "parents": [
+                        "bowtie2-build_ID0000001",
+                        "fasterq-dump_ID0000008"
+                    ],
+                    "children": [
+                        "merge_ID0000022"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0001",
+                        "workflow_outfile_0020",
+                        "workflow_outfile_0003",
+                        "workflow_outfile_0004",
+                        "workflow_outfile_0002",
+                        "workflow_outfile_0019",
+                        "workflow_outfile_0005",
+                        "workflow_outfile_0006"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0021",
+                        "workflow_outfile_0022"
+                    ]
+                },
+                {
+                    "name": "fasterq-dump_ID0000010",
+                    "id": "fasterq-dump_ID0000010",
+                    "parents": [],
+                    "children": [
+                        "bowtie2_ID0000011"
+                    ],
+                    "inputFiles": [],
+                    "outputFiles": [
+                        "workflow_outfile_0023",
+                        "workflow_outfile_0024"
+                    ]
+                },
+                {
+                    "name": "bowtie2_ID0000011",
+                    "id": "bowtie2_ID0000011",
+                    "parents": [
+                        "bowtie2-build_ID0000001",
+                        "fasterq-dump_ID0000010"
+                    ],
+                    "children": [
+                        "merge_ID0000022"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0001",
+                        "workflow_outfile_0023",
+                        "workflow_outfile_0024",
+                        "workflow_outfile_0003",
+                        "workflow_outfile_0004",
+                        "workflow_outfile_0002",
+                        "workflow_outfile_0005",
+                        "workflow_outfile_0006"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0026",
+                        "workflow_outfile_0025"
+                    ]
+                },
+                {
+                    "name": "fasterq-dump_ID0000012",
+                    "id": "fasterq-dump_ID0000012",
+                    "parents": [],
+                    "children": [
+                        "bowtie2_ID0000013"
+                    ],
+                    "inputFiles": [],
+                    "outputFiles": [
+                        "workflow_outfile_0027",
+                        "workflow_outfile_0028"
+                    ]
+                },
+                {
+                    "name": "bowtie2_ID0000013",
+                    "id": "bowtie2_ID0000013",
+                    "parents": [
+                        "bowtie2-build_ID0000001",
+                        "fasterq-dump_ID0000012"
+                    ],
+                    "children": [
+                        "merge_ID0000022"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0001",
+                        "workflow_outfile_0028",
+                        "workflow_outfile_0003",
+                        "workflow_outfile_0004",
+                        "workflow_outfile_0002",
+                        "workflow_outfile_0005",
+                        "workflow_outfile_0027",
+                        "workflow_outfile_0006"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0029",
+                        "workflow_outfile_0030"
+                    ]
+                },
+                {
+                    "name": "fasterq-dump_ID0000014",
+                    "id": "fasterq-dump_ID0000014",
+                    "parents": [],
+                    "children": [
+                        "bowtie2_ID0000015"
+                    ],
+                    "inputFiles": [],
+                    "outputFiles": [
+                        "workflow_outfile_0031",
+                        "workflow_outfile_0032"
+                    ]
+                },
+                {
+                    "name": "bowtie2_ID0000015",
+                    "id": "bowtie2_ID0000015",
+                    "parents": [
+                        "bowtie2-build_ID0000001",
+                        "fasterq-dump_ID0000014"
+                    ],
+                    "children": [
+                        "merge_ID0000022"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0001",
+                        "workflow_outfile_0032",
+                        "workflow_outfile_0003",
+                        "workflow_outfile_0004",
+                        "workflow_outfile_0002",
+                        "workflow_outfile_0031",
+                        "workflow_outfile_0005",
+                        "workflow_outfile_0006"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0034",
+                        "workflow_outfile_0033"
+                    ]
+                },
+                {
+                    "name": "fasterq-dump_ID0000016",
+                    "id": "fasterq-dump_ID0000016",
+                    "parents": [],
+                    "children": [
+                        "bowtie2_ID0000017"
+                    ],
+                    "inputFiles": [],
+                    "outputFiles": [
+                        "workflow_outfile_0035",
+                        "workflow_outfile_0036"
+                    ]
+                },
+                {
+                    "name": "bowtie2_ID0000017",
+                    "id": "bowtie2_ID0000017",
+                    "parents": [
+                        "bowtie2-build_ID0000001",
+                        "fasterq-dump_ID0000016"
+                    ],
+                    "children": [
+                        "merge_ID0000022"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0001",
+                        "workflow_outfile_0036",
+                        "workflow_outfile_0035",
+                        "workflow_outfile_0003",
+                        "workflow_outfile_0004",
+                        "workflow_outfile_0002",
+                        "workflow_outfile_0005",
+                        "workflow_outfile_0006"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0037",
+                        "workflow_outfile_0038"
+                    ]
+                },
+                {
+                    "name": "fasterq-dump_ID0000018",
+                    "id": "fasterq-dump_ID0000018",
+                    "parents": [],
+                    "children": [
+                        "bowtie2_ID0000019"
+                    ],
+                    "inputFiles": [],
+                    "outputFiles": [
+                        "workflow_outfile_0039",
+                        "workflow_outfile_0040"
+                    ]
+                },
+                {
+                    "name": "bowtie2_ID0000019",
+                    "id": "bowtie2_ID0000019",
+                    "parents": [
+                        "bowtie2-build_ID0000001",
+                        "fasterq-dump_ID0000018"
+                    ],
+                    "children": [
+                        "merge_ID0000022"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0001",
+                        "workflow_outfile_0039",
+                        "workflow_outfile_0003",
+                        "workflow_outfile_0004",
+                        "workflow_outfile_0002",
+                        "workflow_outfile_0005",
+                        "workflow_outfile_0006",
+                        "workflow_outfile_0040"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0041",
+                        "workflow_outfile_0042"
+                    ]
+                },
+                {
+                    "name": "fasterq-dump_ID0000020",
+                    "id": "fasterq-dump_ID0000020",
+                    "parents": [],
+                    "children": [
+                        "bowtie2_ID0000021"
+                    ],
+                    "inputFiles": [],
+                    "outputFiles": [
+                        "workflow_outfile_0043",
+                        "workflow_outfile_0044"
+                    ]
+                },
+                {
+                    "name": "bowtie2_ID0000021",
+                    "id": "bowtie2_ID0000021",
+                    "parents": [
+                        "bowtie2-build_ID0000001",
+                        "fasterq-dump_ID0000020"
+                    ],
+                    "children": [
+                        "merge_ID0000022"
+                    ],
+                    "inputFiles": [
+                        "workflow_outfile_0001",
+                        "workflow_outfile_0043",
+                        "workflow_outfile_0044",
+                        "workflow_outfile_0003",
+                        "workflow_outfile_0004",
+                        "workflow_outfile_0002",
+                        "workflow_outfile_0005",
+                        "workflow_outfile_0006"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0046",
+                        "workflow_outfile_0045"
+                    ]
+                },
+                {
+                    "name": "merge_ID0000022",
+                    "id": "merge_ID0000022",
+                    "parents": [
+                        "bowtie2_ID0000003",
+                        "bowtie2_ID0000005",
+                        "bowtie2_ID0000007",
+                        "bowtie2_ID0000009",
+                        "bowtie2_ID0000011",
+                        "bowtie2_ID0000013",
+                        "bowtie2_ID0000015",
+                        "bowtie2_ID0000017",
+                        "bowtie2_ID0000019",
+                        "bowtie2_ID0000021"
+                    ],
+                    "children": [],
+                    "inputFiles": [
+                        "workflow_outfile_0041",
+                        "workflow_outfile_0034",
+                        "workflow_outfile_0026",
+                        "workflow_outfile_0029",
+                        "workflow_outfile_0033",
+                        "workflow_outfile_0014",
+                        "workflow_outfile_0037",
+                        "workflow_outfile_0013",
+                        "workflow_outfile_0038",
+                        "workflow_outfile_0022",
+                        "workflow_outfile_0046",
+                        "workflow_outfile_0009",
+                        "workflow_outfile_0010",
+                        "workflow_outfile_0018",
+                        "workflow_outfile_0030",
+                        "workflow_outfile_0021",
+                        "workflow_outfile_0017",
+                        "workflow_outfile_0025",
+                        "workflow_outfile_0042",
+                        "workflow_outfile_0045"
+                    ],
+                    "outputFiles": [
+                        "workflow_outfile_0047"
+                    ]
+                }
+            ],
+            "files": [
+                {
+                    "id": "workflow_outfile_0002",
+                    "sizeInBytes": 422686
+                },
+                {
+                    "id": "workflow_outfile_0018",
+                    "sizeInBytes": 32
+                },
+                {
+                    "id": "workflow_outfile_0032",
+                    "sizeInBytes": 77356393
+                },
+                {
+                    "id": "workflow_outfile_0012",
+                    "sizeInBytes": 100225275
+                },
+                {
+                    "id": "workflow_outfile_0038",
+                    "sizeInBytes": 32
+                },
+                {
+                    "id": "workflow_outfile_0004",
+                    "sizeInBytes": 2
+                },
+                {
+                    "id": "workflow_outfile_0036",
+                    "sizeInBytes": 47540587
+                },
+                {
+                    "id": "workflow_outfile_0006",
+                    "sizeInBytes": 2428
+                },
+                {
+                    "id": "workflow_outfile_0022",
+                    "sizeInBytes": 32
+                },
+                {
+                    "id": "workflow_outfile_0014",
+                    "sizeInBytes": 32
+                },
+                {
+                    "id": "workflow_outfile_0025",
+                    "sizeInBytes": 3
+                },
+                {
+                    "id": "workflow_outfile_0009",
+                    "sizeInBytes": 3
+                },
+                {
+                    "id": "workflow_outfile_0026",
+                    "sizeInBytes": 32
+                },
+                {
+                    "id": "workflow_outfile_0047",
+                    "sizeInBytes": 310
+                },
+                {
+                    "id": "workflow_outfile_0024",
+                    "sizeInBytes": 58240703
+                },
+                {
+                    "id": "workflow_outfile_0037",
+                    "sizeInBytes": 3
+                },
+                {
+                    "id": "workflow_outfile_0005",
+                    "sizeInBytes": 2428
+                },
+                {
+                    "id": "workflow_outfile_0042",
+                    "sizeInBytes": 32
+                },
+                {
+                    "id": "workflow_outfile_0033",
+                    "sizeInBytes": 3
+                },
+                {
+                    "id": "workflow_outfile_0034",
+                    "sizeInBytes": 32
+                },
+                {
+                    "id": "workflow_outfile_0029",
+                    "sizeInBytes": 3
+                },
+                {
+                    "id": "workflow_outfile_0015",
+                    "sizeInBytes": 108962795
+                },
+                {
+                    "id": "workflow_outfile_0010",
+                    "sizeInBytes": 32
+                },
+                {
+                    "id": "workflow_outfile_0011",
+                    "sizeInBytes": 100225275
+                },
+                {
+                    "id": "workflow_outfile_0008",
+                    "sizeInBytes": 54782731
+                },
+                {
+                    "id": "workflow_outfile_0016",
+                    "sizeInBytes": 108962795
+                },
+                {
+                    "id": "workflow_outfile_0028",
+                    "sizeInBytes": 79907736
+                },
+                {
+                    "id": "workflow_outfile_0030",
+                    "sizeInBytes": 32
+                },
+                {
+                    "id": "workflow_outfile_0003",
+                    "sizeInBytes": 422686
+                },
+                {
+                    "id": "workflow_outfile_0040",
+                    "sizeInBytes": 168494727
+                },
+                {
+                    "id": "workflow_outfile_0043",
+                    "sizeInBytes": 53186395
+                },
+                {
+                    "id": "workflow_outfile_0046",
+                    "sizeInBytes": 32
+                },
+                {
+                    "id": "workflow_outfile_0020",
+                    "sizeInBytes": 76224178
+                },
+                {
+                    "id": "workflow_outfile_0045",
+                    "sizeInBytes": 3
+                },
+                {
+                    "id": "workflow_outfile_0001",
+                    "sizeInBytes": 2428
+                },
+                {
+                    "id": "workflow_outfile_0027",
+                    "sizeInBytes": 79907736
+                },
+                {
+                    "id": "workflow_outfile_0019",
+                    "sizeInBytes": 76224178
+                },
+                {
+                    "id": "workflow_outfile_0017",
+                    "sizeInBytes": 3
+                },
+                {
+                    "id": "workflow_outfile_0013",
+                    "sizeInBytes": 3
+                },
+                {
+                    "id": "workflow_outfile_0039",
+                    "sizeInBytes": 168494727
+                },
+                {
+                    "id": "workflow_infile_0001",
+                    "sizeInBytes": 9873
+                },
+                {
+                    "id": "workflow_outfile_0007",
+                    "sizeInBytes": 54782731
+                },
+                {
+                    "id": "workflow_outfile_0031",
+                    "sizeInBytes": 77356393
+                },
+                {
+                    "id": "workflow_outfile_0035",
+                    "sizeInBytes": 47540587
+                },
+                {
+                    "id": "workflow_outfile_0041",
+                    "sizeInBytes": 3
+                },
+                {
+                    "id": "workflow_outfile_0044",
+                    "sizeInBytes": 53186395
+                },
+                {
+                    "id": "workflow_outfile_0021",
+                    "sizeInBytes": 3
+                },
+                {
+                    "id": "workflow_outfile_0023",
+                    "sizeInBytes": 58240703
+                }
+            ]
+        },
+        "execution": {
+            "makespanInSeconds": 27.720969,
+            "executedAt": "2025-03-12T00:51:58.430959+00:00",
+            "tasks": [
+                {
+                    "id": "bowtie2-build_ID0000001",
+                    "runtimeInSeconds": 0.843878,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name bowtie2-build_ID0000001",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 1",
+                            "--output-files {'workflow_outfile_0001': 2428, 'workflow_outfile_0003': 422686, 'workflow_outfile_0004': 2, 'workflow_outfile_0002': 422686, 'workflow_outfile_0005': 2428, 'workflow_outfile_0006': 2428}",
+                            "--input-files ['workflow_infile_0001']"
+                        ]
+                    },
+                    "coreCount": 1,
+                    "avgCPU": 102.08,
+                    "priority": 20,
+                    "machines": [
+                        "worker4"
+                    ],
+                    "category": "bowtie2-build_ID0000001",
+                    "executedAt": "2025-03-15T02:36:01.022323"
+                },
+                {
+                    "id": "fasterq-dump_ID0000002",
+                    "runtimeInSeconds": 4.151823,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name fasterq-dump_ID0000002",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 103",
+                            "--output-files {'workflow_outfile_0007': 54782731, 'workflow_outfile_0008': 54782731}",
+                            "--input-files []"
+                        ]
+                    },
+                    "coreCount": 1,
+                    "avgCPU": 103.88,
+                    "priority": 20,
+                    "machines": [
+                        "worker1"
+                    ],
+                    "category": "fasterq-dump_ID0000002",
+                    "executedAt": "2025-03-15T02:35:57.363233"
+                },
+                {
+                    "id": "bowtie2_ID0000003",
+                    "runtimeInSeconds": 3.497326,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name bowtie2_ID0000003",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 85",
+                            "--output-files {'workflow_outfile_0009': 3, 'workflow_outfile_0010': 32}",
+                            "--input-files ['workflow_outfile_0001', 'workflow_outfile_0003', 'workflow_outfile_0004', 'workflow_outfile_0002', 'workflow_outfile_0008', 'workflow_outfile_0007', 'workflow_outfile_0005', 'workflow_outfile_0006']"
+                        ]
+                    },
+                    "coreCount": 1,
+                    "avgCPU": 99.54,
+                    "priority": 30,
+                    "machines": [
+                        "worker2"
+                    ],
+                    "category": "bowtie2_ID0000003",
+                    "executedAt": "2025-03-15T02:36:01.889622"
+                },
+                {
+                    "id": "fasterq-dump_ID0000004",
+                    "runtimeInSeconds": 6.917654,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name fasterq-dump_ID0000004",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 180",
+                            "--output-files {'workflow_outfile_0011': 100225275, 'workflow_outfile_0012': 100225275}",
+                            "--input-files []"
+                        ]
+                    },
+                    "coreCount": 1,
+                    "avgCPU": 99.59,
+                    "priority": 20,
+                    "machines": [
+                        "worker6"
+                    ],
+                    "category": "fasterq-dump_ID0000004",
+                    "executedAt": "2025-03-15T02:35:57.606739"
+                },
+                {
+                    "id": "bowtie2_ID0000005",
+                    "runtimeInSeconds": 9.659205,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name bowtie2_ID0000005",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 154",
+                            "--output-files {'workflow_outfile_0014': 32, 'workflow_outfile_0013': 3}",
+                            "--input-files ['workflow_outfile_0001', 'workflow_outfile_0011', 'workflow_outfile_0003', 'workflow_outfile_0004', 'workflow_outfile_0002', 'workflow_outfile_0012', 'workflow_outfile_0005', 'workflow_outfile_0006']"
+                        ]
+                    },
+                    "coreCount": 1,
+                    "avgCPU": 100.54,
+                    "priority": 30,
+                    "machines": [
+                        "worker6"
+                    ],
+                    "category": "bowtie2_ID0000005",
+                    "executedAt": "2025-03-15T02:36:04.535885"
+                },
+                {
+                    "id": "fasterq-dump_ID0000006",
+                    "runtimeInSeconds": 5.869785,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name fasterq-dump_ID0000006",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 143",
+                            "--output-files {'workflow_outfile_0015': 108962795, 'workflow_outfile_0016': 108962795}",
+                            "--input-files []"
+                        ]
+                    },
+                    "coreCount": 1,
+                    "avgCPU": 100.93,
+                    "priority": 20,
+                    "machines": [
+                        "worker7"
+                    ],
+                    "category": "fasterq-dump_ID0000006",
+                    "executedAt": "2025-03-15T02:35:57.688604"
+                },
+                {
+                    "id": "bowtie2_ID0000007",
+                    "runtimeInSeconds": 7.85986,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name bowtie2_ID0000007",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 144",
+                            "--output-files {'workflow_outfile_0018': 32, 'workflow_outfile_0017': 3}",
+                            "--input-files ['workflow_outfile_0001', 'workflow_outfile_0016', 'workflow_outfile_0003', 'workflow_outfile_0004', 'workflow_outfile_0002', 'workflow_outfile_0015', 'workflow_outfile_0005', 'workflow_outfile_0006']"
+                        ]
+                    },
+                    "coreCount": 1,
+                    "avgCPU": 95.45,
+                    "priority": 30,
+                    "machines": [
+                        "worker7"
+                    ],
+                    "category": "bowtie2_ID0000007",
+                    "executedAt": "2025-03-15T02:36:03.569701"
+                },
+                {
+                    "id": "fasterq-dump_ID0000008",
+                    "runtimeInSeconds": 4.552119,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name fasterq-dump_ID0000008",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 108",
+                            "--output-files {'workflow_outfile_0019': 76224178, 'workflow_outfile_0020': 76224178}",
+                            "--input-files []"
+                        ]
+                    },
+                    "coreCount": 1,
+                    "avgCPU": 102.79,
+                    "priority": 20,
+                    "machines": [
+                        "worker3"
+                    ],
+                    "category": "fasterq-dump_ID0000008",
+                    "executedAt": "2025-03-15T02:35:57.431097"
+                },
+                {
+                    "id": "bowtie2_ID0000009",
+                    "runtimeInSeconds": 9.356122,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name bowtie2_ID0000009",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 202",
+                            "--output-files {'workflow_outfile_0021': 3, 'workflow_outfile_0022': 32}",
+                            "--input-files ['workflow_outfile_0001', 'workflow_outfile_0020', 'workflow_outfile_0003', 'workflow_outfile_0004', 'workflow_outfile_0002', 'workflow_outfile_0019', 'workflow_outfile_0005', 'workflow_outfile_0006']"
+                        ]
+                    },
+                    "coreCount": 1,
+                    "avgCPU": 111.56,
+                    "priority": 30,
+                    "machines": [
+                        "worker3"
+                    ],
+                    "category": "bowtie2_ID0000009",
+                    "executedAt": "2025-03-15T02:36:01.994530"
+                },
+                {
+                    "id": "fasterq-dump_ID0000010",
+                    "runtimeInSeconds": 4.190289,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name fasterq-dump_ID0000010",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 105",
+                            "--output-files {'workflow_outfile_0023': 58240703, 'workflow_outfile_0024': 58240703}",
+                            "--input-files []"
+                        ]
+                    },
+                    "coreCount": 1,
+                    "avgCPU": 107.91,
+                    "priority": 20,
+                    "machines": [
+                        "worker2"
+                    ],
+                    "category": "fasterq-dump_ID0000010",
+                    "executedAt": "2025-03-15T02:35:57.366041"
+                },
+                {
+                    "id": "bowtie2_ID0000011",
+                    "runtimeInSeconds": 3.459029,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name bowtie2_ID0000011",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 89",
+                            "--output-files {'workflow_outfile_0026': 32, 'workflow_outfile_0025': 3}",
+                            "--input-files ['workflow_outfile_0001', 'workflow_outfile_0023', 'workflow_outfile_0024', 'workflow_outfile_0003', 'workflow_outfile_0004', 'workflow_outfile_0002', 'workflow_outfile_0005', 'workflow_outfile_0006']"
+                        ]
+                    },
+                    "coreCount": 1,
+                    "avgCPU": 98.53,
+                    "priority": 30,
+                    "machines": [
+                        "worker1"
+                    ],
+                    "category": "bowtie2_ID0000011",
+                    "executedAt": "2025-03-15T02:36:01.894787"
+                },
+                {
+                    "id": "fasterq-dump_ID0000012",
+                    "runtimeInSeconds": 5.721928,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name fasterq-dump_ID0000012",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 148",
+                            "--output-files {'workflow_outfile_0027': 79907736, 'workflow_outfile_0028': 79907736}",
+                            "--input-files []"
+                        ]
+                    },
+                    "coreCount": 1,
+                    "avgCPU": 98.66,
+                    "priority": 20,
+                    "machines": [
+                        "worker9"
+                    ],
+                    "category": "fasterq-dump_ID0000012",
+                    "executedAt": "2025-03-15T02:35:57.803305"
+                },
+                {
+                    "id": "bowtie2_ID0000013",
+                    "runtimeInSeconds": 6.757705,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name bowtie2_ID0000013",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 131",
+                            "--output-files {'workflow_outfile_0029': 3, 'workflow_outfile_0030': 32}",
+                            "--input-files ['workflow_outfile_0001', 'workflow_outfile_0028', 'workflow_outfile_0003', 'workflow_outfile_0004', 'workflow_outfile_0002', 'workflow_outfile_0005', 'workflow_outfile_0027', 'workflow_outfile_0006']"
+                        ]
+                    },
+                    "coreCount": 1,
+                    "avgCPU": 89.47,
+                    "priority": 30,
+                    "machines": [
+                        "worker9"
+                    ],
+                    "category": "bowtie2_ID0000013",
+                    "executedAt": "2025-03-15T02:36:03.537139"
+                },
+                {
+                    "id": "fasterq-dump_ID0000014",
+                    "runtimeInSeconds": 4.514895,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name fasterq-dump_ID0000014",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 103",
+                            "--output-files {'workflow_outfile_0031': 77356393, 'workflow_outfile_0032': 77356393}",
+                            "--input-files []"
+                        ]
+                    },
+                    "coreCount": 1,
+                    "avgCPU": 107.95,
+                    "priority": 20,
+                    "machines": [
+                        "worker0"
+                    ],
+                    "category": "fasterq-dump_ID0000014",
+                    "executedAt": "2025-03-15T02:35:57.263539"
+                },
+                {
+                    "id": "bowtie2_ID0000015",
+                    "runtimeInSeconds": 4.198307,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name bowtie2_ID0000015",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 104",
+                            "--output-files {'workflow_outfile_0034': 32, 'workflow_outfile_0033': 3}",
+                            "--input-files ['workflow_outfile_0001', 'workflow_outfile_0032', 'workflow_outfile_0003', 'workflow_outfile_0004', 'workflow_outfile_0002', 'workflow_outfile_0031', 'workflow_outfile_0005', 'workflow_outfile_0006']"
+                        ]
+                    },
+                    "coreCount": 1,
+                    "avgCPU": 106.96,
+                    "priority": 30,
+                    "machines": [
+                        "worker0"
+                    ],
+                    "category": "bowtie2_ID0000015",
+                    "executedAt": "2025-03-15T02:36:01.910151"
+                },
+                {
+                    "id": "fasterq-dump_ID0000016",
+                    "runtimeInSeconds": 3.529813,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name fasterq-dump_ID0000016",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 84",
+                            "--output-files {'workflow_outfile_0035': 47540587, 'workflow_outfile_0036': 47540587}",
+                            "--input-files []"
+                        ]
+                    },
+                    "coreCount": 1,
+                    "avgCPU": 102.69,
+                    "priority": 20,
+                    "machines": [
+                        "worker4"
+                    ],
+                    "category": "fasterq-dump_ID0000016",
+                    "executedAt": "2025-03-15T02:35:57.491769"
+                },
+                {
+                    "id": "bowtie2_ID0000017",
+                    "runtimeInSeconds": 3.100934,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name bowtie2_ID0000017",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 72",
+                            "--output-files {'workflow_outfile_0037': 3, 'workflow_outfile_0038': 32}",
+                            "--input-files ['workflow_outfile_0001', 'workflow_outfile_0036', 'workflow_outfile_0035', 'workflow_outfile_0003', 'workflow_outfile_0004', 'workflow_outfile_0002', 'workflow_outfile_0005', 'workflow_outfile_0006']"
+                        ]
+                    },
+                    "coreCount": 1,
+                    "avgCPU": 100.22,
+                    "priority": 30,
+                    "machines": [
+                        "worker5"
+                    ],
+                    "category": "bowtie2_ID0000017",
+                    "executedAt": "2025-03-15T02:36:01.911046"
+                },
+                {
+                    "id": "fasterq-dump_ID0000018",
+                    "runtimeInSeconds": 8.073263,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name fasterq-dump_ID0000018",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 200",
+                            "--output-files {'workflow_outfile_0039': 168494727, 'workflow_outfile_0040': 168494727}",
+                            "--input-files []"
+                        ]
+                    },
+                    "coreCount": 1,
+                    "avgCPU": 99.87,
+                    "priority": 20,
+                    "machines": [
+                        "worker8"
+                    ],
+                    "category": "fasterq-dump_ID0000018",
+                    "executedAt": "2025-03-15T02:35:57.733338"
+                },
+                {
+                    "id": "bowtie2_ID0000019",
+                    "runtimeInSeconds": 18.293691,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name bowtie2_ID0000019",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 229",
+                            "--output-files {'workflow_outfile_0041': 3, 'workflow_outfile_0042': 32}",
+                            "--input-files ['workflow_outfile_0001', 'workflow_outfile_0039', 'workflow_outfile_0003', 'workflow_outfile_0004', 'workflow_outfile_0002', 'workflow_outfile_0005', 'workflow_outfile_0006', 'workflow_outfile_0040']"
+                        ]
+                    },
+                    "coreCount": 1,
+                    "avgCPU": 95.3,
+                    "priority": 30,
+                    "machines": [
+                        "worker8"
+                    ],
+                    "category": "bowtie2_ID0000019",
+                    "executedAt": "2025-03-15T02:36:05.818997"
+                },
+                {
+                    "id": "fasterq-dump_ID0000020",
+                    "runtimeInSeconds": 3.896116,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name fasterq-dump_ID0000020",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 95",
+                            "--output-files {'workflow_outfile_0043': 53186395, 'workflow_outfile_0044': 53186395}",
+                            "--input-files []"
+                        ]
+                    },
+                    "coreCount": 1,
+                    "avgCPU": 105.61,
+                    "priority": 20,
+                    "machines": [
+                        "worker5"
+                    ],
+                    "category": "fasterq-dump_ID0000020",
+                    "executedAt": "2025-03-15T02:35:57.553672"
+                },
+                {
+                    "id": "bowtie2_ID0000021",
+                    "runtimeInSeconds": 7.174736,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name bowtie2_ID0000021",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 170",
+                            "--output-files {'workflow_outfile_0046': 32, 'workflow_outfile_0045': 3}",
+                            "--input-files ['workflow_outfile_0001', 'workflow_outfile_0043', 'workflow_outfile_0044', 'workflow_outfile_0003', 'workflow_outfile_0004', 'workflow_outfile_0002', 'workflow_outfile_0005', 'workflow_outfile_0006']"
+                        ]
+                    },
+                    "coreCount": 1,
+                    "avgCPU": 108.06,
+                    "priority": 30,
+                    "machines": [
+                        "worker4"
+                    ],
+                    "category": "bowtie2_ID0000021",
+                    "executedAt": "2025-03-15T02:36:01.926793"
+                },
+                {
+                    "id": "merge_ID0000022",
+                    "runtimeInSeconds": 0.858385,
+                    "command": {
+                        "program": "wfbench",
+                        "arguments": [
+                            "--name merge_ID0000022",
+                            "--percent-cpu 1.0",
+                            "--cpu-work 0",
+                            "--output-files {'workflow_outfile_0047': 310}",
+                            "--input-files ['workflow_outfile_0041', 'workflow_outfile_0034', 'workflow_outfile_0026', 'workflow_outfile_0029', 'workflow_outfile_0033', 'workflow_outfile_0014', 'workflow_outfile_0037', 'workflow_outfile_0013', 'workflow_outfile_0038', 'workflow_outfile_0022', 'workflow_outfile_0046', 'workflow_outfile_0009', 'workflow_outfile_0010', 'workflow_outfile_0018', 'workflow_outfile_0030', 'workflow_outfile_0021', 'workflow_outfile_0017', 'workflow_outfile_0025', 'workflow_outfile_0042', 'workflow_outfile_0045']"
+                        ]
+                    },
+                    "coreCount": 1,
+                    "avgCPU": 111.09,
+                    "priority": 40,
+                    "machines": [
+                        "worker8"
+                    ],
+                    "category": "merge_ID0000022",
+                    "executedAt": "2025-03-15T02:36:24.126123"
+                }
+            ],
+            "machines": [
+                {
+                    "nodeName": "worker0",
+                    "system": "linux",
+                    "cpu": {
+                        "coreCount": 1,
+                        "speedInMHz": 1.0
+                    }
+                },
+                {
+                    "nodeName": "worker1",
+                    "system": "linux",
+                    "cpu": {
+                        "coreCount": 1,
+                        "speedInMHz": 1.0
+                    }
+                },
+                {
+                    "nodeName": "worker2",
+                    "system": "linux",
+                    "cpu": {
+                        "coreCount": 1,
+                        "speedInMHz": 1.0
+                    }
+                },
+                {
+                    "nodeName": "worker3",
+                    "system": "linux",
+                    "cpu": {
+                        "coreCount": 1,
+                        "speedInMHz": 1.0
+                    }
+                },
+                {
+                    "nodeName": "worker4",
+                    "system": "linux",
+                    "cpu": {
+                        "coreCount": 1,
+                        "speedInMHz": 1.0
+                    }
+                },
+                {
+                    "nodeName": "worker5",
+                    "system": "linux",
+                    "cpu": {
+                        "coreCount": 1,
+                        "speedInMHz": 1.0
+                    }
+                },
+                {
+                    "nodeName": "worker6",
+                    "system": "linux",
+                    "cpu": {
+                        "coreCount": 1,
+                        "speedInMHz": 1.0
+                    }
+                },
+                {
+                    "nodeName": "worker7",
+                    "system": "linux",
+                    "cpu": {
+                        "coreCount": 1,
+                        "speedInMHz": 1.0
+                    }
+                },
+                {
+                    "nodeName": "worker8",
+                    "system": "linux",
+                    "cpu": {
+                        "coreCount": 1,
+                        "speedInMHz": 1.0
+                    }
+                },
+                {
+                    "nodeName": "worker9",
+                    "system": "linux",
+                    "cpu": {
+                        "coreCount": 1,
+                        "speedInMHz": 1.0
+                    }
+                }
+            ]
+        }
+    },
+    "runtimeSystem": {
+        "name": "parsl",
+        "version": "1.3.0-dev",
+        "url": "https://github.com/jeff-yc-wong/parsl/tree/scheduling_using_simulation"
+    }
+}
