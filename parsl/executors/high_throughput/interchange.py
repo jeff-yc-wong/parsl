@@ -150,8 +150,6 @@ class Interchange:
         self.pending_task_queue: queue.Queue[Any] = queue.Queue(maxsize=10 ** 6)
         self.count = 0
 
-        self.param = None
-
         self.worker_ports = worker_ports
         self.worker_port_range = worker_port_range
 
@@ -209,11 +207,11 @@ class Interchange:
         if not self.calibration:
             self.calibration = {"platform":{"wms":{"disk_read_bandwidth":"100MBps","disk_write_bandwidth":"100MBps","network_bandwidth":"10Gbps"},"workers":{"worker1":{"speed":"1f","network_bandwidth":"10Gbps"},"worker2":{"speed":"1f","network_bandwidth":"10Gbps"}}},"scheduling":{"task_scheduling_overhead":1}}
 
-        self.possible_task_params = { "fcfs": None, "most_data": "data_size", "most_flops": "computation", "most_children": "num_children", "highest_bottom_level": "bottom_level"}
+        self.possible_task_params = {"most_flops", "least_flops", "most_data", "least_data", "highest_bottom_level", "lowest_bottom_level", "most_children", "least_children"}
         self.possible_managers = {"most_idle_cores": MostIdleSelector(), "fastest_cores": FastestManagerSelector(), "random": RandomManagerSelector()}
 
 
-        self.algs = AlgManager(self.possible_task_params.keys(), self.possible_managers.keys(), ["one_core"])
+        self.algs = AlgManager(self.possible_task_params, self.possible_managers.keys(), ["one_core"])
 
         if self.simulator_path and self.template and self.metric:
             if self.verbose:
@@ -227,7 +225,7 @@ class Interchange:
             except FileNotFoundError:
                 try:
                     self.template=json.loads(self.template)
-                except Exception as e:
+                except Exception as _:
                     print("Template provided is not a path or a json object",file=sys.stderr)
                     raise
 
@@ -245,7 +243,6 @@ class Interchange:
         my_logger.info(f"Manger Selector: {self.manager_selector}")
         my_logger.info(f"Task Selector: {self.task_selector}")
 
-    # TODO: JEFF - ADD A PARAMETER TO THIS FUNCTION THAT SPECIFY THE PARAMETER FOR TASK SELECTION
     def get_tasks(self, param: str = None) -> Sequence[dict]:
         """ Obtains a batch of tasks from the internal pending_task_queue
 
@@ -288,17 +285,25 @@ class Interchange:
         -------
         List of sorted tasks by parameter
         """
-        if not param:
-            largest = tasks.pop(0)
-            return largest, tasks
+        if param == "fcfs":
+            picked_task = tasks.pop(0)
         else:
             sorted_tasks = sorted(tasks, key=lambda x: x["resource_specification"]['task_name'])
 
-            largest = max(sorted_tasks, key=lambda x: x["resource_specification"][param])
+            direction, spec = param.split("_", 1)
 
-            tasks.pop(tasks.index(largest))
+            spec_dict = {"flops": "computation", "data": "data_size", "children": "num_children", "bottom_level": "bottom_level"}
 
-            return largest, tasks
+            if direction in ["highest", "most"]:
+                picked_task = max(sorted_tasks, key=lambda x: x["resource_specification"][spec_dict[spec]])
+            elif direction in ["lowest", "least"]:
+                picked_task = min(sorted_tasks, key=lambda x: x["resource_specification"][spec_dict[spec]])
+            else:
+                picked_task = sorted_tasks[0]  # Default to the first task if no valid param is provided
+
+            tasks.pop(tasks.index(picked_task))
+
+        return picked_task, tasks
 
     @wrap_with_logs(target="interchange")
     def task_puller(self) -> NoReturn:
@@ -652,7 +657,8 @@ class Interchange:
 
             shuffled_managers = self.manager_selector.sort_managers(self._ready_managers, interesting_managers)
 
-            while shuffled_managers and not self.pending_task_queue.empty():  # cf. the if statement above...
+            # while shuffled_managers and not self.pending_task_queue.empty():  # cf. the if statement above...
+            if True:
                 manager_id = shuffled_managers.pop()
                 m = self._ready_managers[manager_id]
                 tasks_inflight = len(m['tasks'])

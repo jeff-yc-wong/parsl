@@ -29,14 +29,12 @@ parser.add_argument("--num_workers", default=2, type=int, help="The number of wo
 
 args = parser.parse_args()
 
-possible_task_params = {"fcfs": None, "most_data": "data_size", "most_flops": "computation",
-                        "most_children": "num_children", "highest_bottom_level": "bottom_level"}
-possible_managers = {"most_idle_cores": MostIdleSelector(), 
+possible_managers = {"most_idle_cores": MostIdleSelector(),
                      "fastest_cores": FastestManagerSelector(), "random": RandomManagerSelector()}
 
 print(
 f"""Running workflow with the following algorithms:
-    Task selection scheme: {args.task_selection_scheme} ({possible_task_params[args.task_selection_scheme]})
+    Task selection scheme: {args.task_selection_scheme}
     Worker selection scheme: {args.worker_selection_scheme} ({possible_managers[args.worker_selection_scheme]})
 """)
 
@@ -88,7 +86,7 @@ config = Config(
             worker_logdir_root="logs",
             provider=provider,
             manager_selector=possible_managers[args.worker_selection_scheme],
-            task_selector=possible_task_params[args.task_selection_scheme],
+            task_selector=args.task_selection_scheme,
             **scheduling_config
         )
     ],
