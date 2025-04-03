@@ -194,7 +194,8 @@ class ParslTranslator(Translator):
                      "                                                         True),",
                     f"                                 stdout=\"logs/{task.task_id}_stdout.txt\",",
                     f"                                 stderr=\"logs/{task.task_id}_stderr.txt\",",
-                    "" if self.clean else f"                                 parsl_resource_specification={resource_spec})",
+                    "" if self.clean else f"                                 parsl_resource_specification={resource_spec}",
+                    "                                 )",
                     f"task_arr.append({var_name})\n",
                 ]
 
