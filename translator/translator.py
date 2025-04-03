@@ -248,12 +248,12 @@ def get_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def translate_workflow(workflow_path: str, outdir_path: pathlib.Path) -> None:
+def translate_workflow(workflow_path: str, outdir_path: pathlib.Path, clean: bool = False) -> None:
     print("Translating workflow: ", workflow_path)
 
     workflow_path = pathlib.Path(workflow_path)
 
-    translator = ParslTranslator(workflow_path, clean=args.clean)
+    translator = ParslTranslator(workflow_path, clean=clean)
 
     wf_outdir = outdir_path.joinpath(translator.workflow.name)
 
@@ -281,7 +281,7 @@ def main():
             if wf.is_dir():
                 for wf_file in wf.iterdir():
                     if wf_file.name.endswith(".json"):
-                        translate_workflow(wf_file, outdir_path)
+                        translate_workflow(wf_file, outdir_path, args.clean)
     elif args.io_only:
         all_path = pathlib.Path("./benchmarks")
 
@@ -289,7 +289,7 @@ def main():
             if wf.is_dir() and wf.name.endswith("_io"):
                 for wf_file in wf.iterdir():
                     if wf_file.name.endswith(".json"):
-                        translate_workflow(wf_file, outdir_path)
+                        translate_workflow(wf_file, outdir_path, args.clean)
     elif args.cpu_only:
         all_path = pathlib.Path("./benchmarks")
 
@@ -297,7 +297,7 @@ def main():
             if wf.is_dir() and wf.name.endswith("_cpu"):
                 for wf_file in wf.iterdir():
                     if wf_file.name.endswith(".json"):
-                        translate_workflow(wf_file, outdir_path)
+                        translate_workflow(wf_file, outdir_path, args.clean)
 
     return 0
 
