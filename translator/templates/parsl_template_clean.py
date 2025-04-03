@@ -52,7 +52,6 @@ config = Config(
             worker_debug=True,
             cores_per_worker=1,
             max_workers_per_node=1,
-            num_workers=args.num_workers,
             worker_logdir_root="logs",
             provider=provider,
         )
@@ -77,7 +76,7 @@ parsl.set_file_logger(FILENAME, level=logging.DEBUG)
 
 
 @bash_app
-def generic_shell_app(cmd: str, file_inputs=[],  inputs=[], outputs=[], stdout="stdout.txt", stderr="stderr.txt", parsl_resource_specification=None):
+def generic_shell_app(cmd: str, file_inputs=[],  inputs=[], outputs=[], stdout="stdout.txt", stderr="stderr.txt"):
     from pathlib import Path
     from parsl.data_provider.files import File
 

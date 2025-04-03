@@ -20,17 +20,18 @@ def process_workflow(directory, args):
         if args.verbose:
             cmd.append("--verbose")
 
-        if args.task_selection_scheme:
-            cmd.extend(["--task_selection_scheme", args.task_selection_scheme])
+        if not args.clean:
+            if args.task_selection_scheme:
+                cmd.extend(["--task_selection_scheme", args.task_selection_scheme])
 
-        if args.worker_selection_scheme:
-            cmd.extend(["--worker_selection_scheme", args.worker_selection_scheme])
+            if args.worker_selection_scheme:
+                cmd.extend(["--worker_selection_scheme", args.worker_selection_scheme])
 
-        if args.simulate:
-            cmd.extend(["--metric", args.metric])
-            cmd.extend(["--calibration", args.calibration])
-            cmd.extend(["--num_threads", str(args.num_threads)])
-            cmd.append("--simulate")
+            if args.simulate:
+                cmd.extend(["--metric", args.metric])
+                cmd.extend(["--calibration", args.calibration])
+                cmd.extend(["--num_threads", str(args.num_threads)])
+                cmd.append("--simulate")
 
         subprocess.run(cmd, check=True, cwd=workflow_dir, stdout=sys.stdout, stderr=sys.stderr)
 
@@ -56,6 +57,7 @@ def main():
     group.add_argument("--io-only", action="store_true", help="Run workflow with only IO tasks.")
     group.add_argument("--cpu-only", action="store_true", help="Run workflow with only CPU tasks")
     group.add_argument("--all", action="store_true", help="Run all workflows in the given path.")
+    parser.add_argument("--clean", action="store_true", help="flag for clean parsl workflows (i.e. workflows without scheudling info)")
     args = parser.parse_args()
     if args.path:
         base_path = Path(args.path).resolve()
