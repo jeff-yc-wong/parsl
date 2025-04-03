@@ -272,7 +272,7 @@ def main():
         outdir_path = pathlib.Path(outdir_path)
 
     if args.workflow:
-        translate_workflow(args.workflow, outdir_path)
+        translate_workflow(args.workflow, outdir_path, args.clean)
 
     elif args.all:
         all_path = pathlib.Path("./benchmarks")
