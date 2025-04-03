@@ -34,10 +34,12 @@ class ParslTranslator(Translator):
     """
     def __init__(self,
                  workflow: Union[Workflow, pathlib.Path],
-                 logger: Optional[logging.Logger] = None) -> None:
+                 logger: Optional[logging.Logger] = None,
+                 clean: bool = False) -> None:
         super().__init__(workflow, logger)
         self.parsl_script = []
         self.task_level_map = defaultdict(lambda: [])
+        self.clean = clean
 
         indegree = {}
 
@@ -88,8 +90,13 @@ class ParslTranslator(Translator):
         wf_codelines = "\n".join(codelines)
 
         # Opening the parsl template file
-        with open(this_dir.joinpath("templates/parsl_template.py"), encoding="utf-8") as fp:
-            run_workflow_code = fp.read()
+
+        if self.clean:
+            with open(this_dir.joinpath("templates/parsl_template_clean.py"), encoding="utf-8") as fp:
+                run_workflow_code = fp.read()
+        else:
+            with open(this_dir.joinpath("templates/parsl_template.py"), encoding="utf-8") as fp:
+                run_workflow_code = fp.read()
         run_workflow_code = run_workflow_code.replace("# Generated code goes here", wf_codelines)
 
          # Writing the generated parsl code to a file
@@ -187,7 +194,7 @@ class ParslTranslator(Translator):
                      "                                                         True),",
                     f"                                 stdout=\"logs/{task.task_id}_stdout.txt\",",
                     f"                                 stderr=\"logs/{task.task_id}_stderr.txt\",",
-                    f"                                 parsl_resource_specification={resource_spec})",
+                    "" if self.clean else f"                                 parsl_resource_specification={resource_spec})",
                     f"task_arr.append({var_name})\n",
                 ]
 
@@ -235,6 +242,8 @@ def get_parser() -> argparse.ArgumentParser:
     group.add_argument("--cpu-only", action="store_true", help="Translate all the workflows in the benchmark directory")
     parser.add_argument("--outdir", default=pathlib.Path.cwd().joinpath("parsl_script"),
                         help="Output directory in which to store the translated files")
+    
+    parser.add_argument("--clean", action="store_true", help="Clean parsl translation without scheduling info")
 
     return parser
 
@@ -244,7 +253,7 @@ def translate_workflow(workflow_path: str, outdir_path: pathlib.Path) -> None:
 
     workflow_path = pathlib.Path(workflow_path)
 
-    translator = ParslTranslator(workflow_path)
+    translator = ParslTranslator(workflow_path, clean=args.clean)
 
     wf_outdir = outdir_path.joinpath(translator.workflow.name)
 

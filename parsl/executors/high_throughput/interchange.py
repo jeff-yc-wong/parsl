@@ -619,6 +619,12 @@ class Interchange:
         for _, task in self.done_tasks.items():
             done_tasks.append(task['task'])
 
+        pending_tasks = []
+
+        for task in self.pending_task_queue.queue:
+            pending_tasks.append(task['resource_specification']['task_name'])
+
+        my_logger.debug(f"\033[32mJEFF: pending tasks: {pending_tasks}\033[0m")
         my_logger.debug(f"\033[33mJEFF: Simulator input ongoing_tasks: {ongoing_tasks}\033[0m")
         my_logger.debug(f"\033[33mJEFF: Simulator input done_tasks: {done_tasks}\033[0m\n")
 
