@@ -16,6 +16,7 @@ from parsl.data_provider.files import File
 parser = argparse.ArgumentParser(description="Run a parsl workflow.")
 
 parser.add_argument("--docker", action="store_true", help="Run the workflow in a docker container.")
+parser.add_argument("-v", "--verbose", action="store_true", help="Increase output verbosity.")
 parser.add_argument("--num_workers", default=2, type=int, help="The number of workers to use.")
 
 args = parser.parse_args()
