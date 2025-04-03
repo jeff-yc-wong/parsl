@@ -1169,7 +1169,7 @@ class DataFlowKernel:
                 parent, child = pathlib.Path(run_dir).parts[-2:]
                 remote_run_dir = os.path.join(parent, child)
                 channel.script_dir = os.path.join(remote_run_dir, 'remote_submit_scripts')
-                provider.script_dir = os.path.join(run_dir, 'local_submit_scripts')
+                provider.script_dir = os.path.join(run_dir, 'submit_scripts')
 
         channel.makedirs(channel.script_dir, exist_ok=True)
 
