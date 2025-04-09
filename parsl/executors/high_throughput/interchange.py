@@ -664,7 +664,7 @@ class Interchange:
             shuffled_managers = self.manager_selector.sort_managers(self._ready_managers, interesting_managers)
 
             # while shuffled_managers and not self.pending_task_queue.empty():  # cf. the if statement above...
-            if True:
+            if shuffled_managers and not self.pending_task_queue.empty():
                 manager_id = shuffled_managers.pop()
                 m = self._ready_managers[manager_id]
                 tasks_inflight = len(m['tasks'])
