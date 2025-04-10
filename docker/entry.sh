@@ -1,5 +1,6 @@
 #!/bin/bash
 
+sudo mkdir -p /run/sshd
 sudo /usr/sbin/sshd &
 
 if [[ $# -eq 1 && $1 =~ ^-?[0-9]+$  ]]; then

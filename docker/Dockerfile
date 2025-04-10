@@ -1,4 +1,4 @@
-FROM debian:trixie-slim AS base
+FROM python:3.12.10-slim-bookworm AS base
 
 # Update repositories
 RUN apt-get update 
@@ -7,14 +7,9 @@ RUN apt-get update
 RUN apt-get install -y openssh-server
 RUN apt-get install -y git
 RUN apt-get install -y make
-RUN apt-get -y install gcc 
+RUN apt-get -y install gcc g++
 RUN apt-get -y install vim --fix-missing
-RUN apt-get -y install python3.12 python3-pip
 RUN apt-get install -y sudo
-
-# Python stuff
-RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.12 1
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1
 
 # Create a user matching the builder's username
 ARG USERNAME=parsl
