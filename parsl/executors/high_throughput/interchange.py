@@ -18,6 +18,7 @@ import zmq
 from parsl_scheduling_simulator.alg_manager import AlgManager
 from parsl_scheduling_simulator.simulator import SchedulingSimulator
 import parsl_scheduling_simulator.metrics as metrics
+from parsl_scheduling_simulator.simulation_server import SimulationServer
 
 from parsl import curvezmq
 from parsl.app.errors import RemoteExceptionWrapper
@@ -239,6 +240,7 @@ class Interchange:
                 raise
 
             self.simulator = SchedulingSimulator(self.simulator_path, self.template, self.calibration, self.algs, self.metric, None, verbosity=self.verbosity)
+            self.server = SimulationServer(self.simulator)
         else:
             self.simulator = None
 
@@ -484,6 +486,7 @@ class Interchange:
         delta = time.time() - start
         logger.info("Processed {} tasks in {} seconds".format(self.count, delta))
         logger.warning("Exiting")
+        self.server.stop()
 
     def process_task_outgoing_incoming(
             self,
@@ -644,7 +647,7 @@ class Interchange:
         state = {"workflow": state}
 
         if self.simulator:
-            list_of_algorithms = self.simulator(state)
+            list_of_algorithms = self.server(state)
             my_logger.debug(f"\033[33mJEFF: Simulator output: {list_of_algorithms}\033[0m\n")
 
         # TODO: pick one algo from the list of algorithms
