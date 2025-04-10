@@ -7,14 +7,64 @@
       "network_bandwidth": "[[calibration parameter]]"
     },
     "workers": {
-     "worker1":{
+     "worker0":{
+        "active":"[[json driven]]",
         "speed": "[[calibration parameter]]",
-        "num_cores": 2,
+        "num_cores": 1,
+        "network_bandwidth": "[[calibration parameter]]"
+      },
+      "worker1":{
+        "active":"[[json driven]]",
+        "speed": "[[calibration parameter]]",
+        "num_cores": 1,
         "network_bandwidth": "[[calibration parameter]]"
       },
       "worker2":{
+        "active":"[[json driven]]",
         "speed": "[[calibration parameter]]",
-        "num_cores": 2,
+        "num_cores": 1,
+        "network_bandwidth": "[[calibration parameter]]"
+      },
+      "worker3":{
+        "active":"[[json driven]]",
+        "speed": "[[calibration parameter]]",
+        "num_cores": 1,
+        "network_bandwidth": "[[calibration parameter]]"
+      },
+      "worker4":{
+        "active":"[[json driven]]",
+        "speed": "[[calibration parameter]]",
+        "num_cores": 1,
+        "network_bandwidth": "[[calibration parameter]]"
+      },
+      "worker5":{
+        "active":"[[json driven]]",
+        "speed": "[[calibration parameter]]",
+        "num_cores": 1,
+        "network_bandwidth": "[[calibration parameter]]"
+      },
+      "worker6":{
+        "active":"[[json driven]]",
+        "speed": "[[calibration parameter]]",
+        "num_cores": 1,
+        "network_bandwidth": "[[calibration parameter]]"
+      },
+      "worker7":{
+        "active":"[[json driven]]",
+        "speed": "[[calibration parameter]]",
+        "num_cores": 1,
+        "network_bandwidth": "[[calibration parameter]]"
+      },
+      "worker8":{
+        "active":"[[json driven]]",
+        "speed": "[[calibration parameter]]",
+        "num_cores": 1,
+        "network_bandwidth": "[[calibration parameter]]"
+      },
+      "worker9":{
+        "active":"[[json driven]]",
+        "speed": "[[calibration parameter]]",
+        "num_cores": 1,
         "network_bandwidth": "[[calibration parameter]]"
       }
     }
@@ -33,7 +83,8 @@
     "task_selection_scheme": "[[mandatory config]]",
     "worker_selection_scheme": "[[mandatory config]]",
     "num_cores_selection_scheme": "[[mandatory config]]",
-    "task_scheduling_overhead": "[[calibration parameter]]"
+    "task_scheduling_overhead": "[[calibration parameter]]",
+    "task_ready_delay": "[[calibration parameter]]"
   }
 }
 

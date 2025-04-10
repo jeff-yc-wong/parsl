@@ -274,6 +274,7 @@ class HighThroughputExecutor(BlockProviderExecutor, RepresentationMixin, UsageIn
                  template: Optional[str] = None,
                  metric: Optional[str] = None,
                  num_workers: int = 1,
+                 num_tasks: Optional[int] = None,
                  num_threads: Optional[int] = None,
                  verbose: Optional[bool] = False,
                  calibration: Optional[Dict] = None
@@ -303,6 +304,7 @@ class HighThroughputExecutor(BlockProviderExecutor, RepresentationMixin, UsageIn
         self.verbose = verbose
         self.calibration = calibration
         self.num_workers = num_workers
+        self.num_tasks = num_tasks
 
         if self.address:
             self.all_addresses = address
@@ -580,6 +582,7 @@ class HighThroughputExecutor(BlockProviderExecutor, RepresentationMixin, UsageIn
                               "metric": self.metric,
                               "num_threads": self.num_threads,
                               "num_workers": self.num_workers,
+                              "num_tasks": self.num_tasks,
                               "verbose": self.verbose,
                               "calibration": self.calibration,
                               "run_id": self.run_id,

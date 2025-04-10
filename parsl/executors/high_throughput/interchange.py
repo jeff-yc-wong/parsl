@@ -15,6 +15,10 @@ from typing import Any, Dict, List, NoReturn, Optional, Sequence, Set, Tuple, ca
 
 import zmq
 
+from parsl_scheduling_simulator.alg_manager import AlgManager
+from parsl_scheduling_simulator.simulator import SchedulingSimulator
+import parsl_scheduling_simulator.metrics as metrics
+
 from parsl import curvezmq
 from parsl.app.errors import RemoteExceptionWrapper
 from parsl.executors.high_throughput.errors import ManagerLost, VersionMismatch
@@ -28,9 +32,6 @@ from parsl.utils import setproctitle
 from parsl.version import VERSION as PARSL_VERSION
 
 
-from parsl.calibrator.simulator import SchedulingSimulator
-from parsl.calibrator.alg_manager import AlgManager, SchedulingAlg
-import parsl.calibrator.metrics as metrics
 
 PKL_HEARTBEAT_CODE = pickle.dumps((2 ** 32) - 1)
 PKL_DRAINED_CODE = pickle.dumps((2 ** 32) - 2)
@@ -69,6 +70,7 @@ class Interchange:
                  template: Optional[str] = None,
                  metric: Optional[str] = None,
                  num_threads: Optional[int] = None,
+                 num_tasks: Optional[int] = None,
                  verbose: Optional[bool] = False,
                  calibration: Optional[Dict] = None,
                  num_workers: int = 1,
@@ -193,16 +195,17 @@ class Interchange:
                                  'hostname': platform.node(),
                                  'dir': os.getcwd()}
 
-        self.manager_selector = manager_selector
-        self.task_selector = task_selector
-        self.workflow_file = workflow_file
-        self.simulator_path = simulator_path
-        self.template = template
-        self.metric = metric
-        self.num_threads = num_threads
-        self.verbose = verbose
-        self.calibration = calibration
-        self.num_workers = num_workers
+        self.manager_selector = manager_selector # which manager (worker) selection scheme to use (Ex. fastest cores)
+        self.task_selector = task_selector       # which task selection scheme to use (Ex. most_flops)
+        self.workflow_file = workflow_file       # wfformat json file describing the workflow
+        self.simulator_path = simulator_path     # path to the simulator executable
+        self.template = template                 # template json (input to the simulator)
+        self.metric = metric                     # metric to be used for the calibration of the simulator
+        self.num_threads = num_threads           # number of threads for the calibrator to use
+        self.verbose = verbose                   # verbosity of the simulator
+        self.calibration = calibration           # calibration parameters for the simulator
+        self.num_workers = num_workers           # number of workers exists for this workflow run
+        self.num_tasks = num_tasks               # number of tasks exists for this workflow run
 
         if not self.calibration:
             self.calibration = {"platform":{"wms":{"disk_read_bandwidth":"100MBps","disk_write_bandwidth":"100MBps","network_bandwidth":"10Gbps"},"workers":{"worker1":{"speed":"1f","network_bandwidth":"10Gbps"},"worker2":{"speed":"1f","network_bandwidth":"10Gbps"}}},"scheduling":{"task_scheduling_overhead":1}}
@@ -800,7 +803,7 @@ class Interchange:
                 interesting_managers.remove(manager_id)
 
 
-def start_file_logger(filepath: str, level: int = logging.DEBUG, format_string: Optional[str] = None) -> None:
+def start_file_logger(filepath: str, level: int = logging.DEBUG, format_string: Optional[str] = None) -> None: 
     """Add a stream log handler.
 
     Parameters

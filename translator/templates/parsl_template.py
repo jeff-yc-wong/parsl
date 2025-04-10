@@ -83,6 +83,7 @@ config = Config(
             cores_per_worker=1,
             max_workers_per_node=1,
             num_workers=args.num_workers,
+            num_tasks = # replace num_tasks here,
             worker_logdir_root="logs",
             provider=provider,
             manager_selector=possible_managers[args.worker_selection_scheme],

@@ -99,6 +99,8 @@ class ParslTranslator(Translator):
                 run_workflow_code = fp.read()
         run_workflow_code = run_workflow_code.replace("# Generated code goes here", wf_codelines)
 
+        run_workflow_code = run_workflow_code.replace("# replace num_tasks here", str(len(self.tasks)))
+
          # Writing the generated parsl code to a file
         try:
             output_folder.mkdir(parents=True)
