@@ -2,6 +2,7 @@ import sys
 import argparse
 import subprocess
 from pathlib import Path
+from analyze import generate_groundtruth
 
 def process_workflow(directory, args):
     """Run the required commands for a given Parsl workflow directory."""
@@ -36,6 +37,9 @@ def process_workflow(directory, args):
         subprocess.run(cmd, check=True, cwd=workflow_dir, stdout=sys.stdout, stderr=sys.stderr)
 
         print(f"Successfully processed workflow in {workflow_dir}")
+
+        # TODO: analyze the result and store it in the outdir
+        generate_groundtruth(workflow_dir, args.outdir)
     except subprocess.CalledProcessError as e:
         print(f"Error processing {workflow_dir}: {e}")
 
@@ -58,6 +62,7 @@ def main():
     group.add_argument("--cpu-only", action="store_true", help="Run workflow with only CPU tasks")
     group.add_argument("--all", action="store_true", help="Run all workflows in the given path.")
     parser.add_argument("--clean", action="store_true", help="flag for clean parsl workflows (i.e. workflows without scheudling info)")
+    parser.add_argument("--outdir", type=str, default="./groundtruth",  help="Path to the generated wfformat json file (defaults to ./groundtruth")
     args = parser.parse_args()
     if args.path:
         base_path = Path(args.path).resolve()
