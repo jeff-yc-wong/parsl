@@ -14,8 +14,9 @@ RUN apt-get install -y sudo
 # Create a user matching the builder's username
 ARG USERNAME=parsl
 ARG condaenv=env
+ARG USER_UID
 
-RUN useradd -ms /bin/bash $USERNAME && echo "$USERNAME:redhat" | chpasswd
+RUN useradd -u $USER_UID -ms /bin/bash $USERNAME && echo "$USERNAME:redhat" | chpasswd
 RUN adduser $USERNAME sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
