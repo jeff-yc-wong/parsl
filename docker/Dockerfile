@@ -54,6 +54,7 @@ COPY ./wfbench /usr/local/bin
 # Install parsl
 RUN git clone --depth 1 --branch scheduling_using_simulation https://github.com/jeff-yc-wong/parsl.git
 RUN sudo python3 -m pip install --break-system-packages parsl/
+RUN sudo rm -rf parsl/
 
 # Install WfCommons
 # RUN git clone --depth 1 --branch feature/wfbench_updates https://github.com/wfcommons/WfCommons.git
