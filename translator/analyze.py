@@ -128,6 +128,14 @@ def generate_groundtruth(workflow_path: Path, outdir: Path):
                         info = ast.literal_eval(match.group(1))
                         reg_matches.append(info)
 
+                    match = re.match(manager_patter, line.decode('utf-8'))
+                    if match:
+                        print(f"Manager Selector: {match.group(1)}")
+                    
+                    match = re.match(task_pattern, line.decode('utf-8'))
+                    if match:
+                        print(f"Task Selector: {match.group(1)}")
+
                 if len(matches) != len(tasks):
                     print(f"Number of tasks ({len(tasks)}) and number of matches ({len(matches)}) do not match.")
                     print(f"Skipping run #{run}")
