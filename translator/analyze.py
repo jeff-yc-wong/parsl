@@ -190,13 +190,12 @@ def generate_groundtruth(workflow_path: Path, outdir: Path):
             runtime_system = {
                 "name": "parsl",
                 "version": VERSION,
+                "workerSelectionScheme": worker_selection_scheme,
+                "taskSelectionScheme": task_selection_scheme,
                 "url": "https://github.com/jeff-yc-wong/parsl/tree/scheduling_using_simulation"
             }
 
             workflow_json['runtimeSystem'] = runtime_system
-
-            workflow_json['workerSelectionScheme'] = worker_selection_scheme
-            workflow_json['taskSelectionScheme'] = task_selection_scheme
 
             Path(f"{outdir}/{workflow_json['name']}").mkdir(parents=True, exist_ok=True)
 
