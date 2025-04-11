@@ -114,7 +114,7 @@ def generate_groundtruth(workflow_path: Path, outdir: Path):
                 # regex pattern for matching
                 pattern = "^.*Task done: ({.*}).*$"
                 reg_pattern = "^.*Registration info for manager b'.*': ({.*}).*$"
-                manager_patter = "^.*Manger Selector: (<.*>).*$"
+                manager_patter = "^.*Manger Selector: (.*)$"
                 task_pattern = "^.*Task Selector: (.*)$"
 
                 # Read the file line by line
