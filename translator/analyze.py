@@ -78,12 +78,15 @@ def generate_groundtruth(workflow_path: Path, outdir: Path):
 
         sorted_runs = sorted(folders, key=int)
 
-        for run in sorted_runs:
+        for i, run in enumerate(sorted_runs):
             print(f"Currently process run #{run}")
             workflow_id = df.iloc[-1]['run_id']
 
             matches = {}
             reg_matches = []
+            task_selection_scheme = "unknown"
+            worker_selection_scheme = "unknown"
+
 
             with open(f'{workflow_path}/runinfo/{run}/parsl.log', 'rb') as f:
                 # regex pattern for matching
@@ -131,10 +134,12 @@ def generate_groundtruth(workflow_path: Path, outdir: Path):
                     match = re.match(manager_patter, line.decode('utf-8'))
                     if match:
                         print(f"Manager Selector: {match.group(1)}")
+                        worker_selection_scheme = match.group(1)
                     
                     match = re.match(task_pattern, line.decode('utf-8'))
                     if match:
                         print(f"Task Selector: {match.group(1)}")
+                        task_selection_scheme = match.group(1)
 
                 if len(matches) != len(tasks):
                     print(f"Number of tasks ({len(tasks)}) and number of matches ({len(matches)}) do not match.")
@@ -190,9 +195,12 @@ def generate_groundtruth(workflow_path: Path, outdir: Path):
 
             workflow_json['runtimeSystem'] = runtime_system
 
+            workflow_json['workerSelectionScheme'] = worker_selection_scheme
+            workflow_json['taskSelectionScheme'] = task_selection_scheme
+
             Path(f"{outdir}/{workflow_json['name']}").mkdir(parents=True, exist_ok=True)
 
-            with open(f"{outdir}/{workflow_json['name']}/groundtruth_{workflow_json['name']}_{int(run)}.json", "w") as f:
+            with open(f"{outdir}/{workflow_json['name']}/groundtruth_{workflow_json['name']}_{i}.json", "w") as f:
                 json.dump(workflow_json, f, indent=4)
 
 
