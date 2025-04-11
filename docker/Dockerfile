@@ -1,24 +1,20 @@
 FROM python:3.12.10-slim-bookworm AS base
 
 # Update repositories
-RUN apt-get update 
-
-# Install dependencies
-RUN apt-get install -y openssh-server
-RUN apt-get install -y git
-RUN apt-get install -y make
-RUN apt-get -y install gcc g++
-RUN apt-get -y install vim --fix-missing
-RUN apt-get install -y sudo
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    openssh-server git make gcc g++ vim sudo && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Create a user matching the builder's username
 ARG USERNAME=parsl
-ARG condaenv=env
 ARG USER_UID
 
-RUN useradd -u $USER_UID -ms /bin/bash $USERNAME && echo "$USERNAME:redhat" | chpasswd
-RUN adduser $USERNAME sudo
-RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN useradd -u $USER_UID -ms /bin/bash $USERNAME && \
+    echo "$USERNAME:redhat" | chpasswd && \
+    adduser $USERNAME sudo && \
+    echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # Configure SSH server
 # Set no password for user login
@@ -53,14 +49,12 @@ ARG CACHEBUST=1
 COPY ./wfbench /usr/local/bin
 
 # Install parsl
-RUN git clone --depth 1 --branch scheduling_using_simulation https://github.com/jeff-yc-wong/parsl.git
-RUN sudo python3 -m pip install --break-system-packages parsl/
-RUN sudo rm -rf parsl/
+RUN git clone --depth 1 --branch scheduling_using_simulation https://github.com/jeff-yc-wong/parsl.git && \
+    sudo python3 -m pip install --break-system-packages parsl/ && \ 
+    sudo rm -rf parsl/
 
 # Install WfCommons
 # RUN git clone --depth 1 --branch feature/wfbench_updates https://github.com/wfcommons/WfCommons.git
 # RUN pip install WfCommons/
-
-
 
 ENTRYPOINT ["/bin/entry.sh"]
