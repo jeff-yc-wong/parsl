@@ -245,7 +245,7 @@ class Interchange:
             self.simulator = None
 
         logger.info("Platform info: {}".format(self.current_platform))
-        my_logger.info(f"Manger Selector: {self.manager_selector}")
+        my_logger.info(f"Manger Selector: {self.manager_selector.name}")
         my_logger.info(f"Task Selector: {self.task_selector}")
 
     def get_tasks(self, param: str = None) -> Sequence[dict]:
