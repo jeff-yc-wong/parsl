@@ -79,7 +79,6 @@ def generate_groundtruth(workflow_path: Path, outdir: Path):
         sorted_runs = sorted(folders, key=int)
 
         for i, run in enumerate(sorted_runs):
-            print(f"Currently process run #{run}")
             workflow_id = df.iloc[-1]['run_id']
 
             matches = {}
