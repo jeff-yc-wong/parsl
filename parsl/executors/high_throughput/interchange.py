@@ -599,12 +599,14 @@ class Interchange:
 
     def pick_scheduling_algorithm(self) -> str:
 
+        # idea:
+        # 1. submit current state to the simulation server
+        # 2. check whether or not we should make a change in scheduling algorithm
+        # 3. if yes, wait for the result from the server, then change
+        # 4. if no, do nothing
+
         # INPUT: TASKS STATES, WFFORMAT FILE
         # OUTPUT: SELECTED ALGORITHM
-
-        #TODO: keey track of tasks submission history
-        # Ongoing tasks and how far back they started
-        # List of done tasks
 
         my_logger.debug(f"\033[32mJEFF: list of pending tasks: {len(self.pending_task_queue.queue)}\033[0m")
         my_logger.debug(f"\033[33mJEFF: list of ongoing tasks: {len(self.ongoing_tasks)}\033[0m")
@@ -634,9 +636,6 @@ class Interchange:
         my_logger.debug(f"\033[33mJEFF: Simulator input ongoing_tasks: {ongoing_tasks}\033[0m")
         my_logger.debug(f"\033[33mJEFF: Simulator input done_tasks: {done_tasks}\033[0m\n")
 
-
-        #TODO: WORKFLOW SIMULATION - PICK A PARAMETER TO SORT THE TASKS AND MANAGERS
-
         state = {}
 
         state["file"] = self.workflow_file
@@ -646,11 +645,11 @@ class Interchange:
 
         state = {"workflow": state}
 
-        if self.simulator:
+        if self.simulator: # TODO: WE CAN MOVE THIS LINE TO THE TOP LATER
             list_of_algorithms = self.server(state)
             my_logger.debug(f"\033[33mJEFF: Simulator output: {list_of_algorithms}\033[0m\n")
 
-        # TODO: pick one algo from the list of algorithms
+        # TODO: pick one algo from the list of algorithms, or not change at all
 
     def process_tasks_to_send(self, interesting_managers: Set[bytes]) -> None:
         # Check if there are tasks that could be sent to managers
