@@ -598,7 +598,6 @@ class Interchange:
                 self._send_monitoring_info(monitoring_radio, m)
 
     def pick_scheduling_algorithm(self) -> str:
-
         # idea:
         # 1. submit current state to the simulation server
         # 2. check whether or not we should make a change in scheduling algorithm
@@ -649,7 +648,12 @@ class Interchange:
             list_of_algorithms = self.server(state)
             my_logger.debug(f"\033[33mJEFF: Simulator output: {list_of_algorithms}\033[0m\n")
 
-        # TODO: pick one algo from the list of algorithms, or not change at all
+
+            # Select the first algorithm from the list
+            self.task_selector = list_of_algorithms[0]['task_selection_scheme']
+            self.manager_selector = self.possible_managers[list_of_algorithms[0]['worker_selection_scheme']]
+
+            # list_of_algorithms[0]['num_cores_selection_scheme']
 
     def process_tasks_to_send(self, interesting_managers: Set[bytes]) -> None:
         # Check if there are tasks that could be sent to managers
