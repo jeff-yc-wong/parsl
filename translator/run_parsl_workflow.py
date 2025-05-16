@@ -4,6 +4,8 @@ import subprocess
 from pathlib import Path
 from analyze import generate_groundtruth
 
+groundtruth_dir = Path("./groundtruth_25may1")
+
 def process_workflow(directory, args):
     """Run the required commands for a given Parsl workflow directory."""
     try:
@@ -34,8 +36,27 @@ def process_workflow(directory, args):
                 cmd.extend(["--num_threads", str(args.num_threads)])
                 cmd.append("--simulate")
 
-        subprocess.run(cmd, check=True, cwd=workflow_dir, stdout=sys.stdout, stderr=sys.stderr)
+                if workflow_dir.name.endswith("_io"):
+                    sub_dir = "io_only"    
+                elif workflow_dir.name.endswith("_cpu"):
+                    sub_dir = "cpu_only"    
+                else:
+                    sub_dir = "cpu_io"
+                
+                json_name = f"groundtruth_{workflow_dir.name}_0.json"
+                workflow_file_path = groundtruth_dir / sub_dir / workflow_dir.name / json_name
 
+
+                if workflow_file_path.exists():
+                    cmd.extend(["--workflow_file", str(workflow_file_path.absolute())])
+                else:
+                    print(f"Error: Can't find corresponding workflow json file. Tried {workflow_file_path}")
+                    exit(-1)
+        try: 
+            subprocess.run(cmd, check=True, cwd=workflow_dir, stdout=sys.stdout, stderr=sys.stderr)
+        except Exception as e:
+            print(f"Error processing {workflow_dir}: {e}")
+            exit(-1)
         print(f"Successfully processed workflow in {workflow_dir}")
 
         # TODO: analyze the result and store it in the outdir
