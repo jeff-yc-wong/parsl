@@ -71,7 +71,7 @@
   },
   "workflow": {
     "file": "[[mandatory config]]",
-    "reference_flops": "1f",
+    "reference_flops": "1Gf",
     "done_tasks": [
     ],
     "ongoing_tasks": [

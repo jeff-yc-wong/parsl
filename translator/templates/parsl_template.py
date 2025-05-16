@@ -1,6 +1,7 @@
 import parsl
 import time
 import argparse
+import json
 from pathlib import Path
 import logging
 from typing import List
@@ -26,6 +27,7 @@ parser.add_argument("-c", "--calibration", default=None, type=str, help="The cal
 parser.add_argument("-n", "--num_threads", default=1, type=int, help="The number of threads to use.")
 parser.add_argument("--simulate", action="store_true", help="Run the workflow in simulation mode.")
 parser.add_argument("--num_workers", default=2, type=int, help="The number of workers to use.")
+parser.add_argument("--workflow_file", default=None, type=str, help="The path to the WfFormat workflow json")
 
 args = parser.parse_args()
 
@@ -40,15 +42,19 @@ f"""Running workflow with the following algorithms:
 
 scheduling_config = {}
 
-if args.simulate:
+if args.simulate and args.workflow_file is not None:
+
+    if args.calibration is not None:
+        calibration = json.loads(args.calibration)
+
     scheduling_config = {
-        "workflow_file": str(Path("./jsons/workflow.json").absolute()),
+        "workflow_file": args.workflow_file,
         "simulator_path": "workflow_simulator",
         "template": str(Path("./jsons/template.json").absolute()),
         "metric": args.metric,
         "num_threads": args.num_threads,
         "verbose": args.verbose,
-        "calibration": args.calibration,
+        "calibration": calibration,
     }
 
 label="htex_local"
