@@ -3,9 +3,13 @@ FROM python:3.12.10-slim-bookworm AS base
 # Update repositories
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    openssh-server git make gcc g++ vim sudo && \
+    openssh-server git make gcc g++ vim sudo rsyslog && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+RUN sed -i 's/^\(module(load="imklog"\)/#\1/' /etc/rsyslog.conf
+
+RUN sudo rsyslogd
 
 # Create a user matching the builder's username
 ARG USERNAME=parsl
