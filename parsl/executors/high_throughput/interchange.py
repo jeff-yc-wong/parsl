@@ -19,6 +19,7 @@ from parsl_scheduling_simulator.alg_manager import AlgManager
 from parsl_scheduling_simulator.simulator import SchedulingSimulator
 import parsl_scheduling_simulator.metrics as metrics
 from parsl_scheduling_simulator.simulation_server import SimulationServer
+import simcal as sc
 
 from parsl import curvezmq
 from parsl.app.errors import RemoteExceptionWrapper
@@ -75,6 +76,7 @@ class Interchange:
                  verbose: Optional[bool] = False,
                  calibration: Optional[Dict] = None,
                  num_workers: int = 1,
+                 percents_to_schedule: Optional[List[float]] = None,
                  ) -> None:
         """
         Parameters
@@ -212,7 +214,7 @@ class Interchange:
             self.calibration = {"platform":{"wms":{"disk_read_bandwidth":"100MBps","disk_write_bandwidth":"100MBps","network_bandwidth":"10Gbps"},"workers":{"worker1":{"speed":"1f","network_bandwidth":"10Gbps"},"worker2":{"speed":"1f","network_bandwidth":"10Gbps"}}},"scheduling":{"task_scheduling_overhead":1}}
 
         self.possible_task_params = {"most_flops", "least_flops", "most_data", "least_data", "highest_bottom_level", "lowest_bottom_level", "most_children", "least_children"}
-        self.possible_managers = {"most_idle_cores": MostIdleSelector(), "fastest_cores": FastestManagerSelector(), "random": RandomManagerSelector()}
+        self.possible_managers = {"most_idle_cores": MostIdleSelector(), "fastest_cores": FastestManagerSelector()}
 
 
         self.algs = AlgManager(self.possible_task_params, self.possible_managers.keys(), ["one_core"])
@@ -239,7 +241,16 @@ class Interchange:
                 print(f"Error: metric {self.metric} does not exist")
                 raise
 
-            self.simulator = SchedulingSimulator(self.simulator_path, self.template, self.calibration, self.algs, self.metric, None, verbosity=self.verbosity)
+            if self.num_threads:
+                coordinator = sc.ThreadPool(self.num_threads)
+            else:
+                coordinator = None
+
+            self.simulator = SchedulingSimulator(self.simulator_path, self.template, self.calibration, 
+                                                 self.algs, self.metric, None, verbosity=self.verbosity, 
+                                                 coordinator=coordinator, num_tasks=self.num_tasks, 
+                                                 num_workers=self.num_workers, percents_to_schedule=percents_to_schedule)
+
             self.server = SimulationServer(self.simulator)
         else:
             self.simulator = None
@@ -643,17 +654,21 @@ class Interchange:
         # state["interest_tasks"] = interest_tasks
 
         state = {"workflow": state}
+        
+        if self.simulator:
+            current_algorithm = {
+            "task_selection_scheme": self.task_selector,
+            "worker_selection_scheme": self.manager_selector.name,
+            "num_cores_selection_scheme": "one_core"
+            }
 
-        if self.simulator: # TODO: WE CAN MOVE THIS LINE TO THE TOP LATER
             list_of_algorithms = self.server(state)
             my_logger.debug(f"\033[33mJEFF: Simulator output: {list_of_algorithms}\033[0m\n")
 
-
-            # Select the first algorithm from the list
-            self.task_selector = list_of_algorithms[0]['task_selection_scheme']
-            self.manager_selector = self.possible_managers[list_of_algorithms[0]['worker_selection_scheme']]
-
-            # list_of_algorithms[0]['num_cores_selection_scheme']
+            if current_algorithm not in list_of_algorithms:
+                my_logger.debug(f"\033[33mJEFF: Current Algorithm {current_algorithm}Changing to algorithm {list_of_algorithms[0]}\033[0m\n")
+                self.manager_selector = self.possible_managers[list_of_algorithms[0].worker_selection_scheme]
+                self.task_selector = list_of_algorithms[0].task_selection_scheme
 
     def process_tasks_to_send(self, interesting_managers: Set[bytes]) -> None:
         # Check if there are tasks that could be sent to managers
@@ -829,11 +844,9 @@ def start_file_logger(filepath: str, level: int = logging.DEBUG, format_string: 
     """
     if format_string is None:
         format_string = (
-
             "%(asctime)s.%(msecs)03d %(name)s:%(lineno)d "
             "%(processName)s(%(process)d) %(threadName)s "
             "%(funcName)s [%(levelname)s] %(message)s"
-
         )
 
     global logger
@@ -850,6 +863,12 @@ def start_file_logger(filepath: str, level: int = logging.DEBUG, format_string: 
 
     handler = logging.FileHandler(filepath + "debug.log")
     handler.setLevel(logging.DEBUG)
+
+    format_string = (
+        "%(asctime)s %(name)s:%(lineno)d "
+        "%(funcName)s [%(levelname)s] %(message)s"
+    )
+
     formatter = logging.Formatter(format_string, datefmt='%Y-%m-%d %H:%M:%S')
     handler.setFormatter(formatter)
     my_logger.addHandler(handler)
