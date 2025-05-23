@@ -160,9 +160,10 @@ def write_benchmark(workflow_path: pathlib.Path, cpu_bench_ref: float = 1.0, sca
 
 def main():
     parser = argparse.ArgumentParser(description="Process a workflow JSON file.")
-    parser.add_argument("--workflow", type=str, help="Path to the workflow JSON file.")
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--workflow", type=str, help="Path to the workflow JSON file.")
+    group.add_argument("--all", action="store_true", help="Create benchmarks for all workflows")
     parser.add_argument("--test", action="store_true", help="Create a test benchmark")
-    parser.add_argument("--all", action="store_true", help="Create benchmarks for all workflows")
     parser.add_argument("--scale", type=float, default=1.0, help="Scale the CPU work")
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
     parser.add_argument("--cpu-only", action="store_true", help="Create a benchmark with only CPU tasks")
