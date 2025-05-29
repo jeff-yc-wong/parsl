@@ -3,7 +3,7 @@ FROM python:3.12.10-slim-bookworm AS base
 # Update repositories
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    openssh-server git make gcc g++ vim sudo rsyslog && \
+    openssh-server git make gcc g++ vim sudo rsyslog rsync && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
