@@ -4,6 +4,7 @@ import argparse
 import json
 from pathlib import Path
 import logging
+import ipaddress
 from typing import List
 from parsl.app.app import python_app, bash_app
 from parsl.monitoring.monitoring import MonitoringHub
@@ -14,6 +15,12 @@ from parsl.channels import LocalChannel, SSHChannel
 from parsl.addresses import address_by_hostname
 from parsl.data_provider.files import File
 from parsl.executors.high_throughput.manager_selector import MostIdleSelector, FastestManagerSelector, RandomManagerSelector
+
+def parse_ip(ip_str):
+    try:
+        return ipaddress.ip_address(ip_str)
+    except ValueError:
+        raise argparse.ArgumentTypeError(f"Invalid IP address: {ip_str}")
 
 
 parser = argparse.ArgumentParser(description="Run a parsl workflow.")
@@ -26,7 +33,8 @@ parser.add_argument("-m", "--metric", default="makespan", type=str, help="The me
 parser.add_argument("-c", "--calibration", default=None, type=str, help="The calibration file to use.")
 parser.add_argument("-n", "--num_threads", default=1, type=int, help="The number of threads to use.")
 parser.add_argument("--simulate", action="store_true", help="Run the workflow in simulation mode.")
-parser.add_argument("--num_workers", default=2, type=int, help="The number of workers to use.")
+parser.add_argument("--ip", type=parse_ip, nargs='*', help="A space separated list of ip's to use for workers")
+parser.add_argument("--num_workers", nargs='*', type=int, default=[2], help="The number of workers to use.")
 parser.add_argument("--workflow_file", default=None, type=str, help="The path to the WfFormat workflow json")
 
 args = parser.parse_args()
@@ -66,20 +74,35 @@ provider=LocalProvider(
 
 if args.docker:
     channels = []
+    
+    if args.ip is not None:
+        
+        assert len(args.ip) == len(args.num_workers), "length of ips and num_workers should be the same"
 
-    for i in range(args.num_workers):
-        channel = SSHChannel(
-            hostname="localhost",
-            username="parsl",
-            port=2222+i,
-        )
-        channels.append(channel)
+        for index, ip in enumerate(args.ip):
+            for i in range(args.num_workers[index]):
+                channel = SSHChannel(
+                    hostname=ip,
+                    username="parsl",
+                    port=2222+i,
+                )
+                channels.append(channel)
+    else:
+        for i in range(args.num_workers[0]):
+            channel = SSHChannel(
+                hostname="localhost",
+                username="parsl",
+                port=2222+i,
+            )
+            channels.append(channel)
+
 
     label="htex_docker"
     provider=AdHocProvider(
         channels=channels,
     )
 
+total_workers = sum(args.num_workers)
 
 config = Config(
     executors=[
@@ -88,7 +111,7 @@ config = Config(
             worker_debug=True,
             cores_per_worker=1,
             max_workers_per_node=1,
-            num_workers=args.num_workers,
+            num_workers=total_workers,
             num_tasks = # replace num_tasks here,
             worker_logdir_root="logs",
             provider=provider,
