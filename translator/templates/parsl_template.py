@@ -35,7 +35,7 @@ parser.add_argument("-n", "--num_threads", default=1, type=int, help="The number
 parser.add_argument("--simulate", action="store_true", help="Run the workflow in simulation mode.")
 parser.add_argument("--ip", type=parse_ip, nargs='*', help="A space separated list of ip's to use for workers")
 parser.add_argument("--num_workers", nargs='*', type=int, default=[2], help="The number of workers to use.")
-parser.add_argument("--workflow_file", default=None, type=str, help="The path to the WfFormat workflow json")
+parser.add_argument("--workflow_file", str(default="./jsons/workflow.json").absolute()), type=str, help="The path to the WfFormat workflow json")
 
 args = parser.parse_args()
 
@@ -82,7 +82,7 @@ if args.docker:
         for index, ip in enumerate(args.ip):
             for i in range(args.num_workers[index]):
                 channel = SSHChannel(
-                    hostname=ip,
+                    hostname=str(ip),
                     username="parsl",
                     port=2222+i,
                 )

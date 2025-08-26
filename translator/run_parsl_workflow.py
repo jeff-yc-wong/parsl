@@ -1,27 +1,79 @@
 import sys
 import argparse
 import subprocess
+import paramiko
+import ipaddress
 from pathlib import Path
 from analyze import generate_groundtruth
 
-groundtruth_dir = Path("./groundtruth_25may1")
+# groundtruth_dir = Path("./groundtruth_25may1")
+def parse_ip(ip_str):
+    try:
+        return ipaddress.ip_address(ip_str)
+    except ValueError:
+        raise argparse.ArgumentTypeError(f"Invalid IP address: {ip_str}")
 
 def process_workflow(directory, args):
     """Run the required commands for a given Parsl workflow directory."""
     try:
         workflow_dir = Path(directory).resolve()
         
-        # Kill existing docker processes
-        subprocess.run(["bash", "kill_docker.sh"], check=True, cwd=workflow_dir)
-        
-        # Start the workers
-        subprocess.run(["bash", "start_workers.sh", str(args.num_workers)], check=True, cwd=workflow_dir)
+        # TODO: use paramiko to ssh into remote servers to kill/start docker workers
+        if args.ip is not None:
+            for ip in args.ip:
+                hostname = str(ip)
+                port = 22
+                username = 'cc'
+                key_filename = '/home/cc/.ssh/id_ed25519'
+
+                try:
+                    client = paramiko.SSHClient()
+                    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+                    client.connect(hostname, port=port, username=username, key_filename=key_filename)
+                        
+                    # Kill existing docker processes
+                    print(f"Killing existing docker processes on {hostname}...")
+                    stdin, stdout, stderr = client.exec_command("bash kill_docker.sh")
+                    # Print command output
+                    for line in stdout:
+                        print(line.strip())
+                    for line in stderr:
+                        print(line.strip())
+                    
+                    # Start the workers
+                    print(f"Starting workers on {hostname} with {args.num_workers} workers...")
+                    stdin, stdout, stderr = client.exec_command(f"bash start_workers.sh {args.num_workers}")
+                    # Print command output
+                    for line in stdout:
+                        print(line.strip())
+                    for line in stderr:
+                        print(line.strip())
+
+                except Exception as e:
+                    print(f"Error connecting to {hostname}: {e}")
+                    exit(1)
+                finally:
+                    client.close()
+        else:
+            # If no IPs are provided, assume local execution
+            print("No IPs provided, running locally...")
+
+            # Kill existing docker processes
+            subprocess.run(["bash", "kill_docker.sh"], check=True, cwd=workflow_dir)
+            
+            # Start the workers
+            subprocess.run(["bash", "start_workers.sh", str(args.num_workers)], check=True, cwd=workflow_dir)
 
         # Run the Parsl workflow
         cmd = ["python", "parsl_workflow.py", "--docker", "--num_workers", str(args.num_workers)]
 
         if args.verbose:
             cmd.append("--verbose")
+
+        if args.ip:
+            ip_list = [str(ip) for ip in args.ip]
+            csv_ip = ",".join(ip_list)
+            cmd.extend(["--ip", csv_ip])
 
         if not args.clean:
             if args.task_selection_scheme:
@@ -43,20 +95,25 @@ def process_workflow(directory, args):
                 else:
                     sub_dir = "cpu_io"
                 
-                json_name = f"groundtruth_{workflow_dir.name}_0.json"
-                workflow_file_path = groundtruth_dir / sub_dir / workflow_dir.name / json_name
+                # NOTE: in case we want send in groundtruth as workflow json?
+                # json_name = f"groundtruth_{workflow_dir.name}_0.json"
+                # workflow_file_path = groundtruth_dir / sub_dir / workflow_dir.name / json_name
+                # if workflow_file_path.exists():
+                #     cmd.extend(["--workflow_file", str(workflow_file_path.absolute())])
+                # else:
+                #     print(f"Error: Can't find corresponding workflow json file. Tried {workflow_file_path}")
+                #     exit(-1)
 
-
-                if workflow_file_path.exists():
-                    cmd.extend(["--workflow_file", str(workflow_file_path.absolute())])
-                else:
-                    print(f"Error: Can't find corresponding workflow json file. Tried {workflow_file_path}")
-                    exit(-1)
+                # TODO: change ["workflows"]["execution"]["machines"] {workflow_dir}/jsons/workflow.json to match number of workers
         try: 
+            print(" ".join(cmd))
             subprocess.run(cmd, check=True, cwd=workflow_dir, stdout=sys.stdout, stderr=sys.stderr)
         except Exception as e:
             print(f"Error processing {workflow_dir}: {e}")
             exit(-1)
+
+
+        # TODO: kill docker workers
         print(f"Successfully processed workflow in {workflow_dir}")
 
         # TODO: analyze the result and store it in the outdir
@@ -78,9 +135,10 @@ def main():
     parser.add_argument("-n", "--num_threads", default=1, type=int, help="The number of threads to use.")
     parser.add_argument("--simulate", action="store_true", help="Run the workflow in simulation mode.")
     parser.add_argument("-i", "--iterations", default=1, type=int, help="Number of iterations to run.")
+    parser.add_argument("--ip", type=parse_ip, nargs='*', help="A space separated list of ip's to use for workers")
     group = parser.add_mutually_exclusive_group()
-    group.add_argument("--io-only", action="store_true", help="Run workflow with only IO tasks.")
-    group.add_argument("--cpu-only", action="store_true", help="Run workflow with only CPU tasks")
+    group.add_argument("--io_only", action="store_true", help="Run workflow with only IO tasks.")
+    group.add_argument("--cpu_only", action="store_true", help="Run workflow with only CPU tasks")
     group.add_argument("--all", action="store_true", help="Run all workflows in the given path.")
     parser.add_argument("--clean", action="store_true", help="flag for clean parsl workflows (i.e. workflows without scheudling info)")
     parser.add_argument("--outdir", type=str, default="./groundtruth",  help="Path to the generated wfformat json file (defaults to ./groundtruth")
@@ -105,7 +163,6 @@ def main():
             print(f"Iteration {i}: Successfully processed all workflows in {base_path}")
 
     if args.workflow:
-
         for _ in range(args.iterations):
             process_workflow(args.workflow, args)
 
