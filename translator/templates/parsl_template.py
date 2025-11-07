@@ -22,10 +22,36 @@ def parse_ip(ip_str):
     except ValueError:
         raise argparse.ArgumentTypeError(f"Invalid IP address: {ip_str}")
 
+def validate_worker_config(args):
+    """Validate and normalize worker configuration based on IPs and num_workers."""
+    if args.ip is None:
+        # Local execution - use first num_workers value or default
+        if isinstance(args.num_workers, list):
+            return args.num_workers[0] if args.num_workers else 2
+        return args.num_workers
+    
+    # Remote execution with IPs
+    num_ips = len(args.ip)
+    
+    if isinstance(args.num_workers, list):
+        if len(args.num_workers) == 1:
+            # Single value for all IPs
+            return [args.num_workers[0]] * num_ips
+        elif len(args.num_workers) == num_ips:
+            # One value per IP
+            return args.num_workers
+        else:
+            raise argparse.ArgumentTypeError(
+                f"Number of worker counts ({len(args.num_workers)}) must be 1 or match number of IPs ({num_ips})"
+            )
+    else:
+        # Single integer for all IPs
+        return [args.num_workers] * num_ips
 
 parser = argparse.ArgumentParser(description="Run a parsl workflow.")
 
 parser.add_argument("--docker", action="store_true", help="Run the workflow in a docker container.")
+parser.add_argument("-wd", "--worker-debug", action="store_true", help="Turn on worker debug logs")
 parser.add_argument("-v", "--verbose", action="store_true", help="Increase output verbosity.")
 parser.add_argument("-tss", "--task_selection_scheme", default="fcfs", type=str, help="The task selection scheme to use.")
 parser.add_argument("-wss", "--worker_selection_scheme", default="random", type=str, help="The worker selection scheme to use.")
@@ -33,11 +59,15 @@ parser.add_argument("-m", "--metric", default="makespan", type=str, help="The me
 parser.add_argument("-c", "--calibration", default=None, type=str, help="The calibration file to use.")
 parser.add_argument("-n", "--num_threads", default=1, type=int, help="The number of threads to use.")
 parser.add_argument("--simulate", action="store_true", help="Run the workflow in simulation mode.")
-parser.add_argument("--ip", type=parse_ip, nargs='*', help="A space separated list of ip's to use for workers")
-parser.add_argument("--num_workers", nargs='*', type=int, default=[2], help="The number of workers to use.")
-parser.add_argument("--workflow_file", str(default="./jsons/workflow.json").absolute()), type=str, help="The path to the WfFormat workflow json")
+parser.add_argument("--ip", type=parse_ip, nargs='*', help="A space separated list of IP addresses to use for workers")
+parser.add_argument("--num_workers", nargs='*', default=2, type=int, 
+                    help="Number of workers to start. Can be a single integer (applied to all IPs) or a list of integers (one per IP).")
+parser.add_argument("--workflow_file", default=str(Path("./jsons/workflow.json").absolute()), type=str, help="The path to the WfFormat workflow json")
 
 args = parser.parse_args()
+
+# Validate and get worker configuration
+worker_config = validate_worker_config(args)
 
 possible_managers = {"most_idle_cores": MostIdleSelector(),
                      "fastest_cores": FastestManagerSelector(), "random": RandomManagerSelector()}
@@ -49,6 +79,9 @@ f"""Running workflow with the following algorithms:
 """)
 
 scheduling_config = {}
+
+current_workdir = Path.cwd()
+relative_to_home = current_workdir.relative_to(Path.home())
 
 if args.simulate and args.workflow_file is not None:
 
@@ -68,19 +101,17 @@ if args.simulate and args.workflow_file is not None:
 label="htex_local"
 provider=LocalProvider(
     channel=LocalChannel(),
-    init_blocks=args.num_workers,
-    max_blocks=args.num_workers,
+    init_blocks=worker_config if isinstance(worker_config, int) else worker_config[0],
+    max_blocks=worker_config if isinstance(worker_config, int) else worker_config[0],
 )
 
 if args.docker:
     channels = []
     
     if args.ip is not None:
-        
-        assert len(args.ip) == len(args.num_workers), "length of ips and num_workers should be the same"
-
         for index, ip in enumerate(args.ip):
-            for i in range(args.num_workers[index]):
+            num_workers_for_ip = worker_config[index]
+            for i in range(num_workers_for_ip):
                 channel = SSHChannel(
                     hostname=str(ip),
                     username="parsl",
@@ -88,7 +119,8 @@ if args.docker:
                 )
                 channels.append(channel)
     else:
-        for i in range(args.num_workers[0]):
+        num_workers_local = worker_config if isinstance(worker_config, int) else worker_config[0]
+        for i in range(num_workers_local):
             channel = SSHChannel(
                 hostname="localhost",
                 username="parsl",
@@ -96,24 +128,23 @@ if args.docker:
             )
             channels.append(channel)
 
-
     label="htex_docker"
     provider=AdHocProvider(
         channels=channels,
     )
 
-total_workers = sum(args.num_workers)
+total_workers = sum(worker_config) if isinstance(worker_config, list) else worker_config
 
 config = Config(
     executors=[
         HighThroughputExecutor(
             label=label,
-            worker_debug=True,
+            worker_debug=args.worker_debug,
             cores_per_worker=1,
             max_workers_per_node=1,
             num_workers=total_workers,
             num_tasks = # replace num_tasks here,
-            worker_logdir_root="logs",
+            worker_logdir_root=str(relative_to_home.joinpath("logs")) if args.worker_debug  else "logs",
             provider=provider,
             manager_selector=possible_managers[args.worker_selection_scheme],
             task_selector=args.task_selection_scheme,
@@ -165,9 +196,6 @@ def generic_shell_app(cmd: str, file_inputs=[],  inputs=[], outputs=[], stdout="
 def barrier():
     return 0
 
-
-current_workdir = Path.cwd()
-
 file_map = {}
 
 def get_parsl_files(filenames: List[str], is_output: bool = False) -> List[File]:
@@ -178,7 +206,7 @@ def get_parsl_files(filenames: List[str], is_output: bool = False) -> List[File]
             file_folder = "data"
             if is_output:
                 file_folder = "output"
-            file_map[filename] = File(str(current_workdir.joinpath(f"{file_folder}/{filename}")))
+            file_map[filename] = File(str(relative_to_home.joinpath(f"{file_folder}/{filename}")))
         parsl_files.append(file_map[filename])
 
     return parsl_files

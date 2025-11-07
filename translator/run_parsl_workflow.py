@@ -1,4 +1,5 @@
 import sys
+import os
 import argparse
 import subprocess
 import paramiko
@@ -13,27 +14,71 @@ def parse_ip(ip_str):
     except ValueError:
         raise argparse.ArgumentTypeError(f"Invalid IP address: {ip_str}")
 
+def validate_worker_and_core_speed_config(args):
+    """Validate and normalize worker and core speed configuration based on IPs."""
+    
+    def validate_list_config(config_list, config_name, default_value=None):
+        """Helper function to validate and normalize list configurations."""
+        if config_list is None:
+            return default_value
+        
+        if args.ip is None:
+            # Local execution - use first value or default
+            if isinstance(config_list, list):
+                return config_list[0] if config_list else default_value
+            return config_list
+        
+        # Remote execution with IPs
+        num_ips = len(args.ip)
+        
+        if isinstance(config_list, list):
+            if len(config_list) == 1:
+                # Single value for all IPs
+                return [config_list[0]] * num_ips
+            elif len(config_list) == num_ips:
+                # One value per IP
+                return config_list
+            else:
+                raise argparse.ArgumentTypeError(
+                    f"Number of {config_name} ({len(config_list)}) must be 1 or match number of IPs ({num_ips})"
+                )
+        else:
+            # Single value for all IPs
+            return [config_list] * num_ips
+    
+    # Validate worker configuration
+    worker_config = validate_list_config(args.num_workers, "worker counts", 2)
+    
+    # Validate core speed configuration
+    core_speed_config = validate_list_config(args.core_speed, "core speeds", None)
+    
+    return worker_config, core_speed_config
+
 def process_workflow(directory, args):
     """Run the required commands for a given Parsl workflow directory."""
     try:
         workflow_dir = Path(directory).resolve()
         
-        # TODO: use paramiko to ssh into remote servers to kill/start docker workers
+        # Validate and get worker and core speed configuration
+        worker_config, core_speed_config = validate_worker_and_core_speed_config(args)
+        
         if args.ip is not None:
-            for ip in args.ip:
+            for i, ip in enumerate(args.ip):
                 hostname = str(ip)
                 port = 22
                 username = 'cc'
-                key_filename = '/home/cc/.ssh/id_ed25519'
+                key_filename = str(Path('~/.ssh/id_ed25519').expanduser())
+                num_workers_for_ip = worker_config[i]
 
                 try:
                     client = paramiko.SSHClient()
+                    client.load_system_host_keys()
                     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-                    client.connect(hostname, port=port, username=username, key_filename=key_filename)
+                    client.connect(hostname, port=port, username=username)
                         
                     # Kill existing docker processes
                     print(f"Killing existing docker processes on {hostname}...")
-                    stdin, stdout, stderr = client.exec_command("bash kill_docker.sh")
+                    stdin, stdout, stderr = client.exec_command("cd ~/sus_env && bash kill_docker.sh")
                     # Print command output
                     for line in stdout:
                         print(line.strip())
@@ -41,8 +86,13 @@ def process_workflow(directory, args):
                         print(line.strip())
                     
                     # Start the workers
-                    print(f"Starting workers on {hostname} with {args.num_workers} workers...")
-                    stdin, stdout, stderr = client.exec_command(f"bash start_workers.sh {args.num_workers}")
+                    print(f"Starting workers on {hostname} with {num_workers_for_ip} workers...")
+                    start_index = sum(worker_config[:i])  # Calculate cumulative start index automatically
+                    cmd = f"cd ~/sus_env && bash start_workers.sh {num_workers_for_ip} -s {start_index}"
+                    if core_speed_config is not None:
+                        core_speed_for_ip = core_speed_config[i]
+                        cmd += f" --core_speed {core_speed_for_ip}"
+                    stdin, stdout, stderr = client.exec_command(cmd)
                     # Print command output
                     for line in stdout:
                         print(line.strip())
@@ -58,22 +108,31 @@ def process_workflow(directory, args):
             # If no IPs are provided, assume local execution
             print("No IPs provided, running locally...")
 
+            env_dir = Path.home().resolve() / "sus_env"
+
             # Kill existing docker processes
-            subprocess.run(["bash", "kill_docker.sh"], check=True, cwd=workflow_dir)
+            subprocess.run(["bash", "kill_docker.sh"], check=True, cwd=env_dir)
             
             # Start the workers
-            subprocess.run(["bash", "start_workers.sh", str(args.num_workers)], check=True, cwd=workflow_dir)
+            cmd = ["bash", "start_workers.sh", str(worker_config)]
+            if core_speed_config is not None:
+                cmd.extend(["--core_speed", str(core_speed_config)])
+            subprocess.run(cmd, check=True, cwd=env_dir)
 
         # Run the Parsl workflow
-        cmd = ["python", "parsl_workflow.py", "--docker", "--num_workers", str(args.num_workers)]
+        total_workers = sum(worker_config) if isinstance(worker_config, list) else worker_config
+        cmd = ["python", "parsl_workflow.py", "--docker", "--num_workers"]
+
+        num_workers_list = [str(num_workers) for num_workers in args.num_workers]
+        cmd.extend(num_workers_list)
 
         if args.verbose:
             cmd.append("--verbose")
 
         if args.ip:
             ip_list = [str(ip) for ip in args.ip]
-            csv_ip = ",".join(ip_list)
-            cmd.extend(["--ip", csv_ip])
+            cmd.extend(["--ip"])
+            cmd.extend(ip_list)
 
         if not args.clean:
             if args.task_selection_scheme:
@@ -126,7 +185,9 @@ def main():
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--path", type=str, help="Path containing Parsl workflow directories.")
     group.add_argument("--workflow", type=str, help="Path of a single workflow directory to process.")
-    parser.add_argument("--num_workers", default=2, type=int, help="Number of workers to start.")
+    parser.add_argument("--num_workers", nargs='*', default=2, type=int, 
+                        help="Number of workers to start. Can be a single integer (applied to all IPs) or a list of integers (one per IP).")
+    parser.add_argument("-wd", "--worker-debug", action="store_true")
     parser.add_argument("-v", "--verbose", action="store_true", help="Increase output verbosity.")
     parser.add_argument("-tss", "--task_selection_scheme", default="fcfs", type=str, help="The task selection scheme to use.")
     parser.add_argument("-wss", "--worker_selection_scheme", default="random", type=str, help="The worker selection scheme to use.")
@@ -135,14 +196,18 @@ def main():
     parser.add_argument("-n", "--num_threads", default=1, type=int, help="The number of threads to use.")
     parser.add_argument("--simulate", action="store_true", help="Run the workflow in simulation mode.")
     parser.add_argument("-i", "--iterations", default=1, type=int, help="Number of iterations to run.")
-    parser.add_argument("--ip", type=parse_ip, nargs='*', help="A space separated list of ip's to use for workers")
+    parser.add_argument("--ip", type=parse_ip, nargs='*', help="A space separated list of IP addresses to use for workers")
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--io_only", action="store_true", help="Run workflow with only IO tasks.")
     group.add_argument("--cpu_only", action="store_true", help="Run workflow with only CPU tasks")
     group.add_argument("--all", action="store_true", help="Run all workflows in the given path.")
     parser.add_argument("--clean", action="store_true", help="flag for clean parsl workflows (i.e. workflows without scheudling info)")
     parser.add_argument("--outdir", type=str, default="./groundtruth",  help="Path to the generated wfformat json file (defaults to ./groundtruth")
+    parser.add_argument("--core_speed", nargs='*', type=float, help="Core speed of workers in a machine (IP) as a float value. Can be a single float (applied to all IPs) or a list of floats (one per IP).")
     args = parser.parse_args()
+
+    # Check if the 
+
     if args.path:
         base_path = Path(args.path).resolve()
 

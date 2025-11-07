@@ -120,8 +120,8 @@ class ParslTranslator(Translator):
         self._copy_binary_files(output_folder)
         self._generate_input_files(output_folder)
 
-        shutil.copy(this_dir.joinpath("docker_scripts/start_workers.sh"), output_folder.joinpath("start_workers.sh"))
-        shutil.copy(this_dir.joinpath("docker_scripts/kill_docker.sh"), output_folder.joinpath("kill_docker.sh"))
+        # shutil.copy(this_dir.joinpath("docker_scripts/start_workers.sh"), output_folder.joinpath("start_workers.sh"))
+        # shutil.copy(this_dir.joinpath("docker_scripts/kill_docker.sh"), output_folder.joinpath("kill_docker.sh"))
 
         output_folder.joinpath("jsons").mkdir(parents=True)
         shutil.copy(this_dir.joinpath("templates/template.json"), output_folder.joinpath("jsons/template.json"))

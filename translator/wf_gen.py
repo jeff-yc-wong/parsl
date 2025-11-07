@@ -168,6 +168,7 @@ def main():
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
     parser.add_argument("--cpu-only", action="store_true", help="Create a benchmark with only CPU tasks")
     parser.add_argument("--io-only", action="store_true", help="Create a benchmark with only IO tasks")
+    parser.add_argument("--ref", type=float, default=None, help="Define how many seconds per 100 cpu-work")
     
     args = parser.parse_args()
 
@@ -182,15 +183,18 @@ def main():
     else:
         cmd = ["bash", "-c","TIMEFORMAT='%3R'; time cpu-benchmark 100"]
 
-    ref_sum = 0
+    if not args.ref:
+        ref_sum = 0
 
-    for i in range(10):
-        print(f"Benchmarking Wfbench/cpu-benchmark {i+1}/10", end="\r")
-        result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+        for i in range(10):
+            print(f"Benchmarking Wfbench/cpu-benchmark {i+1}/10", end="\r")
+            result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
 
-        ref_sum += float(result.stderr.decode("utf-8"))
+            ref_sum += float(result.stderr.decode("utf-8"))
 
-    ref = ref_sum / 10
+        ref = ref_sum / 10
+    else:
+        ref = args.ref
 
     log_info(f"Reference CPU benchmark: {ref}s per 100 cpu-work")
 
